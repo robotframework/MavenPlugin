@@ -1,0 +1,7 @@
+target
+.idea
+*.iws
+*.iml
+*.ipr
+src/test/projects/acceptance-and-verify/log.txt
+

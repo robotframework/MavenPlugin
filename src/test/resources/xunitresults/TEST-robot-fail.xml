@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="5" tests="5" skip="0" name="Robot-Fail">
+<testcase classname="Robot-Fail.failingTest" time="0" name="Failing Test Case">
+<failure message="1.0 != 2.0" type="AssertionError">
+</failure>
+</testcase>
+<testcase classname="Robot-Fail.failingTest" time="0" name="Other Failing Test Case">
+<failure message="4.0 != 5.0" type="AssertionError">
+</failure>
+</testcase>
+<testcase classname="Robot-Fail.secondFailingTest" time="0" name="Second Failing Test Case">
+<failure message="5.0 != 6.0" type="AssertionError">
+</failure>
+</testcase>
+<testcase classname="Robot-Fail.secondFailingTest" time="0" name="Second Other Failing Test Case">
+<failure message="9.0 != 10.0" type="AssertionError">
+</failure>
+</testcase>
+<testcase classname="Robot-Fail.secondFailingTest" time="0" name="Second Yet Another Failing Test Case">
+<failure message="11.0 != 12.0" type="AssertionError">
+</failure>
+</testcase>
+</testsuite>

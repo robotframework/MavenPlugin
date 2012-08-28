@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="1" tests="0" failures="0" name="nothing-here">
+  <testcase classname="ExecutionError" name="Invalid test data or command line options. (Returncode 252)">
+    <error message="Invalid test data or command line options. (Returncode 252)" />
+  </testcase>
+</testsuite>
