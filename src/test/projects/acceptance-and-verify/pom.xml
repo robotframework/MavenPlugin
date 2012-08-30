@@ -24,6 +24,12 @@
                 </goals>
             </execution>
         </executions>
+        <configuration>
+          <libdoc>
+            <libraryOrResourceFile>src/test/robotframework/acceptance/lib.py</libraryOrResourceFile>
+            <outputFile>ExampleLib.html</outputFile>
+          </libdoc>
+        </configuration>
       </plugin>
     </plugins>
   </build>

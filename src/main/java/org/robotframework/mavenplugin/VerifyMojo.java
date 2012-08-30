@@ -60,11 +60,7 @@ public class VerifyMojo
     @Override
     protected void subclassExecute()
             throws MojoExecutionException, MojoFailureException {
-        // if ( output == null )
-        // {
-        // output = new File( outputDirectory, OUTPUT_FILE );
-        // }
-
+        // TODO: Refactor
         if (xunitFile == null) {
             String testCasesFolderName = testCasesDirectory.getName();
             xunitFile = new File("TEST-" + testCasesFolderName.replace(' ', '_') + ".xml");

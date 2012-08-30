@@ -156,66 +156,66 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     }
 
     private String[] generateRunArguments() {
-        ArrayList<String> generatedArguments = new ArrayList<String>();
+        Arguments generatedArguments = new Arguments();
 
-        addFileToArguments(generatedArguments, outputDirectory, "-d");
-        addFileToArguments(generatedArguments, output, "-o");
-        addFileToArguments(generatedArguments, log, "-l");
-        addFileToArguments(generatedArguments, report, "-r");
-        addFileToArguments(generatedArguments, debugFile, "-b");
-        addFileToArguments(generatedArguments, argumentFile, "-A");
+        generatedArguments.addFileToArguments(outputDirectory, "-d");
+        generatedArguments.addFileToArguments(output, "-o");
+        generatedArguments.addFileToArguments(log, "-l");
+        generatedArguments.addFileToArguments(report, "-r");
+        generatedArguments.addFileToArguments(debugFile, "-b");
+        generatedArguments.addFileToArguments(argumentFile, "-A");
 
-        addNonEmptyStringToArguments(generatedArguments, name, "-N");
-        addNonEmptyStringToArguments(generatedArguments, document, "-D");
-        addNonEmptyStringToArguments(generatedArguments, runMode, "--runmode");
-        addNonEmptyStringToArguments(generatedArguments, splitOutputs, "--splitoutputs");
-        addNonEmptyStringToArguments(generatedArguments, logTitle, "--logtitle");
-        addNonEmptyStringToArguments(generatedArguments, reportTitle, "--reporttitle");
-        addNonEmptyStringToArguments(generatedArguments, reportBackground, "--reportbackground");
-        addNonEmptyStringToArguments(generatedArguments, summaryTitle, "--summarytitle");
-        addNonEmptyStringToArguments(generatedArguments, logLevel, "-L");
-        addNonEmptyStringToArguments(generatedArguments, suiteStatLevel, "--suitestatlevel");
-        addNonEmptyStringToArguments(generatedArguments, monitorWidth, "--monitorwidth");
-        addNonEmptyStringToArguments(generatedArguments, monitorColors, "--monitorcolors");
-        addNonEmptyStringToArguments(generatedArguments, listener, "--listener");
+        generatedArguments.addNonEmptyStringToArguments(name, "-N");
+        generatedArguments.addNonEmptyStringToArguments(document, "-D");
+        generatedArguments.addNonEmptyStringToArguments(runMode, "--runmode");
+        generatedArguments.addNonEmptyStringToArguments(splitOutputs, "--splitoutputs");
+        generatedArguments.addNonEmptyStringToArguments(logTitle, "--logtitle");
+        generatedArguments.addNonEmptyStringToArguments(reportTitle, "--reporttitle");
+        generatedArguments.addNonEmptyStringToArguments(reportBackground, "--reportbackground");
+        generatedArguments.addNonEmptyStringToArguments(summaryTitle, "--summarytitle");
+        generatedArguments.addNonEmptyStringToArguments(logLevel, "-L");
+        generatedArguments.addNonEmptyStringToArguments(suiteStatLevel, "--suitestatlevel");
+        generatedArguments.addNonEmptyStringToArguments(monitorWidth, "--monitorwidth");
+        generatedArguments.addNonEmptyStringToArguments(monitorColors, "--monitorcolors");
+        generatedArguments.addNonEmptyStringToArguments(listener, "--listener");
 
-        addFlagToArguments(generatedArguments, runEmptySuite, "--runemptysuite");
-        addFlagToArguments(generatedArguments, noStatusReturnCode, "--nostatusrc");
-        addFlagToArguments(generatedArguments, timestampOutputs, "-T");
-        addFlagToArguments(generatedArguments, warnOnSkippedFiles, "--warnonskippedfiles");
+        generatedArguments.addFlagToArguments(runEmptySuite, "--runemptysuite");
+        generatedArguments.addFlagToArguments(noStatusReturnCode, "--nostatusrc");
+        generatedArguments.addFlagToArguments(timestampOutputs, "-T");
+        generatedArguments.addFlagToArguments(warnOnSkippedFiles, "--warnonskippedfiles");
 
-        addListToArguments(generatedArguments, metadata, "-M");
-        addListToArguments(generatedArguments, tags, "-G");
-        addListToArguments(generatedArguments, tests, "-t");
-        addListToArguments(generatedArguments, suites, "-s");
-        addListToArguments(generatedArguments, includes, "-i");
-        addListToArguments(generatedArguments, excludes, "-e");
-        addListToArguments(generatedArguments, criticalTags, "-c");
-        addListToArguments(generatedArguments, nonCriticalTags, "-n");
-        addListToArguments(generatedArguments, variables, "-v");
-        addListToArguments(generatedArguments, variableFiles, "-V");
-        addListToArguments(generatedArguments, tagStatIncludes, "--tagstatinclude");
-        addListToArguments(generatedArguments, tagStatExcludes, "--tagstatexclude");
-        addListToArguments(generatedArguments, combinedTagStats, "--tagstatcombine");
-        addListToArguments(generatedArguments, tagDocs, "--tagdoc");
-        addListToArguments(generatedArguments, tagStatLinks, "--tagstatlink");
-        addListToArguments(generatedArguments, listeners, "--listener");
+        generatedArguments.addListToArguments(metadata, "-M");
+        generatedArguments.addListToArguments(tags, "-G");
+        generatedArguments.addListToArguments(tests, "-t");
+        generatedArguments.addListToArguments(suites, "-s");
+        generatedArguments.addListToArguments(includes, "-i");
+        generatedArguments.addListToArguments(excludes, "-e");
+        generatedArguments.addListToArguments(criticalTags, "-c");
+        generatedArguments.addListToArguments(nonCriticalTags, "-n");
+        generatedArguments.addListToArguments(variables, "-v");
+        generatedArguments.addListToArguments(variableFiles, "-V");
+        generatedArguments.addListToArguments(tagStatIncludes, "--tagstatinclude");
+        generatedArguments.addListToArguments(tagStatExcludes, "--tagstatexclude");
+        generatedArguments.addListToArguments(combinedTagStats, "--tagstatcombine");
+        generatedArguments.addListToArguments(tagDocs, "--tagdoc");
+        generatedArguments.addListToArguments(tagStatLinks, "--tagstatlink");
+        generatedArguments.addListToArguments(listeners, "--listener");
 
         if (extraPathDirectories == null) {
-            addFileToArguments(generatedArguments, defaultExtraPath, "-P");
+            generatedArguments.addFileToArguments(defaultExtraPath, "-P");
         } else {
-            addFileListToArguments(generatedArguments, Arrays.asList(extraPathDirectories), "-P");
+            generatedArguments.addFileListToArguments(Arrays.asList(extraPathDirectories), "-P");
         }
 
         if (xunitFile == null) {
             String testCasesFolderName = testCasesDirectory.getName();
             xunitFile = new File("TEST-" + testCasesFolderName.replace(' ', '_') + ".xml");
         }
-        addFileToArguments(generatedArguments, xunitFile, "-x");
+        generatedArguments.addFileToArguments(xunitFile, "-x");
 
         generatedArguments.add(testCasesDirectory.getPath());
 
-        return generatedArguments.toArray(new String[generatedArguments.size()]);
+        return generatedArguments.toArray();
     }
 
     /**

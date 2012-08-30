@@ -15,9 +15,11 @@
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
-          <libraryOrResourceFile>src/test/resources/robot-libdoc/html_resource.txt</libraryOrResourceFile>
-          <outputFile>html_resource.html</outputFile>
-          <defaultExtraPath>src/test/resources/robotframework/libraries</defaultExtraPath>
+          <libdoc>
+            <libraryOrResourceFile>src/test/resources/robot-libdoc/html_resource.txt</libraryOrResourceFile>
+            <outputFile>html_resource.html</outputFile>
+            <defaultExtraPath>src/test/resources/robotframework/libraries</defaultExtraPath>
+          </libdoc>
         </configuration>
       </plugin>
     </plugins>

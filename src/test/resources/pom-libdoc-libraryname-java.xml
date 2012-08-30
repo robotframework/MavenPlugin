@@ -15,8 +15,10 @@
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
-          <libraryOrResourceFile>org.robotframework.mavenplugin.ExampleLib</libraryOrResourceFile>
-          <outputFile>ExampleLib.html</outputFile>
+          <libdoc>
+            <libraryOrResourceFile>org.robotframework.mavenplugin.ExampleLib</libraryOrResourceFile>
+            <outputFile>ExampleLib.html</outputFile>
+          </libdoc>
         </configuration>
       </plugin>
     </plugins>

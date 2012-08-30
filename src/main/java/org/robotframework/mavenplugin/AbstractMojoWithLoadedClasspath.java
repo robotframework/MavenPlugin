@@ -68,17 +68,6 @@ public abstract class AbstractMojoWithLoadedClasspath
         }
     }
 
-    protected void addFileToArguments(List<String> arguments, File file, String flag) {
-        if (isFileValid(file)) {
-            arguments.add(flag);
-            arguments.add(!file.getName().toUpperCase().equals("NONE") ? file.getPath() : file.getName());
-        }
-    }
-
-    protected boolean isFileValid(File file) {
-        return file != null && file.getPath() != null && !file.getPath().equals("");
-    }
-
     public File makeAbsolute(File folder, File file) {
         final File output;
         if (file.isAbsolute()) {
@@ -89,46 +78,6 @@ public abstract class AbstractMojoWithLoadedClasspath
         return output;
     }
 
-    protected void addNonEmptyStringToArguments(List<String> arguments, String variableToAdd, String flag) {
-        if (!StringUtils.isEmpty(variableToAdd)) {
-            addStringToArguments(arguments, variableToAdd, flag);
-        }
-    }
 
-    protected void addFlagToArguments(ArrayList<String> arguments, boolean flag, String argument) {
-        if (flag == true) {
-            arguments.add(argument);
-        }
-
-    }
-
-    protected void addStringToArguments(List<String> arguments, String variableToAdd, String flag) {
-        arguments.add(flag);
-        arguments.add(variableToAdd);
-
-    }
-
-    protected void addListToArguments(List<String> arguments, List<String> variablesToAdd, String flag) {
-        if (variablesToAdd == null) {
-            return;
-        }
-
-        for (String variableToAdd : variablesToAdd) {
-            if (!StringUtils.isEmpty(variableToAdd)) {
-                arguments.add(flag);
-                arguments.add(variableToAdd);
-            }
-        }
-    }
-
-    protected void addFileListToArguments(List<String> arguments, List<File> variablesToAdd, String flag) {
-        if (variablesToAdd == null) {
-            return;
-        }
-
-        for (File variableToAdd : variablesToAdd) {
-            addFileToArguments(arguments, variableToAdd, flag);
-        }
-    }
 
 }

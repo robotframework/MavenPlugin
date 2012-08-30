@@ -51,128 +51,17 @@ public class LibDocMojo
 
     public void runLibDoc()
             throws IOException {
-        ensureOutputDirectoryExists();
-        RobotFramework.run(generateRunArguments());
+        libdoc.ensureOutputDirectoryExists();
+        RobotFramework.run(libdoc.generateRunArguments());
     }
 
-    private void ensureOutputDirectoryExists()
-            throws IOException {
-        if (outputDirectory == null) {
-            outputDirectory =
-                    new File(joinPaths(System.getProperty("basedir"), "target", "robotframework", "libdoc"));
-        }
 
-        if (!outputDirectory.exists()) {
-            if (!outputDirectory.mkdirs()) {
-                throw new IOException("Target output directory cannot be created: "
-                        + outputDirectory.getAbsolutePath());
-            }
-        }
-    }
-
-    private String joinPaths(String... parts) {
-        return StringUtils.join(parts, File.separator);
-    }
-
-    private String[] generateRunArguments() {
-        ArrayList<String> generatedArguments = new ArrayList<String>();
-        generatedArguments.add("libdoc");
-        addNonEmptyStringToArguments(generatedArguments, name, "--name");
-        addNonEmptyStringToArguments(generatedArguments, format, "--format");
-        addFileListToArguments(generatedArguments, getExtraPathDirectoriesWithDefault(), "--pythonpath");
-        generatedArguments.add(getLibraryOrResource());
-        generatedArguments.add(getOutputPath());
-        return generatedArguments.toArray(new String[generatedArguments.size()]);
-    }
-
-    private String getLibraryOrResource() {
-        File libOrResource = new File(libraryOrResourceFile);
-        if (libOrResource.exists()) {
-            return libOrResource.getAbsolutePath();
-        } else {
-            return libraryOrResourceFile;
-        }
-
-    }
-
-    private String getOutputPath() {
-        return outputDirectory + File.separator + outputFile.getName();
-    }
-
-    private List<File> getExtraPathDirectoriesWithDefault() {
-        if (extraPathDirectories == null) {
-            return Collections.singletonList(defaultExtraPath);
-        } else {
-            return Arrays.asList(extraPathDirectories);
-        }
-    }
 
     /**
-     * The format of the created documentation. May be either <code>HTML</code> or <code>XML</code>.
-     * <p/>
-     * If not specified, the format is gotten from the extension of the {@link #outputFile}.
+     * Settings for libdoc.
      *
-     * @parameter expression="${format}"
+     * @parameter
      */
-
-    private String format;
-
-    /**
-     * Specifies the directory where documentation files are written. Considered to be relative to the ${basedir} of the
-     * project.
-     *
-     * @parameter expression="${output}" default-value="${project.build.directory}/robotframework/libdoc"
-     */
-    private File outputDirectory;
-
-    /**
-     * Specifies the filename of the created documentation. Considered to be relative to the {@link #outputDirectory} of
-     * the project.
-     *
-     * @parameter expression="${outputFile}"
-     * @required
-     */
-    private File outputFile;
-
-    /**
-     * Sets the name of the documented library or resource.
-     *
-     * @parameter expression="${name}"
-     */
-    private String name;
-
-    /**
-     * Name or path of the documented library or resource file.
-     * <p/>
-     * Name must be in the same format as when used in Robot Framework test data, for example <code>BuiltIn</code> or
-     * <code>com.acme.FooLibrary</code>. When name is used, the library is imported the same as when running the tests.
-     * Use {@link #extraPathDirectories} to set PYTHONPATH/CLASSPATH accordingly.
-     * <p/>
-     * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid Python/Java
-     * source file or a resource file. For example <code>src/main/java/com/test/ExampleLib.java</code>
-     *
-     * @parameter expression="${libraryOrResourceFile}"
-     * @required
-     */
-    private String libraryOrResourceFile;
-
-    /**
-     * A directory to be added to the PYTHONPATH/CLASSPATH when creating documentation.
-     * <p/>
-     * e.g. src/main/java/com/test/
-     *
-     * @parameter expression="${extraPathDirectories}"
-     */
-    private File[] extraPathDirectories;
-
-    /**
-     * The default location where extra packages will be searched. Effective if extraPathDirectories attribute is not
-     * used. Cannot be overridden.
-     *
-     * @parameter default-value="${project.basedir}/src/test/resources/robotframework/libraries"
-     * @required
-     * @readonly
-     */
-    private File defaultExtraPath;
+    private LibDocConfiguration libdoc;
 
 }
