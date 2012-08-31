@@ -27,7 +27,7 @@
         <configuration>
           <libdoc>
             <libraryOrResourceFile>src/test/robotframework/acceptance/lib.py</libraryOrResourceFile>
-            <outputFile>ExampleLib.html</outputFile>
+            <outputFile>JustForIT.html</outputFile>
           </libdoc>
         </configuration>
       </plugin>

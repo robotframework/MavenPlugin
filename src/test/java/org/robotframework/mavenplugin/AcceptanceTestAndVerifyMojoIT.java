@@ -27,7 +27,7 @@ public class AcceptanceTestAndVerifyMojoIT
         //cliOptions.add("-X");
         //verifier.setCliOptions(cliOptions);
         try {
-            verifier.executeGoals(Arrays.asList(PLUGIN + ":acceptance-test", PLUGIN + ":verify", PLUGIN + ":libdoc"));
+            verifier.executeGoals(Arrays.asList(PLUGIN + ":libdoc", PLUGIN + ":acceptance-test", PLUGIN + ":verify"));
             fail("verify goal should fail the build");
         } catch (VerificationException e) {
             String message = e.getMessage();
@@ -36,6 +36,7 @@ public class AcceptanceTestAndVerifyMojoIT
         }
         verifier.displayStreamBuffers();
         verifier.resetStreams();
+        verifier.assertFilePresent(new File(testDir, "target/robotframework/libdoc/JustForIT.html").getAbsolutePath());
         verifier.assertFilePresent(new File(testDir, "target/robotframework-reports/TEST-acceptance.xml").getAbsolutePath());
     }
 }
