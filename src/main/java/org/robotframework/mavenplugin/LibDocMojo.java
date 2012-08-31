@@ -51,17 +51,51 @@ public class LibDocMojo
 
     public void runLibDoc()
             throws IOException {
+        libdoc.populateDefaults(this);
         libdoc.ensureOutputDirectoryExists();
         RobotFramework.run(libdoc.generateRunArguments());
     }
-
-
 
     /**
      * Settings for libdoc.
      *
      * @parameter
+     * @required
      */
     private LibDocConfiguration libdoc;
+
+    /**
+     * @parameter expression="${libdoc.output}" default-value="${project.build.directory}/robotframework/libdoc"
+     */
+    File libdocOutputDirectory;
+
+    /**
+     * @parameter expression="${libdoc.outputFile}"
+     */
+    File libdocOutputFile;
+
+    /**
+     * @parameter expression="${libdoc.name}"
+     */
+    String libdocName;
+
+    /**
+     * @parameter expression="${libdoc.libraryOrResourceFile}"
+     */
+    String libdocLibraryOrResourceFile;
+
+    /**
+     * @parameter expression="${libdoc.extraPathDirectories}"
+     */
+    File[] libdocExtraPathDirectories;
+
+    /**
+     * The default location where extra packages will be searched. Effective if extraPathDirectories attribute is not
+     * used. Cannot be overridden.
+     *
+     * @parameter default-value="${project.basedir}/src/test/resources/robotframework/libraries"
+     * @readonly
+     */
+    File libdocDefaultExtraPath;
 
 }

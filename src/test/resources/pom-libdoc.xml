@@ -19,7 +19,6 @@
             <libraryOrResourceFile>src/test/java/org/robotframework/mavenplugin/ExampleLib.java</libraryOrResourceFile>
             <outputFile>ExampleLib.html</outputFile>
             <defaultExtraPath>src/test/resources/robotframework/libraries</defaultExtraPath>
-            <format>HTML</format>
           </libdoc>
         </configuration>
       </plugin>

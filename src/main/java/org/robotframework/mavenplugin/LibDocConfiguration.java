@@ -16,7 +16,6 @@ public class LibDocConfiguration {
         Arguments generatedArguments = new Arguments();
         generatedArguments.add("libdoc");
         generatedArguments.addNonEmptyStringToArguments(name, "--name");
-        generatedArguments.addNonEmptyStringToArguments(format, "--format");
         generatedArguments.addFileListToArguments(getExtraPathDirectoriesWithDefault(), "--pythonpath");
         generatedArguments.add(getLibraryOrResource());
         generatedArguments.add(getOutputPath());
@@ -62,37 +61,34 @@ public class LibDocConfiguration {
         return StringUtils.join(parts, File.separator);
     }
 
-    /**
-     * The format of the created documentation. May be either <code>HTML</code> or <code>XML</code>.
-     * <p/>
-     * If not specified, the format is gotten from the extension of the {@link #outputFile}.
-     *
-     * @parameter expression="${format}"
-     */
-
-    private String format;
+    public void populateDefaults(LibDocMojo defaults) {
+        if (outputDirectory == null)
+            outputDirectory = defaults.libdocOutputDirectory;
+        if (outputFile == null)
+            outputFile = defaults.libdocOutputFile;
+        if (name == null)
+            name = defaults.libdocName;
+        if (libraryOrResourceFile == null)
+            libraryOrResourceFile = defaults.libdocLibraryOrResourceFile;
+        if (extraPathDirectories == null)
+            extraPathDirectories = defaults.libdocExtraPathDirectories;
+        defaultExtraPath = defaults.libdocDefaultExtraPath;
+    }
 
     /**
      * Specifies the directory where documentation files are written. Considered to be relative to the ${basedir} of the
      * project.
-     *
-     * @parameter expression="${output}" default-value="${project.build.directory}/robotframework/libdoc"
      */
     private File outputDirectory;
 
     /**
      * Specifies the filename of the created documentation. Considered to be relative to the {@link #outputDirectory} of
      * the project.
-     *
-     * @parameter expression="${outputFile}"
-     * @required
      */
     private File outputFile;
 
     /**
      * Sets the name of the documented library or resource.
-     *
-     * @parameter expression="${name}"
      */
     private String name;
 
@@ -105,9 +101,6 @@ public class LibDocConfiguration {
      * <p/>
      * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid Python/Java
      * source file or a resource file. For example <code>src/main/java/com/test/ExampleLib.java</code>
-     *
-     * @parameter expression="${libraryOrResourceFile}"
-     * @required
      */
     private String libraryOrResourceFile;
 
@@ -115,18 +108,8 @@ public class LibDocConfiguration {
      * A directory to be added to the PYTHONPATH/CLASSPATH when creating documentation.
      * <p/>
      * e.g. src/main/java/com/test/
-     *
-     * @parameter expression="${extraPathDirectories}"
      */
     private File[] extraPathDirectories;
 
-    /**
-     * The default location where extra packages will be searched. Effective if extraPathDirectories attribute is not
-     * used. Cannot be overridden.
-     *
-     * @parameter default-value="${project.basedir}/src/test/resources/robotframework/libraries"
-     * @required
-     * @readonly
-     */
     private File defaultExtraPath;
 }

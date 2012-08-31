@@ -78,6 +78,4 @@ public abstract class AbstractMojoWithLoadedClasspath
         return output;
     }
 
-
-
 }
