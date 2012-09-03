@@ -3,5 +3,7 @@ target
 *.iws
 *.iml
 *.ipr
+*$py.class
+.DS_store
 src/test/projects/acceptance-and-verify/log.txt
 
