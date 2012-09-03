@@ -54,4 +54,19 @@ public class AcceptanceTestAndVerifyMojoIT
         verifier.assertFilePresent(new File(testDir, "target/robotframework/changed/Changed.html").getAbsolutePath());
     }
 
+    public void testDynamicLibdocLibrary()
+            throws Exception {
+        File testDir = getTestFile("src/test/projects/acceptance-and-verify");
+        List cliOptions = new ArrayList();
+        cliOptions.add("-Dlibdoc.outputFile=Dynamic.html");
+        cliOptions.add("-Dlibdoc.libraryOrResourceFile=src/test/robotframework/acceptance/lib_with_arguments.py::argument");
+        Verifier verifier = new Verifier(testDir.getAbsolutePath());
+        verifier.deleteDirectory("target/robotframework");
+        verifier.setCliOptions(cliOptions);
+        verifier.executeGoals(Arrays.asList(PLUGIN + ":libdoc"));
+        verifier.displayStreamBuffers();
+        verifier.resetStreams();
+        verifier.assertFilePresent(new File(testDir, "target/robotframework/libdoc/Dynamic.html").getAbsolutePath());
+    }
+
 }
