@@ -19,7 +19,6 @@ package org.robotframework.mavenplugin;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.codehaus.plexus.util.StringUtils;
 
 import java.io.File;
 import java.net.MalformedURLException;

@@ -3,7 +3,6 @@ package org.robotframework.mavenplugin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
-import org.robotframework.mavenplugin.RobotFrameworkMojo;
 
 
 import java.io.File;
