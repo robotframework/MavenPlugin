@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import org.apache.maven.it.VerificationException;
@@ -39,34 +40,34 @@ public class AcceptanceTestAndVerifyMojoIT
         verifier.assertFilePresent(new File(testDir, "target/robotframework-reports/TEST-acceptance.xml").getAbsolutePath());
     }
 
-    public void testOverrideLibdocValues()
+    public void testOverrideLibdocOutputFromCommandLine()
             throws Exception {
         File testDir = getTestFile("src/test/projects/acceptance-and-verify");
         List cliOptions = new ArrayList();
         cliOptions.add("-Dlibdoc.outputFile=Changed.html");
         cliOptions.add("-Dlibdoc.output=target/robotframework/changed");
-        Verifier verifier = new Verifier(testDir.getAbsolutePath());
-        verifier.deleteDirectory("target/robotframework");
-        verifier.setCliOptions(cliOptions);
-        verifier.executeGoals(Arrays.asList(PLUGIN + ":libdoc"));
-        verifier.displayStreamBuffers();
-        verifier.resetStreams();
+        Verifier verifier = executeTargets(Arrays.asList(PLUGIN + ":libdoc"), testDir, cliOptions);
         verifier.assertFilePresent(new File(testDir, "target/robotframework/changed/Changed.html").getAbsolutePath());
     }
 
-    public void testDynamicLibdocLibrary()
+    public void testOverrideArgumentsForDynamicLibdoc()
             throws Exception {
         File testDir = getTestFile("src/test/projects/acceptance-and-verify");
         List cliOptions = new ArrayList();
         cliOptions.add("-Dlibdoc.outputFile=Dynamic.html");
         cliOptions.add("-Dlibdoc.libraryOrResourceFile=src/test/robotframework/acceptance/lib_with_arguments.py::argument");
+        Verifier verifier = executeTargets(Arrays.asList(PLUGIN + ":libdoc"), testDir, cliOptions);
+        verifier.assertFilePresent(new File(testDir, "target/robotframework/libdoc/Dynamic.html").getAbsolutePath());
+    }
+
+    private Verifier executeTargets(List targets,File testDir, List cliOptions) throws VerificationException, IOException {
         Verifier verifier = new Verifier(testDir.getAbsolutePath());
         verifier.deleteDirectory("target/robotframework");
         verifier.setCliOptions(cliOptions);
-        verifier.executeGoals(Arrays.asList(PLUGIN + ":libdoc"));
+        verifier.executeGoals(targets);
         verifier.displayStreamBuffers();
         verifier.resetStreams();
-        verifier.assertFilePresent(new File(testDir, "target/robotframework/libdoc/Dynamic.html").getAbsolutePath());
+        return verifier;
     }
 
 }
