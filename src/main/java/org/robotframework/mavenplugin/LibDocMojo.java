@@ -60,9 +60,15 @@ public class LibDocMojo
     private LibDocConfiguration libdoc;
 
     /**
-     * @parameter expression="${libdoc.output}" default-value="${project.build.directory}/robotframework/libdoc"
+     * @parameter expression="${libdoc.output}"
      */
     File libdocOutputDirectory;
+
+    /**
+     * @parameter default-value="${project.build.directory}/robotframework/libdoc"
+     * @readonly
+     */
+    File defaultLibdocOutputDirectory;
 
     /**
      * @parameter expression="${libdoc.outputFile}"
