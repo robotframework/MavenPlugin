@@ -1,0 +1,84 @@
+	------
+	Java Libraries
+	------
+	Dietrich Schulten
+	------
+	2012-01-20
+	------
+
+Using Java Libraries with the Robotframework Plugin
+
+    * Java test libraries
+
+    You can access Java test libraries by adding the jars to the extraPathDirectories parameter.
+    Note that such tests will run with Jython only.
+
++---
+  <plugin>
+    <groupId>com.googlecode</groupId>
+    <artifactId>robotframework-maven-plugin</artifactId>
+    <configuration>
+      <extraPathDirectories>
+        <extraPathDirectory>src/test/pythonpath</extraPathDirectory>
+        <extraPathDiectory>src/test/mytestlib.jar</extraPathDirectory
+      </extraPathDirectories>
+    </configuration>
+  </plugin>
++---
+
+    * Python libraries with Java dependencies
+
+    But there is a different use case. Python libraries can use Java libraries directly
+    using JPype. For example, the Python based DatabaseLibrary can be
+    used with jaydebeapi and JPype to access databases via Python and jdbc.
+
+    Such a test runs within a pure Python environment with JPype installed, as well as with
+    Jython. That way you can have database test cases that run within RIDE in Python mode,
+    and within the Robotframework Maven Plugin.
+
+    If you need Java libraries as dependencies to your test libraries, you can add them to the
+    dependencies section of the maven plugin configuration in the pom.
+
++---
+  <plugin>
+    <groupId>org.robotframework</groupId>
+    <artifactId>robotframework-maven-plugin</artifactId>
+    <configuration>
+      <extraPathDirectories>
+        <extraPathDirectory>src/test/resources/python</extraPathDirectory>
+      </extraPathDirectories>
+    </configuration>
+    <dependencies>
+      <dependency>
+        <groupId>org.hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>1.8.0.10</version>
+      </dependency>
+    </dependencies>
+  </plugin>
++---
+
+    The test cases access hsqldb, the python folder contains the DatabaseLibrary and the jaydebeapi.
+
+    If you want to run such a test within RIDE, make sure DatabaseLibrary, JPype and jaydebeapi
+    are installed in your Python runtime.
+
+    An actual test case is shown below.
+
++---
+*** Settings ***
+Library         OperatingSystem
+Library         DatabaseLibrary
+
+*** Test Cases ***
+Connect
+    Connect To Database Using Custom Params  jaydebeapi  org.hsqldb.jdbcDriver  jdbc:hsqldb:mem:robot  sa  ${EMPTY}
+    Execute SQL  create table testtable (myid integer not null primary key, name varchar(25))
+    Execute SQL  insert into testtable values (1, 'myname')
+    Execute SQL  insert into testtable values (2, 'yourname')
+    @{result}=  Execute Sql  Select * from testtable
+    Log Many  @{result}
+    Check If Exists In Database  select * from testtable where myid=2
+    Execute SQL  drop table testtable
+    Disconnect From Database
++---

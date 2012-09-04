@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Robotframework Maven Plugin" xmlns="http://maven.apache.org/DECORATION/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+  <body>
+    <!-- <menu name="Foo" href="foo.html" /> -->
+    <menu name="Overview">
+      <item name="Introduction" href="index.html" />
+      <item name="Goals" href="plugin-info.html" />
+<!--       <item name="Usage" href="usage.html" /> -->
+      <!-- <item name="FAQ" href="faq.html" /> -->
+    </menu>
+    <!-- <menu name="Examples">
+      <item name="description1" href="examples/example-one.html" />
+      <item name="description2" href="examples/example-two.html" />
+      </menu> -->
+    <menu ref="reports" />
+  </body>
+</project>

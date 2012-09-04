@@ -1,0 +1,65 @@
+	------
+	Introduction
+	------
+	Dietrich Schulten
+	------
+	2012-01-20
+	------
+
+
+Robotframework Maven Plugin
+
+  {{{http://maven.apache.org}Maven}} plugin for using the
+  {{{http://robotframework.googlecode.com/}Robot Framework}}.
+  Goal of this plugin is to be able to use Robot Framework in a Maven project
+  without the need to install anything extra (e.g. Robot Framework, Jython, etc).
+  In short, it's a non-invasive way of introducing acceptance test driven development to your existing
+  projects quickly.
+
+* Goals Overview
+
+  General information about the goals.
+
+  * {{{./run-mojo.html}robotframework:run}} - behaves like invoking the
+  {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#starting-test-execution}jybot}}
+  Robot Framework command for executing test cases
+
+  * {{{./libdoc-mojo.html}robotframework:libdoc}} invokes the
+  {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#library-documentation-tool-libdoc}libdoc.py}}
+  Robot Framework command for generating keyword documentation for test libraries and resource files
+
+* Usage
+
+  General instructions on how to add the Robotframework Maven Plugin to your build can be found on the
+  {{{./plugin-info.html}Plugin Info page}}.
+
+  By default, add your test cases to $\{project.basedir}/src/test/resources/robotframework/tests.
+
+  Third party libraries (e.g. Selenium Library) can be added to $\{project.basedir}/src/test/resources/robotframework/libraries.
+  Java dependencies can be expressed as dependencies to the Robotframework maven plugin configuration in pom.xml.
+
+  During mvn install invocation, the run goal will by default be invoked during the integration-test phase.
+
+  Some more specific use cases are described in the examples given below..
+
+  In case you still have questions regarding the plugin's usage, please have a look at the {{{./faq.html}FAQ}} and feel
+  free to contact the {{{./mail-lists.html}user mailing list}}. The posts to the mailing list are archived and could
+  already contain the answer to your question as part of an older thread. Hence, it is also worth browsing/searching
+  the {{{./mail-lists.html}mail archive}}.
+
+  If you feel like the plugin is missing a feature or has a defect, you can fill a feature request or bug report in our
+  {{{./issue-tracking.html}issue tracker}}. When creating a new issue, please provide a comprehensive description of your
+  concern. Especially for fixing bugs it is crucial that the developers can reproduce your problem. For this reason,
+  entire debug logs, POMs or most preferably little demo projects attached to the issue are very much appreciated.
+  Of course, patches are welcome, too. Contributors can check out the project from our
+  {{{./source-repository.html}source repository}} and will find supplementary information in the
+  {{{http://maven.apache.org/guides/development/guide-helping.html}guide to helping with Maven}}.
+
+* Examples
+
+  To provide you with better understanding of some usages of the Plugin Name,
+  you can take a look into the following examples:
+
+  * {{{./examples/seleniumlibrary.html}Using SeleniumLibrary}}
+
+  * {{{./examples/javalibraries.html}Using Java libraries}}

@@ -1,0 +1,47 @@
+	------
+	Selenium Library
+	------
+	Dietrich Schulten
+	------
+	2012-01-20
+	------
+
+
+Using SeleniumLibrary with the Robotframework Plugin
+
+  Since 1.1
+
+  Starting from version 1.1, an extraPathDirectories parameter has been added to the plugin.
+  You can use this to add extra test libraries to your build.
+
+  By default, you should add them to $\{project.basedir}/src/test/resources/robotframework/libraries.
+
+* Configuration and Installation
+
+  Download the tarball from the Selenium Library download page,
+  e.g. robotframework-seleniumlibrary-2.6.tar.gz
+
+  Extract the file and move the SeleniumLibrary directory from
+  robotframework-seleniumLibrary/src to ${project.basedir}/src/test/resources/robotframework/libraries.
+
+  So your project will have a folder
+  $\{project.basedir}/src/test/resources/robotframework/libraries/SeleniumLibrary
+
+
+* Example
+
+  Now, you can import SeleniumLibrary and use its keywords in your tests.
+
+  Below you see a test case that uses the Open Browser keyword.
+  The Selenium server is started during suite setup.
+
++---
+*** Settings ***
+Library  SeleniumLibrary
+Suite Set Up  Start Selenium Server
+Suite Tear Down  Stop Selenium Server
+
+*** Test Cases ***
+My Test
+   Open Browser  http://robotframework.googlecode.com
++---
