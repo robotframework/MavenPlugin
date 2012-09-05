@@ -9,10 +9,7 @@
 
 Using SeleniumLibrary with the Robotframework Plugin
 
-  Since 1.1
-
-  Starting from version 1.1, an extraPathDirectories parameter has been added to the plugin.
-  You can use this to add extra test libraries to your build.
+  ExtraPathDirectories parameter can be used to add extra test libraries to your build.
 
   By default, you should add them to $\{project.basedir}/src/test/resources/robotframework/libraries.
 

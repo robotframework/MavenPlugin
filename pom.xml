@@ -43,6 +43,21 @@
     <system>Github Issues</system>
     <url>https://github.com/robotframework/MavenPlugin/issues</url>
   </issueManagement>
+  <mailingLists>
+    <mailingList>
+      <name>Robot Framework Users Group</name>
+      <archive>http://groups.google.com/group/robotframework-users</archive>
+      <subscribe>http://groups.google.com/group/robotframework-users/subscribe</subscribe>
+    </mailingList>
+  </mailingLists>
+  <organization>
+    <name>Robot Framework</name>
+    <url>http://robotframework.org</url>
+  </organization>
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>http://robot.radiaatto.ri.fi/job/MavenPlugin/</url>
+  </ciManagement>
   <profiles>
     <profile>
       <id>default</id>
