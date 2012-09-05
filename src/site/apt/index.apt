@@ -7,7 +7,7 @@
 	------
 
 
-Robotframework Maven Plugin
+Robot Framework Maven Plugin
 
   {{{http://maven.apache.org}Maven}} plugin for using the
   {{{http://robotframework.googlecode.com/}Robot Framework}}.
@@ -57,7 +57,7 @@ Robotframework Maven Plugin
 
 * Examples
 
-  To provide you with better understanding of some usages of the Plugin Name,
+  To provide you with better understanding of some usages of the Robot Framework Maven Plugin,
   you can take a look into the following examples:
 
   * {{{./examples/seleniumlibrary.html}Using SeleniumLibrary}}
