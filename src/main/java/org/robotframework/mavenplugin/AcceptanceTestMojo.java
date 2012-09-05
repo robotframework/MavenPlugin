@@ -237,7 +237,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     /**
      * The directory where the test cases are located.
      *
-     * @parameter default-value="${project.basedir}/src/test/robotframework/acceptance"
+     * @parameter default-value="${project.basedir}/src/test/robotframework/acceptance" expression="${testCasesDirectory}"
      */
     private File testCasesDirectory;
 
