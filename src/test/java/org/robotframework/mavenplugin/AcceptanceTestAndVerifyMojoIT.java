@@ -22,12 +22,8 @@ public class AcceptanceTestAndVerifyMojoIT
         File testDir = getTestFile("src/test/projects/acceptance-and-verify");
         Verifier verifier = new Verifier(testDir.getAbsolutePath());
         verifier.deleteDirectory("target/robotframework-reports");
-        // turns on debugging
-        //List<String> cliOptions = new ArrayList<String>();
-        //cliOptions.add("-X");
-        //verifier.setCliOptions(cliOptions);
         try {
-            verifier.executeGoals(Arrays.asList(PLUGIN + ":libdoc", PLUGIN + ":acceptance-test", PLUGIN + ":verify"));
+            verifier.executeGoals(Arrays.asList(PLUGIN + ":acceptance-test", PLUGIN + ":verify"));
             fail("verify goal should fail the build");
         } catch (VerificationException e) {
             String message = e.getMessage();
@@ -36,35 +32,30 @@ public class AcceptanceTestAndVerifyMojoIT
         }
         verifier.displayStreamBuffers();
         verifier.resetStreams();
-        verifier.assertFilePresent(new File(testDir, "target/robotframework/libdoc/JustForIT.html").getAbsolutePath());
         verifier.assertFilePresent(new File(testDir, "target/robotframework-reports/TEST-acceptance.xml").getAbsolutePath());
     }
 
-    public void testOverrideLibdocOutputFromCommandLine()
-            throws Exception {
+    public void testLibdocMojo() throws IOException, VerificationException {
         File testDir = getTestFile("src/test/projects/acceptance-and-verify");
-        List cliOptions = new ArrayList();
-        cliOptions.add("-Dlibdoc.outputFile=Changed.html");
-        cliOptions.add("-Dlibdoc.output=target/robotframework/changed");
-        Verifier verifier = executeTargets(Arrays.asList(PLUGIN + ":libdoc"), testDir, cliOptions);
-        verifier.assertFilePresent(new File(testDir, "target/robotframework/changed/Changed.html").getAbsolutePath());
+        List<String> cliOptions = new ArrayList<String>();
+        Verifier verifier = executeGoals(Arrays.asList(PLUGIN + ":libdoc"), testDir, cliOptions);
+        verifier.assertFilePresent(new File(testDir, "target/robotframework/libdoc/JustForIT.html").getAbsolutePath());
     }
 
-    public void testOverrideArgumentsForDynamicLibdoc()
-            throws Exception {
+    public void testOverrideFromCommandPrompt() throws IOException, VerificationException {
         File testDir = getTestFile("src/test/projects/acceptance-and-verify");
-        List cliOptions = new ArrayList();
-        cliOptions.add("-Dlibdoc.outputFile=Dynamic.html");
-        cliOptions.add("-Dlibdoc.libraryOrResourceFile=src/test/robotframework/acceptance/lib_with_arguments.py::argument");
-        Verifier verifier = executeTargets(Arrays.asList(PLUGIN + ":libdoc"), testDir, cliOptions);
-        verifier.assertFilePresent(new File(testDir, "target/robotframework/libdoc/Dynamic.html").getAbsolutePath());
+        List<String> cliOptions = new ArrayList<String>();
+        cliOptions.add("-Dtests=successful*");
+        Verifier verifier = executeGoals(Arrays.asList(PLUGIN + ":acceptance-test", PLUGIN + ":verify"), testDir, cliOptions);
+        verifier.assertFilePresent(new File(testDir, "target/robotframework-reports/TEST-acceptance.xml").getAbsolutePath());
     }
 
-    private Verifier executeTargets(List targets,File testDir, List cliOptions) throws VerificationException, IOException {
+    private Verifier executeGoals(List<String> goals, File testDir, List<String> cliOptions) throws VerificationException, IOException {
         Verifier verifier = new Verifier(testDir.getAbsolutePath());
-        verifier.deleteDirectory("target/robotframework");
         verifier.setCliOptions(cliOptions);
-        verifier.executeGoals(targets);
+        verifier.deleteDirectory("target/robotframework-reports");
+        verifier.deleteDirectory("target/robotframework");
+        verifier.executeGoals(goals);
         verifier.displayStreamBuffers();
         verifier.resetStreams();
         return verifier;

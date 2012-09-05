@@ -271,28 +271,28 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     /**
      * Selects the tests cases by name.
      *
-     * @parameter
+     * @parameter expression="${tests}"
      */
     private List<String> tests;
 
     /**
      * Selects the tests suites by name.
      *
-     * @parameter
+     * @parameter expression="${suites}"
      */
     private List<String> suites;
 
     /**
      * Selects the tests cases by tags.
      *
-     * @parameter
+     * @parameter expression="${includes}"
      */
     private List<String> includes;
 
     /**
      * Selects the tests cases by tags.
      *
-     * @parameter
+     * @parameter expression="${excludes}"
      */
     private List<String> excludes;
 
@@ -508,7 +508,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * </ul>
      *
      * @parameter
-     * @since 1.1
      */
     private String monitorColors;
 
@@ -518,7 +517,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * the default location is ${project.basedir}/src/test/resources/robotframework/libraries.
      *
      * @parameter
-     * @since 1.1
      */
     private File[] extraPathDirectories;
 
@@ -544,7 +542,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * other tests.
      *
      * @parameter expression="${skipTests}"
-     * @since 1.1
      */
     private boolean skipTests;
 
@@ -553,7 +550,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * and integration tests, but no acceptance tests.
      *
      * @parameter expression="${skipATs}"
-     * @since 1.1
      */
     private boolean skipATs;
 
@@ -562,7 +558,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * tests run by the maven-failsafe-plugin. Bound to -DskipITs
      *
      * @parameter expression="${skipITs}"
-     * @since 1.1
      */
     private boolean skipITs;
 
@@ -570,7 +565,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * Skip tests, bound to -Dmaven.test.skip, which suppresses test compilation as well.
      *
      * @parameter default-value="false" expression="${maven.test.skip}"
-     * @since 1.1
      */
     private boolean skip;
 
@@ -579,7 +573,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * --include/--exclude when it is not an error that no test matches the condition.
      *
      * @parameter default-value="false"
-     * @since 1.1
      */
 
     private boolean runEmptySuite;
@@ -589,7 +582,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * returned normally.
      *
      * @parameter default-value="false"
-     * @since 1.1
      */
 
     private boolean noStatusReturnCode;

@@ -26,8 +26,8 @@ import org.robotframework.RobotFramework;
 /**
  * Create documentation of test libraries or resource files using the Robot Framework <code>libdoc</code> tool.
  * <p/>
- * Uses the <code>libdoc</code> bundled in Robot Framework jar distribution. For more help, run
- * <code>java -jar robotframework.jar libdoc --help</code>.
+ * Uses the <code>libdoc</code> bundled in Robot Framework jar distribution. For more help see
+ * <a href="http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#library-documentation-tool-libdoc">libdoc documentation</a>.
  *
  * @goal libdoc
  * @requiresDependencyResolution test
@@ -52,7 +52,35 @@ public class LibDocMojo
     }
 
     /**
-     * Settings for libdoc.
+     * Library documentation configuration.
+     *
+     * Required settings:
+     * <ul>
+     * <li><code>outputFile</code>          The name for the output file. Documentation output format is deduced from the file extension.</li>
+     * <li><code>libraryOrResourceFile</code>     Name or path of the documented library or resource file.
+     * <p/>
+     * Name must be in the same format as when used in Robot Framework test data, for example <code>BuiltIn</code> or
+     * <code>com.acme.FooLibrary</code>. When name is used, the library is imported the same as when running the tests.
+     * Use extraPathDirectories to set PYTHONPATH/CLASSPATH accordingly.
+     * <p/>
+     * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid Python/Java
+     * source file or a resource file. For example <code>src/main/java/com/test/ExampleLib.java</code></li>
+     * </ul>
+     * Optional settings:
+     * <ul>
+     * <li><code>outputDirectory</code>     Specifies the directory where documentation files are written.
+     *                                      Considered to be relative to the ${basedir} of the project.
+     *                                      Default ${project.build.directory}/robotframework/libdoc</li>
+     * <li><code>name</code>                Sets the name of the documented library or resource.</li>
+     * <li><code>extraPathDirectories</code> A directory to be added to the PYTHONPATH/CLASSPATH when creating documentation.
+     * e.g. src/main/java/com/test/</li>
+     * </ul>
+     *
+     * Example:
+     * <pre><![CDATA[<libdoc>
+     *      <outputFile>MyLib.html</outputFile>
+     *      <libraryOrResourceFile>src/main/java/com/mylib/MyLib.java</libraryOrResourceFile>
+     * </libdoc>]]></pre>
      *
      * @parameter
      * @required
@@ -60,35 +88,12 @@ public class LibDocMojo
     private LibDocConfiguration libdoc;
 
     /**
-     * @parameter expression="${libdoc.output}"
-     */
-    File libdocOutputDirectory;
-
-    /**
+     * Default output directory. Effective if outputDirectory is empty. Cannot be overridden.
+     *
      * @parameter default-value="${project.build.directory}/robotframework/libdoc"
      * @readonly
      */
     File defaultLibdocOutputDirectory;
-
-    /**
-     * @parameter expression="${libdoc.outputFile}"
-     */
-    File libdocOutputFile;
-
-    /**
-     * @parameter expression="${libdoc.name}"
-     */
-    String libdocName;
-
-    /**
-     * @parameter expression="${libdoc.libraryOrResourceFile}"
-     */
-    String libdocLibraryOrResourceFile;
-
-    /**
-     * @parameter expression="${libdoc.extraPathDirectories}"
-     */
-    File[] libdocExtraPathDirectories;
 
     /**
      * The default location where extra packages will be searched. Effective if extraPathDirectories attribute is not

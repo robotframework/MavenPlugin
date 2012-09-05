@@ -77,20 +77,10 @@ public class LibDocConfiguration {
         return StringUtils.join(parts, File.separator);
     }
 
-    public void populateDefaults(LibDocMojo overridesAndDefaults) {
-        if (overridesAndDefaults.libdocOutputDirectory != null)
-            this.outputDirectory = overridesAndDefaults.libdocOutputDirectory;
+    public void populateDefaults(LibDocMojo defaults) {
         if (this.outputDirectory == null)
-            this.outputDirectory = overridesAndDefaults.defaultLibdocOutputDirectory;
-        if (overridesAndDefaults.libdocOutputFile != null)
-            this.outputFile = overridesAndDefaults.libdocOutputFile;
-        if (overridesAndDefaults.libdocName != null)
-            this.name = overridesAndDefaults.libdocName;
-        if (overridesAndDefaults.libdocLibraryOrResourceFile != null)
-            this.libraryOrResourceFile = overridesAndDefaults.libdocLibraryOrResourceFile;
-        if (overridesAndDefaults.libdocExtraPathDirectories != null)
-            this.extraPathDirectories = overridesAndDefaults.libdocExtraPathDirectories;
-        this.defaultExtraPath = overridesAndDefaults.libdocDefaultExtraPath;
+            this.outputDirectory = defaults.defaultLibdocOutputDirectory;
+        this.defaultExtraPath = defaults.libdocDefaultExtraPath;
     }
 
     /**
