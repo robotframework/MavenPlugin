@@ -34,9 +34,9 @@ Add the plugin to your build:
       ..
 
       <plugin>
-        <groupId>com.googlecode.robotframework-maven-plugin</groupId>
+        <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.1.2</version>
+        <version>1.0.0-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
