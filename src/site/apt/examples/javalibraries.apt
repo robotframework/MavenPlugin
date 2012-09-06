@@ -15,7 +15,7 @@ Using Java Libraries with the Robotframework Plugin
 
 +---
   <plugin>
-    <groupId>com.googlecode</groupId>
+    <groupId>org.robotframework</groupId>
     <artifactId>robotframework-maven-plugin</artifactId>
     <configuration>
       <extraPathDirectories>
