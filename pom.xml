@@ -184,7 +184,9 @@
     </dependency>
 
   </dependencies>
-
+    <properties>
+        <github.global.server>github</github.global.server>
+    </properties>
   <build>
     <plugins>
       <plugin>
@@ -262,9 +264,24 @@
         <artifactId>maven-site-plugin</artifactId>
         <version>3.1</version>
       </plugin>
+        <plugin>
+            <groupId>com.github.github</groupId>
+            <artifactId>site-maven-plugin</artifactId>
+            <version>0.6</version>
+            <configuration>
+                <message>Creating site for ${project.version}</message>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>site</goal>
+                    </goals>
+                    <phase>site</phase>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
-
     <reporting>
         <plugins>
             <plugin>
