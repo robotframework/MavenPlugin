@@ -6,4 +6,5 @@ target
 *$py.class
 .DS_store
 src/test/projects/acceptance-and-verify/log.txt
+docs/_build
 
