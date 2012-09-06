@@ -45,4 +45,9 @@ then:
 Deploy project to Sonatype
 --------------------------
 
+As a prerequisite, you need account at Sonatype Jira, gpg keys, and Sonatype servers configured to your settings.xml.
+See https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide
+
 > mvn deploy
+
+Then
