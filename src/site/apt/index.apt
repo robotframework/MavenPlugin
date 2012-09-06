@@ -21,7 +21,7 @@ Robot Framework Maven Plugin
 
 * Goals Overview
 
-  General information about the goals.
+  Plugin provides the following two goals:
 
   * {{{./run-mojo.html}robotframework:run}} - behaves like invoking the
   {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#starting-test-execution}jybot}}
@@ -67,7 +67,7 @@ Robot Framework Maven Plugin
 </project>
 +---
 
-  By default, you can add your test cases to ${project.basedir}/src/test/resources/robotframework/tests
+  By default, you can add your test cases to $\{project.basedir\}/src/test/resources/robotframework/tests
 
   Third party libraries (e.g. Selenium Library) can be added to $\{project.basedir}/src/test/resources/robotframework/libraries.
   Java dependencies can be expressed as dependencies to the Robotframework maven plugin configuration in pom.xml.
