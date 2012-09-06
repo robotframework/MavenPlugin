@@ -16,7 +16,7 @@ Robot Framework Maven Plugin
   In short, it's a non-invasive way of introducing acceptance test driven development to your existing
   projects quickly.
 
-  This project was forked from {{{http://code.google.com/p/robotframework-maven-plugin}}}
+  This project was forked from {{{http://code.google.com/p/robotframework-maven-plugin}http://code.google.com/p/robotframework-maven-plugin}}
 
 
 * Goals Overview
