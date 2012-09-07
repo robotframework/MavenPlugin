@@ -54,7 +54,7 @@ Add the plugin to your build:
 </project>
 ```
 
-By default, you can add your test cases to ${project.basedir}/src/test/resources/robotframework/tests
+By default, you can add your test cases to ${project.basedir}/src/test/robotframework/acceptance
 
 Third party libraries (e.g. Selenium Library) can be added to ${project.basedir}/src/test/resources/robotframework/libraries
 
