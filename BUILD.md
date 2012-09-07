@@ -50,4 +50,4 @@ See https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+U
 
 > mvn deploy
 
-Then
+Then do close and release from Staging Repository at https://oss.sonatype.org/index.html#welcome
