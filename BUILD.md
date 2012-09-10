@@ -20,8 +20,14 @@ To generate the documentation:
 Releasing
 =========
 
-1. update the version number from pom.xml
-2. commit the changes to github
+1. update the version number from pom.xml (also src/test/project/acceptance-and-verify/pom.xml)
+2. mvn verify
+3. mvn site:site (check that site docs are alright)
+4. git tag 1.0.1
+5. git push
+6. git push --tags
+7. mvn site (see Generate site docs below)
+8. mvn deploy (see Deploy project to Sonatype below)
 
 Generate site docs
 ------------------
