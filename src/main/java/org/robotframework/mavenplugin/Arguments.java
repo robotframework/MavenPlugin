@@ -20,6 +20,7 @@ package org.robotframework.mavenplugin;
 import org.codehaus.plexus.util.StringUtils;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -54,6 +55,13 @@ public class Arguments {
     public void addStringToArguments(String variableToAdd, String flag) {
         arguments.add(flag);
         arguments.add(variableToAdd);
+    }
+
+    public void addListToArguments(String variablesToAdd, String flag) {
+        if (variablesToAdd == null) {
+            return;
+        }
+        addListToArguments(new ArrayList<String>(Arrays.asList(StringUtils.split(variablesToAdd, ","))), flag);
     }
 
     public void addListToArguments(List<String> variablesToAdd, String flag) {

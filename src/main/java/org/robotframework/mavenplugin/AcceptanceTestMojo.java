@@ -270,32 +270,32 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private List<String> tags;
 
     /**
-     * Selects the tests cases by name.
+     * Selects the tests cases by name. Given as a comma separated list.
      *
      * @parameter expression="${tests}"
      */
-    private List<String> tests;
+    private String tests;
 
     /**
-     * Selects the tests suites by name.
+     * Selects the tests suites by name. Given as a comma separated list.
      *
      * @parameter expression="${suites}"
      */
-    private List<String> suites;
+    private String suites;
 
     /**
-     * Selects the tests cases by tags.
+     * Selects the tests cases by tags. Given as a comma separated list.
      *
      * @parameter expression="${includes}"
      */
-    private List<String> includes;
+    private String includes;
 
     /**
-     * Selects the tests cases by tags.
+     * Selects the tests cases by tags. Given as a comma separated list.
      *
      * @parameter expression="${excludes}"
      */
-    private List<String> excludes;
+    private String excludes;
 
     /**
      * Tests that have the given tags are considered critical.

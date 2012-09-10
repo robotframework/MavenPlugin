@@ -50,6 +50,15 @@ public class AcceptanceTestAndVerifyMojoIT
         verifier.assertFilePresent(new File(testDir, "target/robotframework-reports/TEST-acceptance.xml").getAbsolutePath());
     }
 
+    public void testOverrideListsFromCommandPrompt() throws IOException, VerificationException {
+        File testDir = getTestFile("src/test/projects/acceptance-and-verify");
+        List<String> cliOptions = new ArrayList<String>();
+        cliOptions.add("-Dtests=foo,successful*,bar");
+        cliOptions.add("-Dsuites=foo,successful*,bar");
+        Verifier verifier = executeGoals(Arrays.asList(PLUGIN + ":acceptance-test", PLUGIN + ":verify"), testDir, cliOptions);
+        verifier.assertFilePresent(new File(testDir, "target/robotframework-reports/TEST-acceptance.xml").getAbsolutePath());
+    }
+
     private Verifier executeGoals(List<String> goals, File testDir, List<String> cliOptions) throws VerificationException, IOException {
         Verifier verifier = new Verifier(testDir.getAbsolutePath());
         verifier.setCliOptions(cliOptions);
