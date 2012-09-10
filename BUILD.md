@@ -21,13 +21,14 @@ Releasing
 =========
 
 1. update the version number from pom.xml (also src/test/project/acceptance-and-verify/pom.xml)
-2. mvn verify
-3. mvn site:site (check that site docs are alright)
-4. git tag 1.0.1
-5. git push
-6. git push --tags
-7. mvn site (see Generate site docs below)
-8. mvn deploy (see Deploy project to Sonatype below)
+2. update release notes
+3. mvn verify
+4. mvn site:site (check that site docs are alright)
+5. git tag 1.0.1
+6. git push
+7. git push --tags
+8. mvn site (see Generate site docs below)
+9. mvn deploy (see Deploy project to Sonatype below)
 
 Generate site docs
 ------------------
