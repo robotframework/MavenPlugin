@@ -20,15 +20,17 @@ To generate the documentation:
 Releasing
 =========
 
-1. update the version number from pom.xml (also src/test/project/acceptance-and-verify/pom.xml)
+1. update the version number from pom.xml (also src/test/project/acceptance-and-verify/pom.xml, src/site/index.apt, src/site/apt/examples/javalibraries.apt)
 2. update release notes
 3. mvn verify
-4. mvn site:site (check that site docs are alright)
-5. git tag VERSION
-6. git push
-7. git push --tags
-8. mvn site (see Generate site docs below)
-9. mvn deploy (see Deploy project to Sonatype below)
+4. mvn site:site (check that site docs are alright from target/site/index.html)
+5. git commit -am "version VERSION"
+6. git tag VERSION
+7. git push
+8. git push --tags
+9. mvn site (see Generate site docs below)
+10. mvn deploy (see Deploy project to Sonatype below)
+11. do close and release from Staging Repository at https://oss.sonatype.org/index.html#welcome
 
 Generate site docs
 ------------------
