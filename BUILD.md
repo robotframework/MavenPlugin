@@ -24,7 +24,7 @@ Releasing
 2. update release notes
 3. mvn verify
 4. mvn site:site (check that site docs are alright)
-5. git tag 1.0.1
+5. git tag VERSION
 6. git push
 7. git push --tags
 8. mvn site (see Generate site docs below)
