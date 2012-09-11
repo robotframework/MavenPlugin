@@ -38,7 +38,8 @@ Trasitioning from old version of Robot Framework Maven Plugin
 
 * Configuration changes
 
-    TODO
+    Configuration of the run target has not been changed, but {{{./libdoc-mojo.html}libdoc}} configuration is now given
+    in a separate <<<libdoc>>> element. See example below.
 
 +---
   <plugin>
@@ -46,17 +47,11 @@ Trasitioning from old version of Robot Framework Maven Plugin
     <artifactId>robotframework-maven-plugin</artifactId>
     <version>1.0.1</version>
     <configuration>
-      <extraPathDirectories>
-        <extraPathDirectory>src/test/resources/python</extraPathDirectory>
-      </extraPathDirectories>
+      <libdoc>
+        <libraryOrResourceFile>src/MyLib.py</libraryOrResourceFile>
+        <outputFile>MyLib.html</outputFile>
+      </libdoc>
     </configuration>
-    <dependencies>
-      <dependency>
-        <groupId>org.hsqldb</groupId>
-        <artifactId>hsqldb</artifactId>
-        <version>1.8.0.10</version>
-      </dependency>
-    </dependencies>
   </plugin>
 +---
 
