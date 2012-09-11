@@ -202,10 +202,22 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
 
         generatedArguments.addListToArguments(metadata, "-M");
         generatedArguments.addListToArguments(tags, "-G");
-        generatedArguments.addListToArguments(tests, "-t");
-        generatedArguments.addListToArguments(suites, "-s");
-        generatedArguments.addListToArguments(includes, "-i");
-        generatedArguments.addListToArguments(excludes, "-e");
+        if (tests_cli!=null)
+            generatedArguments.addListToArguments(tests_cli, "-t");
+        else
+            generatedArguments.addListToArguments(tests, "-t");
+        if (suites_cli!=null)
+            generatedArguments.addListToArguments(suites_cli, "-s");
+        else
+            generatedArguments.addListToArguments(suites, "-s");
+        if (includes_cli!=null)
+            generatedArguments.addListToArguments(includes_cli, "-i");
+        else
+            generatedArguments.addListToArguments(includes, "-i");
+        if (excludes_cli!=null)
+            generatedArguments.addListToArguments(excludes_cli, "-e");
+        else
+            generatedArguments.addListToArguments(excludes, "-e");
         generatedArguments.addListToArguments(criticalTags, "-c");
         generatedArguments.addListToArguments(nonCriticalTags, "-n");
         generatedArguments.addListToArguments(variables, "-v");
@@ -270,32 +282,72 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private List<String> tags;
 
     /**
+     * Selects the tests cases by name.
+     *
+     * @parameter
+     */
+    private List<String> tests;
+
+    /**
+     * Selects the tests suites by name.
+     *
+     * @parameter
+     */
+    private List<String> suites;
+
+    /**
+     * Selects the tests cases by tags.
+     *
+     * @parameter
+     */
+    private List<String> includes;
+
+    /**
+     * Selects the tests cases by tags.
+     *
+     * @parameter
+     */
+    private List<String> excludes;
+
+    /**
      * Selects the tests cases by name. Given as a comma separated list.
+     * This setting overrides the value for tests configuration in pom.xml.
+     *
+     * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
      *
      * @parameter expression="${tests}"
      */
-    private String tests;
+    private String tests_cli;
 
     /**
      * Selects the tests suites by name. Given as a comma separated list.
+     * This setting overrides the value for suites configuration in pom.xml.
+     *
+     * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
      *
      * @parameter expression="${suites}"
      */
-    private String suites;
+    private String suites_cli;
 
     /**
      * Selects the tests cases by tags. Given as a comma separated list.
+     * This setting overrides the value for includes configuration in pom.xml.
+     *
+     * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
      *
      * @parameter expression="${includes}"
      */
-    private String includes;
+    private String includes_cli;
 
     /**
      * Selects the tests cases by tags. Given as a comma separated list.
+     * This setting overrides the value for excludes configuration in pom.xml.
+     *
+     * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
      *
      * @parameter expression="${excludes}"
      */
-    private String excludes;
+    private String excludes_cli;
 
     /**
      * Tests that have the given tags are considered critical.
