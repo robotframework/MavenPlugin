@@ -1,0 +1,63 @@
+	------
+	Transitioning from old version
+	------
+	Jussi Malinen
+	------
+	2012-09-11
+	------
+
+Trasitioning from old version of Robot Framework Maven Plugin
+
+* Introduction
+
+    This plugin was forked from
+    {{{http://code.google.com/p/robotframework-maven-plugin}http://code.google.com/p/robotframework-maven-plugin}}.
+    For the most part this new plugin works as a drop in replacement for the old version, but there are a few changes
+    needed to the configuration. This page describes the changes needed to move to this new version.
+
+* Executive summary
+
+    Change the <<<groupId>>> to <org.robotframework> and <<<version>>> to <1.0.1>. Unless you use
+    {{{./libdoc-mojo.html}libdoc}}, thats all you need.
+
+    Below the changes in more detail.
+
+* New groupId and version
+
+    The original plugin was distributed with groupId <<<com.googlecode.robotframework-maven-plugin>>>. This has been changed
+    to <<<org.robotframework>>>. The versioning starts in this new plugin from version 1.0.0
+    (so version 1.0.0 of this plugin is newer than version 1.1.2 of the old version).
+
++---
+  <plugin>
+    <groupId>org.robotframework</groupId>
+    <artifactId>robotframework-maven-plugin</artifactId>
+    <version>1.0.1</version>
+  </plugin>
++---
+
+* Configuration changes
+
+    TODO
+
++---
+  <plugin>
+    <groupId>org.robotframework</groupId>
+    <artifactId>robotframework-maven-plugin</artifactId>
+    <version>1.0.1</version>
+    <configuration>
+      <extraPathDirectories>
+        <extraPathDirectory>src/test/resources/python</extraPathDirectory>
+      </extraPathDirectories>
+    </configuration>
+    <dependencies>
+      <dependency>
+        <groupId>org.hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>1.8.0.10</version>
+      </dependency>
+    </dependencies>
+  </plugin>
++---
+
+
