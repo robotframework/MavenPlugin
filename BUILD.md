@@ -19,23 +19,42 @@ To generate the documentation:
 
 Releasing
 =========
-1. VERSION=1.0.2
-2. update the version number from pom.xml (also src/test/project/acceptance-and-verify/pom.xml, src/site/apt/index.apt, src/site/apt/examples/javalibraries.apt)
-3. update version numbers from documentation
 
-> osx find ./ -type f \( -name \*.apt -o -name \*.md \) -exec sed -i '' 's/1.0.1/$VERSION/g' '{}' \;
-> linux find ./ -type f \( -name \*.apt -o -name \*.md \) -exec sed -i 's/1.0.1/$VERSION/g' '{}' \;
+* update the version numbers
 
-4. update [release notes](https://github.com/robotframework/MavenPlugin/wiki/ReleaseNotes "release notes")
-5. mvn verify
-6. mvn site:site (check that site docs are alright from target/site/index.html)
-7. git commit -am "version $VERSION"
-8. git tag $VERSION
-9. git push
-10. git push --tags
-11. mvn site (see Generate site docs below)
-12. mvn deploy (see Deploy project to Sonatype below)
-13. do close and release from Staging Repository at https://oss.sonatype.org/index.html#welcome
+> osx grep -rl '<version>1.0.2</version>' ./ | xargs sed -i '' 's|<version>1.0.2</version>|<version>1.0.3</version>|g'
+> linux grep -rl '<version>1.0.2</version>' ./ | xargs sed -i 's|<version>1.0.2</version>|<version>1.0.3</version>|g'
+
+* Sanity check the changes
+
+> git di
+
+* Build project
+
+> mvn clean verify
+
+* Generate site docs and check that site docs are alright from target/site/index.html
+
+> mvn site:site
+
+* Commit to git
+
+> git commit -am "version 1.0.3"
+> git tag 1.0.3
+> git push
+> git push --tags
+
+* update [release notes](https://github.com/robotframework/MavenPlugin/wiki/ReleaseNotes "release notes")
+
+* Push site to github (See generate site docs below for prerequirements)
+
+> mvn site
+
+* Send the material to Sonatype (see Deploy project to Sonatype below)
+
+> mvn deploy
+
+* do close and release from Staging Repository at https://oss.sonatype.org/index.html#welcome
 
 Generate site docs
 ------------------
