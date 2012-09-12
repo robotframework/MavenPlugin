@@ -20,7 +20,7 @@ To generate the documentation:
 Releasing
 =========
 
-1. update the version number from pom.xml (also src/test/project/acceptance-and-verify/pom.xml, src/site/index.apt, src/site/apt/examples/javalibraries.apt)
+1. update the version number from pom.xml (also src/test/project/acceptance-and-verify/pom.xml, src/site/apt/index.apt, src/site/apt/examples/javalibraries.apt)
 2. update release notes
 3. mvn verify
 4. mvn site:site (check that site docs are alright from target/site/index.html)
