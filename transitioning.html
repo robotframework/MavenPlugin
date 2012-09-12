@@ -3,13 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Robotframework Maven Plugin - Continuous Integration</title>
+    <title>Robotframework Maven Plugin - Transitioning from old version</title>
     <style type="text/css" media="all">
       @import url("./css/maven-base.css");
       @import url("./css/maven-theme.css");
       @import url("./css/site.css");
     </style>
     <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
+      <meta name="author" content="Jussi Malinen" />
+    <meta name="Date-Creation-yyyymmdd" content="20120911" />
     <meta name="Date-Revision-yyyymmdd" content="20120912" />
     <meta http-equiv="Content-Language" content="en" />
         
@@ -61,50 +63,9 @@
           </ul>
                        <h5>Project Documentation</h5>
                   <ul>
-                                                                                                                                                                                                                                                                                                      <li class="expanded">
+                                                                                                                                                                                                                                                                                            <li class="collapsed">
                           <a href="project-info.html" title="Project Information">Project Information</a>
-                    <ul>
-                      <li class="none">
-                          <a href="index.html" title="About">About</a>
-            </li>
-                      <li class="none">
-                          <a href="plugin-management.html" title="Plugin Management">Plugin Management</a>
-            </li>
-                      <li class="none">
-                          <a href="distribution-management.html" title="Distribution Management">Distribution Management</a>
-            </li>
-                      <li class="none">
-                          <a href="dependency-info.html" title="Dependency Information">Dependency Information</a>
-            </li>
-                      <li class="none">
-                          <a href="source-repository.html" title="Source Repository">Source Repository</a>
-            </li>
-                      <li class="none">
-                          <a href="mail-lists.html" title="Mailing Lists">Mailing Lists</a>
-            </li>
-                      <li class="none">
-                          <a href="issue-tracking.html" title="Issue Tracking">Issue Tracking</a>
-            </li>
-                      <li class="none">
-            <strong>Continuous Integration</strong>
-          </li>
-                      <li class="none">
-                          <a href="plugins.html" title="Project Plugins">Project Plugins</a>
-            </li>
-                      <li class="none">
-                          <a href="license.html" title="Project License">Project License</a>
-            </li>
-                      <li class="none">
-                          <a href="team-list.html" title="Project Team">Project Team</a>
-            </li>
-                      <li class="none">
-                          <a href="project-summary.html" title="Project Summary">Project Summary</a>
-            </li>
-                      <li class="none">
-                          <a href="dependencies.html" title="Dependencies">Dependencies</a>
-            </li>
-              </ul>
-        </li>
+                  </li>
                                                                     <li class="collapsed">
                           <a href="project-reports.html" title="Project Reports">Project Reports</a>
                   </li>
@@ -118,7 +79,21 @@
     </div>
     <div id="bodyColumn">
       <div id="contentBox">
-        <div class="section"><h2>Overview<a name="Overview"></a></h2><a name="Overview"></a><p>This project uses <a class="externalLink" href="http://jenkins-ci.org/">Jenkins</a>.</p></div><div class="section"><h2>Access<a name="Access"></a></h2><a name="Access"></a><p>The following is a link to the continuous integration system used by the project.</p><div class="source"><pre><a class="externalLink" href="http://robot.radiaatto.ri.fi/job/MavenPlugin/">http://robot.radiaatto.ri.fi/job/MavenPlugin/</a></pre></div></div><div class="section"><h2>Notifiers<a name="Notifiers"></a></h2><a name="Notifiers"></a><p>No notifiers are defined. Please check back at a later date.</p></div>
+        <div class="section"><h2>Trasitioning from old version of Robot Framework Maven Plugin<a name="Trasitioning_from_old_version_of_Robot_Framework_Maven_Plugin"></a></h2><div class="section"><h3>Introduction<a name="Introduction"></a></h3><p>This plugin was forked from <a class="externalLink" href="http://code.google.com/p/robotframework-maven-plugin">http://code.google.com/p/robotframework-maven-plugin</a>. For the most part this new plugin works as a drop in replacement for the old version, but there are a few changes needed to the configuration. This page describes the changes needed to move to this new version.</p></div><div class="section"><h3>Executive summary<a name="Executive_summary"></a></h3><p>Change the <tt>groupId</tt> to <i>org.robotframework</i> and update the version number. Unless you use <a href="./libdoc-mojo.html">libdoc</a>, thats all you need.</p><div class="source"><pre>  &lt;plugin&gt;
+    &lt;groupId&gt;org.robotframework&lt;/groupId&gt;
+    &lt;artifactId&gt;robotframework-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;1.0.2&lt;/version&gt;
+  &lt;/plugin&gt;</pre></div><p>Below the changes in more detail.</p></div><div class="section"><h3>New groupId and version<a name="New_groupId_and_version"></a></h3><p>The original plugin was distributed with groupId <tt>com.googlecode.robotframework-maven-plugin</tt>. This has been changed to <tt>org.robotframework</tt>. The versioning starts in this new plugin from version 1.0.0 (so version 1.0.0 of this plugin is newer than version 1.1.2 of the old version).</p></div><div class="section"><h3>Configuration changes<a name="Configuration_changes"></a></h3><p>Configuration of the run target has not been changed, but <a href="./libdoc-mojo.html">libdoc</a> configuration is now given in a separate <tt>libdoc</tt> element. See example below.</p><div class="source"><pre>  &lt;plugin&gt;
+    &lt;groupId&gt;org.robotframework&lt;/groupId&gt;
+    &lt;artifactId&gt;robotframework-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;1.0.2&lt;/version&gt;
+    &lt;configuration&gt;
+      &lt;libdoc&gt;
+        &lt;libraryOrResourceFile&gt;src/MyLib.py&lt;/libraryOrResourceFile&gt;
+        &lt;outputFile&gt;MyLib.html&lt;/outputFile&gt;
+      &lt;/libdoc&gt;
+    &lt;/configuration&gt;
+  &lt;/plugin&gt;</pre></div></div></div>
       </div>
     </div>
     <div class="clear">
