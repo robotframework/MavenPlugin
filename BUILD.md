@@ -22,8 +22,8 @@ Releasing
 1. VERSION=1.0.2
 1. update the version number from pom.xml (also src/test/project/acceptance-and-verify/pom.xml, src/site/apt/index.apt, src/site/apt/examples/javalibraries.apt)
 2. update version numbers from documentation
-   > osx find ./ -type f \( -name \*.apt -o -name \*.md \) -exec sed -i '' 's/1.0.1/$VERSION/g' '{}' \;
-   > linux find ./ -type f \( -name \*.apt -o -name \*.md \) -exec sed -i 's/1.0.1/$VERSION/g' '{}' \;
+> osx find ./ -type f \( -name \*.apt -o -name \*.md \) -exec sed -i '' 's/1.0.1/$VERSION/g' '{}' \;
+> linux find ./ -type f \( -name \*.apt -o -name \*.md \) -exec sed -i 's/1.0.1/$VERSION/g' '{}' \;
 2. update [release notes](https://github.com/robotframework/MavenPlugin/wiki/ReleaseNotes "release notes")
 3. mvn verify
 4. mvn site:site (check that site docs are alright from target/site/index.html)
