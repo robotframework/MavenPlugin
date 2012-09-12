@@ -21,7 +21,7 @@ Releasing
 =========
 
 1. update the version number from pom.xml (also src/test/project/acceptance-and-verify/pom.xml, src/site/apt/index.apt, src/site/apt/examples/javalibraries.apt)
-2. update release notes
+2. update [release notes](https://github.com/robotframework/MavenPlugin/wiki/ReleaseNotes "release notes")
 3. mvn verify
 4. mvn site:site (check that site docs are alright from target/site/index.html)
 5. git commit -am "version VERSION"
