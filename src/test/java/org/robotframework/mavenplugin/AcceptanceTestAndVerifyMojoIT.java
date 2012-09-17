@@ -66,6 +66,11 @@ public class AcceptanceTestAndVerifyMojoIT
         assertFilePresent("target/robotframework-reports/TEST-acceptance.xml");
     }
 
+	public void testVerificationIsSkippedIfTestsAre() throws IOException, VerificationException {
+		cliOptions.add("-DskipATs");
+		executeGoals(PLUGIN + ":acceptance-test",PLUGIN + ":verify");
+	}
+
     private void assertFilePresent(String file) {
         verifier.assertFilePresent(new File(testDir, file).getAbsolutePath());
     }

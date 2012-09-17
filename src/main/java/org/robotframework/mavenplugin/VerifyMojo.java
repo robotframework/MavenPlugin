@@ -72,12 +72,51 @@ public class VerifyMojo
     private boolean isTestFailureIgnore;
 
     /**
+     * Skip verification of tests. Bound to -DskipTests. This allows to skip acceptance tests together with all
+     * other tests.
+     *
+     * @parameter expression="${skipTests}"
+     */
+    private boolean skipTests;
+
+    /**
+     * Skip verification of  acceptance tests executed by this plugin. Bound to -DskipATs. This allows to run tests
+     * and integration tests, but no acceptance tests.
+     *
+     * @parameter expression="${skipATs}"
+     */
+    private boolean skipATs;
+
+    /**
+     * Skip verification of acceptance tests executed by this plugin together with other integration tests, e.g.
+     * tests run by the maven-failsafe-plugin. Bound to -DskipITs
+     *
+     * @parameter expression="${skipITs}"
+     */
+    private boolean skipITs;
+
+    /**
+     * Skip verification of tests, bound to -Dmaven.test.skip, which suppresses test compilation as well.
+     *
+     * @parameter default-value="false" expression="${maven.test.skip}"
+     */
+    private boolean skip;
+
+    private boolean shouldSkipTests() {
+        return skipTests || skipITs || skipATs || skip;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     protected void subclassExecute()
             throws MojoExecutionException, MojoFailureException {
         // TODO: Refactor
+        if (shouldSkipTests()) {
+            getLog().info("RobotFramework tests are skipped.");
+            return;
+        }
         if (xunitFile == null) {
             String testCasesFolderName = testCasesDirectory.getName();
             xunitFile = new File("TEST-" + testCasesFolderName.replace(' ', '_') + ".xml");
