@@ -25,13 +25,13 @@ Releasing
 
 osx:
 ```bash
+grep -rl 'sion>1.0.5</ver' ./ | xargs sed -i '' 's|sion>1.0.5</ver|sion>1.0.5</ver|g'
 grep -rl 'sion>1.0.4</ver' ./ | xargs sed -i '' 's|sion>1.0.4</ver|sion>1.0.5</ver|g'
-grep -rl 'sion>1.0.3</ver' ./ | xargs sed -i '' 's|sion>1.0.3</ver|sion>1.0.4</ver|g'
 ```
 linux:
 ```bash
+grep -rl 'sion>1.0.5</ver' ./ | xargs sed -i 's|sion>1.0.5</ver|sion>1.0.5</ver|g'
 grep -rl 'sion>1.0.4</ver' ./ | xargs sed -i 's|sion>1.0.4</ver|sion>1.0.5</ver|g'
-grep -rl 'sion>1.0.3</ver' ./ | xargs sed -i 's|sion>1.0.3</ver|sion>1.0.4</ver|g'
 ```
 * Sanity check the changes
 
