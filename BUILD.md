@@ -21,15 +21,17 @@ mvn site:site
 Releasing
 =========
 
-* update the version numbers
+* update the version numbers, first references to next version, then the references to current.
 
 osx:
 ```bash
-grep -rl 'sion>1.0.2</ver' ./ | xargs sed -i '' 's|sion>1.0.2</ver|sion>1.0.3</ver|g'
+grep -rl 'sion>1.0.4</ver' ./ | xargs sed -i '' 's|sion>1.0.4</ver|sion>1.0.5</ver|g'
+grep -rl 'sion>1.0.3</ver' ./ | xargs sed -i '' 's|sion>1.0.3</ver|sion>1.0.4</ver|g'
 ```
 linux:
 ```bash
-grep -rl 'sion>1.0.2</ver' ./ | xargs sed -i 's|sion>1.0.2</ver|sion>1.0.3</ver|g'
+grep -rl 'sion>1.0.4</ver' ./ | xargs sed -i 's|sion>1.0.4</ver|sion>1.0.5</ver|g'
+grep -rl 'sion>1.0.3</ver' ./ | xargs sed -i 's|sion>1.0.3</ver|sion>1.0.4</ver|g'
 ```
 * Sanity check the changes
 
@@ -49,8 +51,8 @@ mvn site:site
 * Commit to git
 
 ```bash
-git commit -am "version 1.0.3"
-git tag 1.0.3
+git commit -am "version 1.0.4"
+git tag 1.0.4
 git push
 git push --tags
 ```
