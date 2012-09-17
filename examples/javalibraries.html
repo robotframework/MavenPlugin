@@ -30,7 +30,7 @@
             
                 <div class="xleft">
         <span id="publishDate">Last Published: 2012-09-17</span>
-                  &nbsp;| <span id="projectVersion">Version: 1.0.3</span>
+                  &nbsp;| <span id="projectVersion">Version: 1.0.4</span>
                       </div>
             <div class="xright">        
             
@@ -91,7 +91,7 @@
   &lt;/plugin&gt;</pre></div></li><li>Python libraries with Java dependencies<p>But there is a different use case. Python libraries can use Java libraries directly using JPype. For example, the Python based DatabaseLibrary can be used with jaydebeapi and JPype to access databases via Python and jdbc.</p><p>Such a test runs within a pure Python environment with JPype installed, as well as with Jython. That way you can have database test cases that run within RIDE in Python mode, and within the Robotframework Maven Plugin.</p><p>If you need Java libraries as dependencies to your test libraries, you can add them to the dependencies section of the maven plugin configuration in the pom.</p><div class="source"><pre>  &lt;plugin&gt;
     &lt;groupId&gt;org.robotframework&lt;/groupId&gt;
     &lt;artifactId&gt;robotframework-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;1.0.3&lt;/version&gt;
+    &lt;version&gt;1.0.4&lt;/version&gt;
     &lt;configuration&gt;
       &lt;extraPathDirectories&gt;
         &lt;extraPathDirectory&gt;src/test/resources/python&lt;/extraPathDirectory&gt;
