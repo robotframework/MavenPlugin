@@ -73,6 +73,7 @@ public class LibDocMojo
      *                                      Considered to be relative to the ${basedir} of the project.
      *                                      Default ${project.build.directory}/robotframework/libdoc</li>
      * <li><code>name</code>                Sets the name of the documented library or resource.</li>
+     * <li><code>version</code>             Sets the version of the documented library or resource.</li>
      * <li><code>extraPathDirectories</code> A directory to be added to the PYTHONPATH/CLASSPATH when creating documentation.
      * e.g. src/main/java/com/test/</li>
      * </ul>

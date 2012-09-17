@@ -32,6 +32,7 @@ public class LibDocConfiguration {
         Arguments generatedArguments = new Arguments();
         generatedArguments.add("libdoc");
         generatedArguments.addNonEmptyStringToArguments(name, "--name");
+        generatedArguments.addNonEmptyStringToArguments(version, "--version");
         generatedArguments.addFileListToArguments(getExtraPathDirectoriesWithDefault(), "--pythonpath");
         generatedArguments.add(getLibraryOrResource());
         generatedArguments.add(getOutputPath());
@@ -99,6 +100,11 @@ public class LibDocConfiguration {
      * Sets the name of the documented library or resource.
      */
     private String name;
+
+    /**
+     * Sets the version of the documented library or resource.
+     */
+    private String version;
 
     /**
      * Name or path of the documented library or resource file.
