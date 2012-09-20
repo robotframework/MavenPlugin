@@ -31,6 +31,10 @@ import java.util.List;
 public abstract class AbstractMojoWithLoadedClasspath
         extends AbstractMojo {
 
+
+    private static RobotMojoClassLoader currentMojoLoader;
+
+
     /**
      * @parameter expression="${project.testClasspathElements}"
      * @required
@@ -63,9 +67,16 @@ public abstract class AbstractMojoWithLoadedClasspath
         }
 
         if (urls.size() > 0) {
-            ClassLoader realm = new URLClassLoader(urls.toArray(new URL[urls.size()]), getClass().getClassLoader());
-            Thread.currentThread().setContextClassLoader(realm);
+            updateMojoLoader(urls);
+            Thread.currentThread().setContextClassLoader(currentMojoLoader);
         }
+    }
+
+    private void updateMojoLoader(List<URL> urls) {
+        if (currentMojoLoader==null)
+            currentMojoLoader = new RobotMojoClassLoader(urls.toArray(new URL[0]), getClass().getClassLoader());
+        else
+            currentMojoLoader.append(urls);
     }
 
     public File makeAbsolute(File folder, File file) {
