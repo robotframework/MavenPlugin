@@ -586,7 +586,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     /**
      * A text file to read more arguments from.
      *
-     * @parameter
+     * @parameter expression="${argumentFile}"
      */
     private File argumentFile;
 
