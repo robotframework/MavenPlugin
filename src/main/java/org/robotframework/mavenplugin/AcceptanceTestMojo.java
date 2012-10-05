@@ -18,6 +18,7 @@ package org.robotframework.mavenplugin;
  */
 
 import java.io.File;
+import java.lang.System;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -586,7 +587,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     /**
      * A text file to read more arguments from.
      *
-     * @parameter
+     * @parameter expression="${argumentFile}"
      */
     private File argumentFile;
 
