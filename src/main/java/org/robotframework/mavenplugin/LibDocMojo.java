@@ -83,7 +83,7 @@ public class LibDocMojo
      * Example:
      * <pre><![CDATA[<libdoc>
      *      <outputFile>MyLib.html</outputFile>
-     *      <libraryOrResourceFile>src/main/java/com/mylib/MyLib.java</libraryOrResourceFile>
+     *      <libraryOrResourceFile>com.mylib.MyLib</libraryOrResourceFile>
      * </libdoc>]]></pre>
      *
      * @parameter
