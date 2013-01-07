@@ -65,7 +65,9 @@ public class LibDocMojo
      * Use extraPathDirectories to set PYTHONPATH/CLASSPATH accordingly.
      * <p/>
      * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid Python/Java
-     * source file or a resource file. For example <code>src/main/java/com/test/ExampleLib.java</code></li>
+     * source file or a resource file. For example <code>src/main/python/test/ExampleLib.py</code>
+     * <p/>
+     * Note that you should preferably import java classes by classname, not path. Dynamic libraries will not be compiled correctly with path.</li>
      * </ul>
      * Optional settings:
      * <ul>
