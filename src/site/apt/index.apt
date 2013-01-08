@@ -21,11 +21,15 @@ Robot Framework Maven Plugin
 
 * Goals Overview
 
-  Plugin provides the following two goals:
+  Plugin provides the following goals:
 
   * {{{./run-mojo.html}robotframework:run}} - behaves like invoking the
   {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#starting-test-execution}jybot}}
   Robot Framework command for executing test cases
+  
+  * {{{./acceptance-test-mojo.html}robotframework:acceptance-test}} - Runs the tests, like the run-goal, but does not verify the test results.
+  
+  * {{{./verify-mojo.html}robotframework:verify}} - Verifies the results from acceptance-test goal.
 
   * {{{./libdoc-mojo.html}robotframework:libdoc}} invokes the
   {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#library-documentation-tool-libdoc}libdoc.py}}

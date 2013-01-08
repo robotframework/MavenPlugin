@@ -34,6 +34,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
+ * Verifies the results from acceptance-test goal.
+ *
  * @goal verify
  * @phase verify
  * @requiresDependencyResolution test
