@@ -31,8 +31,8 @@ public class Arguments {
 
     public void addFileToArguments(File file, String flag) {
         if (isFileValid(file)) {
-            arguments.add(flag);
-            arguments.add(!file.getName().toUpperCase().equals("NONE") ? file.getPath() : file.getName());
+            String path = !file.getName().toUpperCase().equals("NONE") ? file.getPath() : file.getName();
+            add(flag, path);
         }
     }
 
@@ -48,13 +48,12 @@ public class Arguments {
 
     public void addFlagToArguments( boolean flag, String argument) {
         if (flag == true) {
-            arguments.add(argument);
+            add(argument);
         }
     }
 
     public void addStringToArguments(String variableToAdd, String flag) {
-        arguments.add(flag);
-        arguments.add(variableToAdd);
+        add(flag, variableToAdd);
     }
 
     public void addListToArguments(String variablesToAdd, String flag) {
@@ -70,8 +69,7 @@ public class Arguments {
         }
         for (String variableToAdd : variablesToAdd) {
             if (!StringUtils.isEmpty(variableToAdd)) {
-                arguments.add(flag);
-                arguments.add(variableToAdd);
+                add(flag, variableToAdd);
             }
         }
     }
@@ -85,8 +83,9 @@ public class Arguments {
         }
     }
 
-    public void add(String value) {
-        arguments.add(value);
+    public void add(String... values) {
+        for (String value:values)
+            arguments.add(value);
     }
 
     public String[] toArray() {
