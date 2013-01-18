@@ -72,6 +72,17 @@ public abstract class AbstractMojoWithLoadedClasspath
         }
     }
 
+    protected String getClassPathString() {
+        if (classpathElements==null) {
+            return System.getProperty("java.class.path");
+        }
+        String result= "";
+        for (String elem: classpathElements) {
+            result +=elem + File.pathSeparator;
+        }
+        return result;
+    }
+
     private void updateMojoLoader(List<URL> urls) {
         if (currentMojoLoader==null)
             currentMojoLoader = new RobotMojoClassLoader(urls.toArray(new URL[0]), getClass().getClassLoader());

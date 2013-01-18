@@ -22,6 +22,13 @@ public class RobotFrameworkMojoTest
         mojo.execute();
     }
 
+    public void testShouldSucceedWithExternalRunner()
+            throws Exception {
+        File pom = getTestFile("src/test/resources/pom-configure-runner.xml");
+        RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo("run", pom);
+        mojo.execute();
+    }
+
     public void testShouldFail()
             throws Exception {
         File pom = getTestFile("src/test/resources/pom-fail.xml");

@@ -17,10 +17,11 @@ package org.robotframework.mavenplugin;
  * limitations under the License.
  */
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -67,10 +68,58 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         String[] runArguments = generateRunArguments();
 
         getLog().debug("robotframework arguments: " + StringUtils.join(runArguments, " "));
+        evaluateReturnCode(executeRobot(runArguments));
+    }
 
-        int robotRunReturnValue = RobotFramework.run(runArguments);
-        evaluateReturnCode(robotRunReturnValue);
+    private int executeRobot(String[] runArguments) throws MojoExecutionException {
+        if (externalRunner==null) {
+            return  RobotFramework.run(runArguments);
+        } else {
+            return externalExecute(runArguments);
+        }
+    }
 
+    private int externalExecute(String[] runArguments) throws MojoExecutionException {
+        try {
+            return exec(RobotFramework.class, runArguments, externalRunner.getEnvironmentVariables());
+        } catch (IOException e) {
+            throw new MojoExecutionException("Executing external robot failed.", e);
+        } catch (InterruptedException e) {
+            throw new MojoExecutionException("Executing external robot failed.", e);
+        }
+    }
+
+    public int exec(Class klass, String[] arguments, Map<String, String> environment) throws IOException,
+            InterruptedException {
+        ProcessBuilder builder = new ProcessBuilder(createExternalCommand(klass, arguments));
+        Map<String, String> env =  builder.environment();
+        env.putAll(environment);
+        Process process = builder.start();
+        process.waitFor();
+        int result = process.exitValue();
+        readOutput(process);
+        return result;
+    }
+
+    private void readOutput(Process process) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()) );
+        String line;
+        while ((line = in.readLine()) != null) {
+            System.out.println(line);
+        }
+        in.close();
+    }
+
+    private List<String> createExternalCommand(Class klass, String[] arguments) {
+        String javaHome = System.getProperty("java.home");
+        String javaBin = javaHome + File.separator + "bin" + File.separator + "java";
+        String classpath = getClassPathString();
+        String className = klass.getCanonicalName();
+        List<String> cmd = new ArrayList<String>();
+        cmd.addAll(Arrays.asList(new String[]{javaBin, "-cp", classpath, className}));
+        cmd.addAll(Arrays.asList(arguments));
+        System.out.println(cmd);
+        return cmd;
     }
 
     protected void evaluateReturnCode(int robotRunReturnValue)
@@ -627,7 +676,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      *
      * @parameter default-value="false"
      */
-
     private boolean runEmptySuite;
 
     /**
@@ -636,7 +684,11 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      *
      * @parameter default-value="false"
      */
-
     private boolean noStatusReturnCode;
+
+    /**
+     * @parameter
+     */
+    private ExternalRunnerConfiguration externalRunner;
 
 }
