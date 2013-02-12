@@ -686,6 +686,17 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private boolean noStatusReturnCode;
 
     /**
+     * <p></p>Test are executed in a new process if this configuration is used. Currently only subconfiguration
+     * element is an optional environmentVariables-map.</p>
+     * <p>The tests will run using the latest robot jar versino from local repository.</p>
+     *
+     * Example:
+     * <pre><![CDATA[<externalRunner>
+     *      <environmentVariables>
+     *          <foo>bar</foo>
+     *      </environmentVariables>
+     * </externalRunner>]]></pre>
+     *
      * @parameter
      */
     private ExternalRunnerConfiguration externalRunner;
