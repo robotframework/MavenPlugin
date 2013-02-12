@@ -24,16 +24,13 @@ import org.apache.maven.plugin.MojoFailureException;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class AbstractMojoWithLoadedClasspath
         extends AbstractMojo {
 
-
     private static RobotMojoClassLoader currentMojoLoader;
-
+    private static String ROBOT_ARTIFACT = join(File.separator, "org", "robotframework", "robotframework");
 
     /**
      * @parameter expression="${project.testClasspathElements}"
@@ -41,6 +38,13 @@ public abstract class AbstractMojoWithLoadedClasspath
      * @readonly
      */
     private List<String> classpathElements;
+
+    /**
+     * @parameter expression="${settings.localRepository}"
+     * @required
+     * @readonly
+     */
+    private String localRepository;
 
     public void execute()
             throws MojoExecutionException, MojoFailureException {
@@ -73,14 +77,75 @@ public abstract class AbstractMojoWithLoadedClasspath
     }
 
     protected String getClassPathString() {
-        if (classpathElements==null) {
+        if (localRepository ==null || classpathElements==null) {
+            // when executed outside of maven (like in unit tests)
             return System.getProperty("java.class.path");
         }
-        String result= "";
+        String result= getRobotJar(localRepository);
         for (String elem: classpathElements) {
-            result +=elem + File.pathSeparator;
+            result +=File.pathSeparator + elem;
         }
         return result;
+    }
+
+    private String getRobotJar(String localRepo) {
+        File robots = new File(localRepo, ROBOT_ARTIFACT);
+        String latest = latestVersion(robots.list());
+        return join(File.separator, robots.toString(), latest, "robotframework-"+latest+".jar");
+    }
+
+    static String latestVersion(String[] strings) {
+        Version[] versions = new Version[strings.length];
+        for (int i=0; i<strings.length; i++)
+            versions[i] = new Version(strings[i]);
+        Arrays.sort(versions);
+        return versions[versions.length-1].string;
+    }
+
+    static class Version implements Comparable<Version>{
+
+        int[] version;
+        String string;
+
+        Version(String versionString) {
+            string = versionString;
+            String[] split = versionString.split("\\.");
+            version = new int[split.length];
+            for (int i = 0; i<version.length; i++) {
+                try {
+                    version[i] = Integer.parseInt(split[i]);
+                } catch (NumberFormatException nfe) {
+                    version = new int[0];
+                }
+            }
+        }
+
+        public boolean equals(Object other) {
+            if (!(other instanceof Version))
+                return false;
+            return compareTo((Version)other) == 0;
+        }
+
+        public int compareTo(Version other) {
+            for (int i=0; i < Math.max(version.length, other.version.length); i++) {
+                int difference = numberAt(i) - other.numberAt(i);
+                if (difference != 0)
+                    return difference;
+            }
+            return 0;
+        }
+
+        private int numberAt(int index) {
+            return index < version.length ? version[index] : 0;
+        }
+    }
+
+    protected static String join(String joiner, String... elements) {
+        StringBuilder result = new StringBuilder();
+        for (String elem: elements) {
+            result.append(elem).append(joiner);
+        }
+        return result.substring(0, result.length()-joiner.length());
     }
 
     private void updateMojoLoader(List<URL> urls) {

@@ -25,9 +25,13 @@
             </execution>
         </executions>
         <configuration>
+          <externalRunner>
+              <environmentVariables>
+                  <WAT>magic is this?</WAT>
+              </environmentVariables>
+          </externalRunner>
           <tests>
-              <test>*TestNegatives</test>
-              <test>Successful_Test</test>
+            <test>Successful_Test</test>
           </tests>
         </configuration>
       </plugin>

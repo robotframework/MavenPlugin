@@ -66,6 +66,13 @@ public class AcceptanceTestAndVerifyMojoIT
         assertFilePresent("target/robotframework-reports/TEST-acceptance.xml");
     }
 
+    public void testPomWithExternalRunner() throws IOException, VerificationException {
+        cliOptions.add("-f");
+        cliOptions.add("pom_with_external_runner.xml");
+        executeGoals(PLUGIN + ":acceptance-test",PLUGIN + ":verify");
+        assertFilePresent("target/robotframework-reports/TEST-acceptance.xml");
+    }
+
 	public void testVerificationIsSkippedIfTestsAre() throws IOException, VerificationException {
 		cliOptions.add("-DskipATs");
 		executeGoals(PLUGIN + ":acceptance-test",PLUGIN + ":verify");

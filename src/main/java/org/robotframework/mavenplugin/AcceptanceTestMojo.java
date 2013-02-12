@@ -17,10 +17,7 @@ package org.robotframework.mavenplugin;
  * limitations under the License.
  */
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -97,12 +94,13 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         Process process = builder.start();
         process.waitFor();
         int result = process.exitValue();
-        readOutput(process);
+        readOutput(process.getInputStream());
+        readOutput(process.getErrorStream());
         return result;
     }
 
-    private void readOutput(Process process) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()) );
+    private void readOutput(InputStream input) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(input));
         String line;
         while ((line = in.readLine()) != null) {
             System.out.println(line);
@@ -112,12 +110,13 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
 
     private List<String> createExternalCommand(Class klass, String[] arguments) {
         String javaHome = System.getProperty("java.home");
-        String javaBin = javaHome + File.separator + "bin" + File.separator + "java";
+        String javaBin = join(File.separator, javaHome, "bin", "java");
         String classpath = getClassPathString();
         String className = klass.getCanonicalName();
         List<String> cmd = new ArrayList<String>();
         cmd.addAll(Arrays.asList(new String[]{javaBin, "-cp", classpath, className}));
         cmd.addAll(Arrays.asList(arguments));
+        System.out.println("Executing Robot with command:");
         System.out.println(cmd);
         return cmd;
     }

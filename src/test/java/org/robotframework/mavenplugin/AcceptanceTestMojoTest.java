@@ -2,6 +2,7 @@ package org.robotframework.mavenplugin;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasXPath;
+import static org.robotframework.mavenplugin.AbstractMojoWithLoadedClasspath.latestVersion;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,6 +96,20 @@ public class AcceptanceTestMojoTest
         Document xunit = parseDocument(xunitFile);
         assertThat(xunit, hasXPath("/testsuite[@errors='1']"));
         assertThat(xunit, hasXPath("/testsuite/testcase/error[@message = 'Invalid test data or command line options (Returncode 252).']"));
+    }
+
+    public void testVersionChooser() throws Exception {
+        assertEquals("2.7.6", latestVersion(new String[]{"2.5.6", "2.7.6"}));
+        assertEquals("2.7.8", latestVersion(new String[]{"2.5.6", "2.7.6.1", "2.7.8"}));
+        assertEquals("2.7.18", latestVersion(new String[]{"2.7.16", "2.7.18", "2.7.8"}));
+        assertEquals("2.7.1.1", latestVersion(new String[]{"2.7", "2", "2.7.1", "2.7.1.1"}));
+        assertEquals("3", latestVersion(new String[]{"2.7", "3", "2.7.1"}));
+        assertEquals("12020.1212.921444.1", latestVersion(new String[]{"12020.1212.921444.1", "3", "2.7.1.1.1.1.1", "12020.1212.99.2.3.4"}));
+    }
+
+    public void testVersionChooserWithNonNumeric() throws Exception {
+        assertEquals("2.5.6", latestVersion(new String[]{"2.5.6", "kekkonen", "kekkonen.urho"}));
+        assertEquals("2.6", latestVersion(new String[]{"2.5.6", "2.7.alpha", "2.6"}));
     }
 
     public void testErrorInTestCase() {
