@@ -15,7 +15,7 @@
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.0.7-SNAPSHOT</version>
+        <version>1.0.7</version>
         <executions>
             <execution>
                 <goals>
