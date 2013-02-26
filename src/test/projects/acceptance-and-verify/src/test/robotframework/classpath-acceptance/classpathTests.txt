@@ -1,0 +1,3 @@
+*** Test cases ***
+Dependencies should be in classpath
+     Should contain             %{java.class.path}       maven-plugin-testing
