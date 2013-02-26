@@ -269,6 +269,8 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         generatedArguments.addListToArguments(criticalTags, "-c");
         generatedArguments.addListToArguments(nonCriticalTags, "-n");
         generatedArguments.addListToArguments(variables, "-v");
+        if (variables_cli!=null)
+            generatedArguments.addListToArguments(variables_cli, "-v");
         generatedArguments.addListToArguments(variableFiles, "-V");
         generatedArguments.addListToArguments(tagStatIncludes, "--tagstatinclude");
         generatedArguments.addListToArguments(tagStatExcludes, "--tagstatexclude");
@@ -425,6 +427,16 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter
      */
     private List<String> variables;
+
+    /**
+     * Sets individual variables. Use the format "name:value" and separate entries with comma.
+     * These are added into variables defined in the pom (variables with same name are overridden).
+     *
+     * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
+     *
+     * @parameter expression="${variables}"
+     */
+    private String variables_cli;
 
     /**
      * Sets variables using variables files. Use the format "path:args"

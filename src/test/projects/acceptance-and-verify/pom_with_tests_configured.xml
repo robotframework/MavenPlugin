@@ -29,6 +29,10 @@
               <test>*TestNegatives</test>
               <test>Successful_Test</test>
           </tests>
+            <variables>
+                <variable>VariableThatShouldNotBeOverridden:permanent</variable>
+                <variable>VariableThatShouldBeOverridden:temp</variable>
+            </variables>
         </configuration>
       </plugin>
     </plugins>

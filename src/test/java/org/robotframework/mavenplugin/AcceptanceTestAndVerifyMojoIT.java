@@ -66,6 +66,15 @@ public class AcceptanceTestAndVerifyMojoIT
         assertFilePresent("target/robotframework-reports/TEST-acceptance.xml");
     }
 
+    public void testOverrideVariable() throws IOException, VerificationException {
+        cliOptions.add("-f");
+        cliOptions.add("pom_with_tests_configured.xml");
+        cliOptions.add("-Dtests=FailingBasedOnVariable");
+        cliOptions.add("-Dvariables=VariableThatShouldBeOverridden:permanent,ExtraVariableFromPrompt:overridden");
+        executeGoals(PLUGIN + ":acceptance-test", PLUGIN + ":verify");
+        assertFilePresent("target/robotframework-reports/TEST-acceptance.xml");
+    }
+
     public void testPomWithExternalRunner() throws IOException, VerificationException {
         cliOptions.add("-f");
         cliOptions.add("pom_with_external_runner.xml");
