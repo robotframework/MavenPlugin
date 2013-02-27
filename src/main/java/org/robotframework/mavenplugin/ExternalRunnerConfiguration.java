@@ -22,4 +22,5 @@ public class ExternalRunnerConfiguration {
     public boolean getExcludeDependencies() {
         return excludeDependencies == Boolean.TRUE;
     }
+
 }

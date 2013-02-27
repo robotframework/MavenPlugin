@@ -90,7 +90,12 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
             InterruptedException {
         ProcessBuilder builder = new ProcessBuilder(createExternalCommand(klass, arguments));
         Map<String, String> env =  builder.environment();
+        String classpath = externalRunner.getExcludeDependencies() ? getRobotJar() : getClassPathString();
+        if (environment.containsKey("CLASSPATH")) {
+            classpath += File.pathSeparator + environment.get("CLASSPATH");
+        }
         env.putAll(environment);
+        env.put("CLASSPATH", classpath);
         Process process = builder.start();
         process.waitFor();
         int result = process.exitValue();
@@ -111,10 +116,9 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private List<String> createExternalCommand(Class klass, String[] arguments) {
         String javaHome = System.getProperty("java.home");
         String javaBin = join(File.separator, javaHome, "bin", "java");
-        String classpath = externalRunner.getExcludeDependencies() ? getRobotJar() : getClassPathString();
         String className = klass.getCanonicalName();
         List<String> cmd = new ArrayList<String>();
-        cmd.addAll(Arrays.asList(new String[]{javaBin, "-cp", classpath, className}));
+        cmd.addAll(Arrays.asList(new String[]{javaBin, className}));
         cmd.addAll(Arrays.asList(arguments));
         System.out.println("Executing Robot with command:");
         System.out.println(cmd);

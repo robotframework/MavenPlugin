@@ -31,17 +31,19 @@
               <goal>verify</goal>
             </goals>
           </execution>
-        </executions>
+        </executions>cl
         <configuration>
           <tests>
             <test>Dependencies should not be in classpath</test>
           </tests>
-          <log>classpath_log.html</log>
           <testCasesDirectory>
             ${project.basedir}/src/test/robotframework/classpath-acceptance
           </testCasesDirectory>
           <externalRunner>
             <excludeDependencies>true</excludeDependencies>
+            <environmentVariables>
+              <CLASSPATH>this-should-be-seen-by-external-process.jar</CLASSPATH>
+            </environmentVariables>
           </externalRunner>
         </configuration>
       </plugin>
