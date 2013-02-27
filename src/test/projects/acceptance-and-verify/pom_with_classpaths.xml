@@ -33,14 +33,11 @@
             </execution>
         </executions>
         <configuration>
-            <log>classpath_log.html</log>
+          <log>classpath_log.html</log>
           <testCasesDirectory>
               ${project.basedir}/src/test/robotframework/classpath-acceptance
           </testCasesDirectory>
             <externalRunner>
-                <environmentVariables>
-                    <WAT>magic is this?</WAT>
-                </environmentVariables>
             </externalRunner>
         </configuration>
       </plugin>
