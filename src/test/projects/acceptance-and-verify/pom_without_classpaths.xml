@@ -34,13 +34,14 @@
         </executions>
         <configuration>
           <tests>
-            <test>Dependencies should be in classpath</test>
+            <test>Dependencies should not be in classpath</test>
           </tests>
           <log>classpath_log.html</log>
           <testCasesDirectory>
             ${project.basedir}/src/test/robotframework/classpath-acceptance
           </testCasesDirectory>
           <externalRunner>
+            <excludeDependencies>true</excludeDependencies>
           </externalRunner>
         </configuration>
       </plugin>

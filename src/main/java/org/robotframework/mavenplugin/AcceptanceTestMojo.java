@@ -111,7 +111,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private List<String> createExternalCommand(Class klass, String[] arguments) {
         String javaHome = System.getProperty("java.home");
         String javaBin = join(File.separator, javaHome, "bin", "java");
-        String classpath = getClassPathString();
+        String classpath = externalRunner.getExcludeDependencies() ? getRobotJar() : getClassPathString();
         String className = klass.getCanonicalName();
         List<String> cmd = new ArrayList<String>();
         cmd.addAll(Arrays.asList(new String[]{javaBin, "-cp", classpath, className}));

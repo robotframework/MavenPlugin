@@ -75,9 +75,16 @@ public class AcceptanceTestAndVerifyMojoIT
         assertFilePresent("target/robotframework-reports/TEST-acceptance.xml");
     }
 
-    public void testClasspathAcceptance() throws IOException, VerificationException {
+    public void testClasspath() throws IOException, VerificationException {
         cliOptions.add("-f");
         cliOptions.add("pom_with_classpaths.xml");
+        executeGoals(PLUGIN + ":acceptance-test", PLUGIN + ":verify");
+        assertFilePresent("target/robotframework-reports/TEST-classpath-acceptance.xml");
+    }
+
+    public void testWithoutClasspath() throws IOException, VerificationException {
+        cliOptions.add("-f");
+        cliOptions.add("pom_without_classpaths.xml");
         executeGoals(PLUGIN + ":acceptance-test", PLUGIN + ":verify");
         assertFilePresent("target/robotframework-reports/TEST-classpath-acceptance.xml");
     }

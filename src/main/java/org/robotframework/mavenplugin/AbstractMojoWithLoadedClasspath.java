@@ -81,15 +81,15 @@ public abstract class AbstractMojoWithLoadedClasspath
             // when executed outside of maven (like in unit tests)
             return System.getProperty("java.class.path");
         }
-        String result= getRobotJar(localRepository);
+        String result= getRobotJar();
         for (String elem: classpathElements) {
             result +=File.pathSeparator + elem;
         }
         return result;
     }
 
-    private String getRobotJar(String localRepo) {
-        File robots = new File(localRepo, ROBOT_ARTIFACT);
+    protected String getRobotJar() {
+        File robots = new File(localRepository, ROBOT_ARTIFACT);
         String latest = latestVersion(robots.list());
         return join(File.separator, robots.toString(), latest, "robotframework-"+latest+".jar");
     }
