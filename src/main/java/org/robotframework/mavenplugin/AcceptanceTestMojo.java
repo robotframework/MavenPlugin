@@ -97,20 +97,11 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         env.putAll(environment);
         env.put("CLASSPATH", classpath);
         Process process = builder.start();
-        process.waitFor();
-        int result = process.exitValue();
-        readOutput(process.getInputStream());
-        readOutput(process.getErrorStream());
-        return result;
-    }
-
-    private void readOutput(InputStream input) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(input));
-        String line;
-        while ((line = in.readLine()) != null) {
-            System.out.println(line);
-        }
-        in.close();
+        StreamReader stdout = new StreamReader(process.getInputStream());
+        StreamReader stderr = new StreamReader(process.getErrorStream());
+        stdout.start();
+        stderr.start();
+        return process.waitFor();
     }
 
     private List<String> createExternalCommand(Class klass, String[] arguments) {
@@ -725,4 +716,22 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      */
     private ExternalRunnerConfiguration externalRunner;
 
+}
+
+class StreamReader extends Thread {
+
+    BufferedReader input;
+
+    StreamReader(InputStream input) {
+        this.input = new BufferedReader(new InputStreamReader(input));
+    }
+
+    public void run() {
+        try {
+            String line=null;
+            while ((line = input.readLine()) != null)
+                System.out.println(line);
+        } catch (IOException ioe) {
+            ioe.printStackTrace(); }
+    }
 }
