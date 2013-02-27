@@ -702,15 +702,18 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private boolean noStatusReturnCode;
 
     /**
-     * <p></p>Test are executed in a new process if this configuration is used. Currently only subconfiguration
-     * element is an optional environmentVariables-map.</p>
+     * <p>Test are executed in a new process if this configuration is used.</p>
      * <p>The tests will be run using the latest robot jar version from local repository.</p>
+     * <p>Environment variable CLASSPATH can be used to include items into classpath.</p>
+     * <p>excludeDependencies is used to exclude pom specific entries from the classpath.</p>
      *
      * Example:
      * <pre><![CDATA[<externalRunner>
      *      <environmentVariables>
      *          <foo>bar</foo>
+     *          <CLASSPATH>this-should-be-seen-by-external-process.jar</CLASSPATH>
      *      </environmentVariables>
+     *      <excludeDependencies>true</excludeDependencies>
      * </externalRunner>]]></pre>
      *
      * @parameter
