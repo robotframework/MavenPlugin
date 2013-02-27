@@ -40,9 +40,7 @@
             ${project.basedir}/src/test/robotframework/classpath-acceptance
           </testCasesDirectory>
           <externalRunner>
-            <environmentVariables>
-              <WAT>magic is this?</WAT>
-            </environmentVariables>
+              <excludeDependencies>false</excludeDependencies>
           </externalRunner>
         </configuration>
       </plugin>
