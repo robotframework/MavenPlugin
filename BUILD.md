@@ -25,11 +25,11 @@ Releasing
 
 osx:
 ```bash
-grep -rl 'sion>1.0.7</ver' ./ | xargs sed -i '' 's|sion>1.0.7</ver|sion>1.0.8</ver|g'
+grep -rl 'sion>1.0.8</ver' ./ | xargs sed -i '' 's|sion>1.0.8</ver|sion>1.0.9</ver|g'
 ```
 linux:
 ```bash
-grep -rl 'sion>1.0.7</ver' ./ | xargs sed -i 's|sion>1.0.7</ver|sion>1.0.8</ver|g'
+grep -rl 'sion>1.0.8</ver' ./ | xargs sed -i 's|sion>1.0.8</ver|sion>1.0.9</ver|g'
 ```
 Last you should update those rows above.
 
