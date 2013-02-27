@@ -31,7 +31,7 @@
               <goal>verify</goal>
             </goals>
           </execution>
-        </executions>cl
+        </executions>
         <configuration>
           <tests>
             <test>Dependencies should not be in classpath</test>
