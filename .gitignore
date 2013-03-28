@@ -7,4 +7,6 @@ target
 .DS_store
 src/test/projects/acceptance-and-verify/log.txt
 docs/_build
-
+.classpath
+.settings/
+.project
