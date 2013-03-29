@@ -26,10 +26,10 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.robotframework.RobotFramework;
 
 /**
- * Create documentation of test libraries or resource files using the Robot Framework <code>libdoc</code> tool.
+ * Create documentation of test suites using the Robot Framework <code>testdoc</code> tool.
  * <p/>
- * Uses the <code>libdoc</code> bundled in Robot Framework jar distribution. For more help see
- * <a href="http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#library-documentation-tool-libdoc">libdoc documentation</a>.
+ * Uses the <code>testdoc</code> bundled in Robot Framework jar distribution. For more help see
+ * <a href="http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#test-data-documentation-tool-testdoc">testdoc documentation</a>.
  *
  * @goal testdoc
  * @requiresDependencyResolution test
@@ -75,7 +75,7 @@ public class TestDocMojo
      *                                      the title are converted to spaces. The default title is the 
      *                                      name of the top level suite.</li>
      * <li><code>name</code>                Override the name of the top level test suite.</li>
-     * <li><code>doc</code>                 Override the name of the top level test suite.</li>
+     * <li><code>doc</code>                 Override the documentation of the top level test suite.</li>
      * </ul>
      *
      * Example:

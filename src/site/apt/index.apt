@@ -32,8 +32,12 @@ Robot Framework Maven Plugin
   * {{{./verify-mojo.html}robotframework:verify}} - Verifies the results from acceptance-test goal.
 
   * {{{./libdoc-mojo.html}robotframework:libdoc}} invokes the
-  {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#library-documentation-tool-libdoc}libdoc.py}}
+  {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#library-documentation-tool-libdoc}libdoc}}
   Robot Framework command for generating keyword documentation for test libraries and resource files
+
+  * {{{./testdoc-mojo.html}robotframework:testdoc}} invokes the
+    {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#test-data-documentation-tool-testdoc}testdoc}}
+    Robot Framework command for generating high level overview of test suites
 
 
 * Getting started
