@@ -13,10 +13,11 @@ Plugin documentation is available at http://robotframework.github.com/MavenPlugi
 Maven Goals
 -----------
 
-The plugin currently has two goals:
+The plugin currently has three goals:
 
 * run - behaves like invoking the "jybot" Robot Framework command for executing test cases
 * libdoc - invokes the "libdoc.py" Robot Framework command for generating keyword documentation for test libraries and resource files
+* testdoc - invokes the "testdoc.py" Robot Framework command for generating high level documentation based on test cases
 
 Quick Start
 -----------
