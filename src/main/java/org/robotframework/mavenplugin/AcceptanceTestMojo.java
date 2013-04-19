@@ -92,7 +92,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         Map<String, String> env =  builder.environment();
         String classpath = externalRunner.getExcludeDependencies() ? getRobotJar() : getClassPathString();
         if (environment.containsKey("CLASSPATH")) {
-            classpath += File.pathSeparator + environment.get("CLASSPATH");
+            classpath = environment.get("CLASSPATH") + File.pathSeparator + classpath;
         }
         env.putAll(environment);
         env.put("CLASSPATH", classpath);
@@ -699,7 +699,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      *
      * <ul>
      *     <li>Environment variables can be added with <strong>environmentVariables</strong> map. CLASSPATH environment
-     *     variable is added to the default dependencies.</li>
+     *     variable is added (prepended) to the default dependencies.</li>
      *     <li><strong>excludeDependencies</strong> can be used to exclude the test scope dependencies from the classpath of the new process.</li>
      * </ul>
      *
