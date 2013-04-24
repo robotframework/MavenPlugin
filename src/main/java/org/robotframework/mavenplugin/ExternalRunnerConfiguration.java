@@ -2,6 +2,7 @@ package org.robotframework.mavenplugin;
 
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class ExternalRunnerConfiguration {
@@ -27,4 +28,18 @@ public class ExternalRunnerConfiguration {
         return excludeDependencies;
     }
 
+    /**
+     * JVM arguments for the new runner process.
+     * 
+     * @parameter
+     */
+    private List<String> jvmArgs;
+
+    public List<String> getJvmArgs() {
+        if(jvmArgs==null){
+            return Collections.emptyList();
+        } else {
+            return jvmArgs;
+        }
+    }
 }
