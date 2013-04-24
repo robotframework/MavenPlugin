@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Robotframework Maven Plugin - 
-    robotframework:libdoc</title>
+    robotframework:testdoc</title>
     <style type="text/css" media="all">
       @import url("./css/maven-base.css");
       @import url("./css/maven-theme.css");
@@ -80,16 +80,16 @@
       <div id="contentBox">
         
   
-    <div class="section"><h2>robotframework:libdoc<a name="robotframework:libdoc"></a></h2>
+    <div class="section"><h2>robotframework:testdoc<a name="robotframework:testdoc"></a></h2>
       <p><b>Full name</b>:</p>
-      <p>org.robotframework:robotframework-maven-plugin:1.1:libdoc</p>
+      <p>org.robotframework:robotframework-maven-plugin:1.1:testdoc</p>
       <p><b>Description</b>:</p>
-      <div>Create documentation of test libraries or resource files using the
-Robot Framework <tt>libdoc</tt> tool. 
+      <div>Create documentation of test suites using the Robot Framework
+<tt>testdoc</tt> tool. 
 
-<p></p>Uses the <tt>libdoc</tt> bundled in Robot Framework jar
-distribution. For more help see <a class="externalLink" href="http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#library-documentation-tool-libdoc">
-libdoc documentation</a>.</div>
+<p></p>Uses the <tt>testdoc</tt> bundled in Robot Framework jar
+distribution. For more help see <a class="externalLink" href="http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#test-data-documentation-tool-testdoc">
+testdoc documentation</a>.</div>
       <p><b>Attributes</b>:</p>
       <ul>
         <li>Requires a Maven 2.0 project to be executed.</li>
@@ -104,122 +104,94 @@ libdoc documentation</a>.</div>
             <th>Description</th>
           </tr>
           <tr class="b">
-            <td><b><a href="#libdoc">libdoc</a></b></td>
-            <td><tt>LibDocConfiguration</tt></td>
+            <td><b><a href="#testdoc">testdoc</a></b></td>
+            <td><tt>TestDocConfiguration</tt></td>
             <td><tt>-</tt></td>
-            <td>Library documentation configuration. Required settings: 
+            <td>Test case documentation configuration. Required settings: 
 
 <ul>
-<li><tt>outputFile</tt> The name for the output file.
-Documentation output format is deduced from the file
-extension.</li>
+<li><tt>outputFile</tt> The name for the output file.</li>
 
-<li><tt>libraryOrResourceFile</tt> Name or path of the
-documented library or resource file. 
-
-<p></p>Name must be in the same format as when used in Robot
-Framework test data, for example <tt>BuiltIn</tt> or
-<tt>com.acme.FooLibrary</tt>. When name is used, the library is
-imported the same as when running the tests. Use
-extraPathDirectories to set PYTHONPATH/CLASSPATH accordingly. 
-
-<p></p>Paths are considered relative to the location of
-<tt>pom.xml</tt> and must point to a valid Python/Java source
-file or a resource file. For example
-<tt>src/main/python/test/ExampleLib.py</tt> 
-
-<p></p>Note that you should preferably import java classes by
-classname, not path. Dynamic libraries will not be compiled
-correctly with path.</li>
+<li><tt>dataSourceFile</tt> Name or path of the documented test
+case(s).</li>
 </ul>
 
-Optional settings: 
+<p></p>Paths are considered relative to the location of
+<tt>pom.xml</tt> and must point to a valid test case file. For
+example <tt>src/main/test/ExampleTest.txt</tt> Optional
+settings: 
 
 <ul>
 <li><tt>outputDirectory</tt> Specifies the directory where
 documentation files are written. Considered to be relative to the
 ${basedir} of the project. Default
-${project.build.directory}/robotframework/libdoc</li>
+${project.build.directory}/robotframework/testdoc</li>
 
-<li><tt>name</tt> Sets the name of the documented library or
-resource.</li>
+<li><tt>title</tt> Set the title of the generated
+documentation. Underscores in the title are converted to spaces.
+The default title is the name of the top level suite.</li>
 
-<li><tt>version</tt> Sets the version of the documented library
-or resource.</li>
+<li><tt>name</tt> Override the name of the top level test
+suite.</li>
 
-<li><tt>extraPathDirectories</tt> A directory to be added to
-the PYTHONPATH/CLASSPATH when creating documentation. e.g.
-src/main/java/com/test/</li>
+<li><tt>doc</tt> Override the documentation of the top level
+test suite.</li>
 </ul>
 
 Example: 
 
 <div><pre>
 &lt;libdoc&gt;
-&lt;outputFile&gt;MyLib.html&lt;/outputFile&gt;
-&lt;libraryOrResourceFile&gt;com.mylib.MyLib&lt;/libraryOrResourceFile&gt;
+&lt;outputFile&gt;MyTests.html&lt;/outputFile&gt;
+&lt;dataSourceFile&gt;src/test/resources/MyTests.txt&lt;/dataSourceFile&gt;
 &lt;/libdoc&gt;
 </pre></div><br /></td>
           </tr>
         </table>
       </div>
       <div class="section"><h3>Parameter Details<a name="Parameter_Details"></a></h3>
-        <p><b><a name="libdoc">libdoc</a>:</b></p>
-        <div>Library documentation configuration. Required settings: 
+        <p><b><a name="testdoc">testdoc</a>:</b></p>
+        <div>Test case documentation configuration. Required settings: 
 
 <ul>
-<li><tt>outputFile</tt> The name for the output file.
-Documentation output format is deduced from the file
-extension.</li>
+<li><tt>outputFile</tt> The name for the output file.</li>
 
-<li><tt>libraryOrResourceFile</tt> Name or path of the
-documented library or resource file. 
-
-<p></p>Name must be in the same format as when used in Robot
-Framework test data, for example <tt>BuiltIn</tt> or
-<tt>com.acme.FooLibrary</tt>. When name is used, the library is
-imported the same as when running the tests. Use
-extraPathDirectories to set PYTHONPATH/CLASSPATH accordingly. 
-
-<p></p>Paths are considered relative to the location of
-<tt>pom.xml</tt> and must point to a valid Python/Java source
-file or a resource file. For example
-<tt>src/main/python/test/ExampleLib.py</tt> 
-
-<p></p>Note that you should preferably import java classes by
-classname, not path. Dynamic libraries will not be compiled
-correctly with path.</li>
+<li><tt>dataSourceFile</tt> Name or path of the documented test
+case(s).</li>
 </ul>
 
-Optional settings: 
+<p></p>Paths are considered relative to the location of
+<tt>pom.xml</tt> and must point to a valid test case file. For
+example <tt>src/main/test/ExampleTest.txt</tt> Optional
+settings: 
 
 <ul>
 <li><tt>outputDirectory</tt> Specifies the directory where
 documentation files are written. Considered to be relative to the
 ${basedir} of the project. Default
-${project.build.directory}/robotframework/libdoc</li>
+${project.build.directory}/robotframework/testdoc</li>
 
-<li><tt>name</tt> Sets the name of the documented library or
-resource.</li>
+<li><tt>title</tt> Set the title of the generated
+documentation. Underscores in the title are converted to spaces.
+The default title is the name of the top level suite.</li>
 
-<li><tt>version</tt> Sets the version of the documented library
-or resource.</li>
+<li><tt>name</tt> Override the name of the top level test
+suite.</li>
 
-<li><tt>extraPathDirectories</tt> A directory to be added to
-the PYTHONPATH/CLASSPATH when creating documentation. e.g.
-src/main/java/com/test/</li>
+<li><tt>doc</tt> Override the documentation of the top level
+test suite.</li>
 </ul>
 
 Example: 
 
 <div><pre>
 &lt;libdoc&gt;
-&lt;outputFile&gt;MyLib.html&lt;/outputFile&gt;
-&lt;libraryOrResourceFile&gt;com.mylib.MyLib&lt;/libraryOrResourceFile&gt;
+&lt;outputFile&gt;MyTests.html&lt;/outputFile&gt;
+&lt;dataSourceFile&gt;src/test/resources/MyTests.txt&lt;/dataSourceFile&gt;
 &lt;/libdoc&gt;
 </pre></div></div>
         <ul>
-          <li><b>Type</b>: <tt>org.robotframework.mavenplugin.LibDocConfiguration</tt></li>
+          <li><b>Type</b>: <tt>org.robotframework.mavenplugin.TestDocConfiguration</tt></li>
           <li><b>Required</b>: <tt>Yes</tt></li>
         </ul>
       </div>
