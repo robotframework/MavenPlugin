@@ -2,7 +2,8 @@ package org.robotframework.mavenplugin;
 
 /*
  * Copyright 2011 Michael Mallete, Dietrich Schulten
- * Copyright 2012 Nokia Siemens Networks Oyj
+ * Copyright 2013 Nokia Siemens Networks Oyj
+ * Copyright 2013 Gaurav Arora
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
