@@ -58,6 +58,13 @@ public class AcceptanceTestAndVerifyMojoIT
         assertFilePresent("target/robotframework-reports/TEST-acceptance.xml");
     }
 
+    public void testVerificationIgnoresNonCritical() throws IOException, VerificationException {
+        cliOptions.add("-f");
+        cliOptions.add("pom_with_noncritical_failures.xml");
+        executeGoals(PLUGIN + ":acceptance-test",PLUGIN + ":verify");
+        assertFilePresent("target/robotframework-reports/TEST-acceptance.xml");
+    }
+
     public void testPomWithTestsConfiguredOverridden() throws IOException, VerificationException {
         cliOptions.add("-f");
         cliOptions.add("pom_with_tests_configured.xml");

@@ -25,14 +25,9 @@
             </execution>
         </executions>
         <configuration>
-          <tests>
-              <test>*TestNegatives</test>
-              <test>Successful_Test</test>
-          </tests>
-            <variables>
-                <variable>VariableThatShouldNotBeOverridden:permanent</variable>
-                <variable>VariableThatShouldBeOverridden:temp</variable>
-            </variables>
+          <criticalTags>
+              <criticalTag>success</criticalTag>
+          </criticalTags>
         </configuration>
       </plugin>
     </plugins>

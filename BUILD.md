@@ -25,11 +25,11 @@ Releasing
 
 osx:
 ```bash
-grep -rl 'sion>1.1</ver' ./ | xargs sed -i '' 's|sion>1.1</ver|sion>1.1.1</ver|g'
+grep -rl 'sion>1.2</ver' ./ | xargs sed -i '' 's|sion>1.2</ver|sion>1.3</ver|g'
 ```
 linux:
 ```bash
-grep -rl 'sion>1.1</ver' ./ | xargs sed -i 's|sion>1.1</ver|sion>1.1.1</ver|g'
+grep -rl 'sion>1.2</ver' ./ | xargs sed -i 's|sion>1.2</ver|sion>1.3</ver|g'
 ```
 Last you should update those rows above.
 
@@ -51,8 +51,8 @@ mvn site:site
 * Commit to git
 
 ```bash
-git commit -am "version 1.0.4"
-git tag 1.0.4
+git commit -am "version 1.3"
+git tag 1.3
 git push
 git push --tags
 ```

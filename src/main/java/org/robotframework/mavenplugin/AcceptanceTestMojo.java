@@ -229,6 +229,10 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         generatedArguments.addNonEmptyStringToArguments(name, "-N");
         generatedArguments.addNonEmptyStringToArguments(document, "-D");
         generatedArguments.addNonEmptyStringToArguments(runMode, "--runmode");
+        generatedArguments.addFlagToArguments(dryrun, "--dryrun");
+        generatedArguments.addFlagToArguments(exitOnFailure, "--exitonfailure");
+        generatedArguments.addFlagToArguments(skipTeardownOnExit, "--skipteardownonexit");
+        generatedArguments.addNonEmptyStringToArguments(randomize, "--randomize");
         generatedArguments.addNonEmptyStringToArguments(splitOutputs, "--splitoutputs");
         generatedArguments.addNonEmptyStringToArguments(logTitle, "--logtitle");
         generatedArguments.addNonEmptyStringToArguments(reportTitle, "--reporttitle");
@@ -287,6 +291,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
             xunitFile = new File("TEST-" + testCasesFolderName.replace(' ', '_') + ".xml");
         }
         generatedArguments.addFileToArguments(xunitFile, "-x");
+        generatedArguments.addFlagToArguments(true, "--xunitskipnoncritical");
 
         generatedArguments.add(testCasesDirectory.getPath());
 
@@ -411,12 +416,45 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private List<String> nonCriticalTags;
 
     /**
-     * Sets the execution mode for this tests run. Valid modes are ContinueOnFailure, ExitOnFailure,
-     * SkipTeardownOnExit, DryRun, and Random:&lt;what&gt;.
+     * Sets the execution mode for this tests run. Note that this setting has
+     * been deprecated in Robot Framework 2.8. Use separate dryryn,
+     * skipTeardownOnExit, exitOnFailure, and randomize settings instead.
      *
      * @parameter
      */
     private String runMode;
+
+    /**
+     * Sets dryrun mode on use. In the dry run mode tests are run without
+     * executing keywords originating from test libraries. Useful for
+     * validating test data syntax.
+     *
+     * @parameter default-value="false"
+     */
+    private boolean dryrun;
+
+    /**
+     * Sets whether the teardowns are skipped if the test
+     * execution is prematurely stopped.
+     *
+     * @parameter default-value="false"
+     */
+    private boolean skipTeardownOnExit;
+
+    /**
+     * Sets robot to stop execution immediately if a critical test fails.
+     *
+     * @parameter default-value="false"
+     */
+    private boolean exitOnFailure;
+
+    /**
+     * Sets the test execution order to be randomized. Valid values are all,
+     * suite, and test
+     *
+     * @parameter
+     */
+    private String randomize;
 
     /**
      * Sets individual variables. Use the format "name:value"

@@ -9,30 +9,19 @@
   <packaging>jar</packaging>
   <name>Test Mojo</name>
 
-
   <build>
     <plugins>
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.2</version>
-        <executions>
-            <execution>
-                <goals>
-                    <goal>acceptance-test</goal>
-                    <goal>verify</goal>
-                </goals>
-            </execution>
-        </executions>
         <configuration>
-          <tests>
-              <test>*TestNegatives</test>
-              <test>Successful_Test</test>
-          </tests>
-            <variables>
-                <variable>VariableThatShouldNotBeOverridden:permanent</variable>
-                <variable>VariableThatShouldBeOverridden:temp</variable>
-            </variables>
+          <testCasesDirectory>src/test/resources/robot-fail</testCasesDirectory>
+          <outputDirectory>target/robotframework-reports</outputDirectory>
+          <xunitFile>TEST-robot-runmodes.xml</xunitFile>
+          <dryrun>true</dryrun>
+          <exitOnFailure>true</exitOnFailure>
+          <skipTeardownOnExit>true</skipTeardownOnExit>
+          <randomize>all</randomize>
         </configuration>
       </plugin>
     </plugins>

@@ -26,9 +26,9 @@ Robot Framework Maven Plugin
   * {{{./run-mojo.html}robotframework:run}} - behaves like invoking the
   {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#starting-test-execution}jybot}}
   Robot Framework command for executing test cases
-  
+
   * {{{./acceptance-test-mojo.html}robotframework:acceptance-test}} - Runs the tests, like the run-goal, but does not verify the test results.
-  
+
   * {{{./verify-mojo.html}robotframework:verify}} - Verifies the results from acceptance-test goal.
 
   * {{{./libdoc-mojo.html}robotframework:libdoc}} invokes the
@@ -57,7 +57,7 @@ Robot Framework Maven Plugin
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.1</version>
+        <version>1.2</version>
         <executions>
           <execution>
             <goals>
@@ -96,6 +96,19 @@ Robot Framework Maven Plugin
   Of course, patches are welcome, too. Contributors can check out the project from our
   {{{./source-repository.html}source repository}} and will find supplementary information in the
   {{{http://maven.apache.org/guides/development/guide-helping.html}guide to helping with Maven}}.
+
+* About memory usage
+
+  This plugin runs Robot Framework with Jython and in some cases parsing the
+  Robot's own output.xml can cause Jython to use excessive amounts of memory.
+
+  To avoid parsing the xml, you can disable log generation by the setting
+  logFile config to value NONE. This still allows Robot to generate the html
+  report, and the xunit output-file, which the plugin uses to verify the results
+  of the test run. The log-file can be generated later from the output.xml using
+  {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#post-processing-outputs}rebot}}
+  tool if needed.
+
 
 * Examples
 
