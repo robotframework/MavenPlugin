@@ -365,8 +365,11 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * Selects the tests cases by name. Given as a comma separated list.
      * This setting overrides the value for tests configuration in pom.xml.
      *
+     * <p>Example:<pre>
+     * mvn -Dtests=foo,bar verify
+     * </pre>
      * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
-     *
+     * </p>
      * @parameter expression="${tests}"
      */
     private String tests_cli;
@@ -375,8 +378,11 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * Selects the tests suites by name. Given as a comma separated list.
      * This setting overrides the value for suites configuration in pom.xml.
      *
+     * <p>Example:<pre>
+     * mvn -Dsuites=foo,bar verify
+     * </pre>
      * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
-     *
+     * </p>
      * @parameter expression="${suites}"
      */
     private String suites_cli;
@@ -385,8 +391,11 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * Selects the tests cases by tags. Given as a comma separated list.
      * This setting overrides the value for includes configuration in pom.xml.
      *
+     * <p>Example:<pre>
+     * mvn -Dincludes=foo,bar verify
+     * </pre>
      * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
-     *
+     * </p>
      * @parameter expression="${includes}"
      */
     private String includes_cli;
@@ -395,8 +404,11 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * Selects the tests cases by tags. Given as a comma separated list.
      * This setting overrides the value for excludes configuration in pom.xml.
      *
+     * <p>Example:<pre>
+     * mvn -Dexcludes=foo,bar verify
+     * </pre>
      * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
-     *
+     * </p>
      * @parameter expression="${excludes}"
      */
     private String excludes_cli;
