@@ -738,8 +738,9 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private boolean runEmptySuite;
 
     /**
-     * Re-run failed tests, based on output.xml file
-     * 
+     * Re-run failed tests, based on output.xml file. This can also be set via
+	 * commandline using -DrunFailed=path/to/output.xml.
+     *
      * @parameter expression="${runFailed}"
      */
     private File runFailed;
