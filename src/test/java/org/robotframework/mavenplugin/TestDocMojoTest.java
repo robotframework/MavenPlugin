@@ -51,6 +51,6 @@ public class TestDocMojoTest
         String txtResourceWithDocTestDoc = outputDirectory + "invalid_login_doc.html";
         assertTrue(txtResourceWithDocTestDoc + " not found", new File(txtResourceWithDocTestDoc).exists());
         String contents =  FileUtils.fileRead(txtResourceWithDocTestDoc);
-        assertTrue(contents.contains("\"doc\":\"<p>Custom documentation</p>\""));
+        assertTrue(contents.contains("\"doc\":\"<p>Custom documentation"));
     }
 }
