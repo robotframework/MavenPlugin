@@ -32,7 +32,6 @@ public class TestDocMojoTest
         String txtResourceWithTitleTestDoc = outputDirectory + "invalid_login_title.html";
         assertTrue(txtResourceWithTitleTestDoc + " not found", new File(txtResourceWithTitleTestDoc).exists());
         String contents =  FileUtils.fileRead(txtResourceWithTitleTestDoc);
-        System.out.println(contents);
         assertTrue(contents.contains("\"title\":\"Custom Title\""));
     }
 
