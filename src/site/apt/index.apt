@@ -109,6 +109,35 @@ Robot Framework Maven Plugin
   {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#post-processing-outputs}rebot}}
   tool if needed.
 
+  * Updating Robot Framework dependency
+
+    If you want to use a different Robot Framework version, you can override the dependency in your plugin declaration:
+
+  +---
+  <project>
+        ..
+        <plugin>
+          <groupId>org.robotframework</groupId>
+          <artifactId>robotframework-maven-plugin</artifactId>
+          <version>1.4.1</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>run</goal>
+              </goals>
+            </execution>
+            <dependencies>
+              <dependency>
+                <groupId>org.robotframework</groupId>
+                <artifactId>robotframework</artifactId>
+                <version>2.8.4</version>
+              </dependency>
+            </dependencies>
+          </executions>
+        </plugin>
+        ..
+  </project>
+  +---
 
 * Examples
 
