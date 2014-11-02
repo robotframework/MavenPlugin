@@ -37,7 +37,7 @@ Add the plugin to your build:
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.4.2</version>
+        <version>1.4.3</version>
         <executions>
           <execution>
             <goals>
