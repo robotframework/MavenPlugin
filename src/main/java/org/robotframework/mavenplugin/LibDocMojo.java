@@ -28,7 +28,7 @@ import org.robotframework.RobotFramework;
  * Create documentation of test libraries or resource files using the Robot Framework <code>libdoc</code> tool.
  * <p/>
  * Uses the <code>libdoc</code> bundled in Robot Framework jar distribution. For more help see
- * <a href="http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#library-documentation-tool-libdoc">libdoc documentation</a>.
+ * <a href="http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#library-documentation-tool-libdoc">libdoc documentation</a>.
  *
  * @goal libdoc
  * @requiresDependencyResolution test
