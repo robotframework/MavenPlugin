@@ -30,7 +30,7 @@ import org.robotframework.RobotFramework;
  * Create documentation of test suites using the Robot Framework <code>testdoc</code> tool.
  * <p/>
  * Uses the <code>testdoc</code> bundled in Robot Framework jar distribution. For more help see
- * <a href="http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#test-data-documentation-tool-testdoc">testdoc documentation</a>.
+ * <a href="http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-data-documentation-tool-testdoc">testdoc documentation</a>.
  *
  * @goal testdoc
  * @requiresDependencyResolution test
@@ -43,7 +43,7 @@ public class TestDocMojo
         try {
             runTestDoc();
         } catch (IOException e) {
-            throw new MojoExecutionException("Failed to execute libdoc script: " + e.getMessage());
+            throw new MojoExecutionException("Failed to execute testdoc script: " + e.getMessage());
         }
     }
 
@@ -80,10 +80,10 @@ public class TestDocMojo
      * </ul>
      *
      * Example:
-     * <pre><![CDATA[<libdoc>
+     * <pre><![CDATA[<testdoc>
      *      <outputFile>MyTests.html</outputFile>
      *      <dataSourceFile>src/test/resources/MyTests.txt</dataSourceFile>
-     * </libdoc>]]></pre>
+     * </testdoc>]]></pre>
      *
      * @parameter
      * @required
