@@ -19,6 +19,7 @@ package org.robotframework.mavenplugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -49,7 +50,12 @@ public class LibDocMojo
             throws IOException {
         libdoc.populateDefaults(this);
         libdoc.ensureOutputDirectoryExists();
-        RobotFramework.run(libdoc.generateRunArguments());
+        
+        List<String[]> runArgs = libdoc.generateRunArguments();
+        //Run all libdoc calls one after another
+        for (String[] args: runArgs) {
+        	RobotFramework.run(args);
+        }
     }
 
     /**

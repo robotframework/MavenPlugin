@@ -17,35 +17,68 @@ package org.robotframework.mavenplugin;
  * limitations under the License.
  */
 
-import org.codehaus.plexus.util.StringUtils;
-
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.codehaus.plexus.util.StringUtils;
+import org.robotframework.mavenplugin.harvesters.ClassNameHarvester;
+import org.robotframework.mavenplugin.harvesters.ResourceNameHarvester;
+import org.robotframework.mavenplugin.harvesters.SourceFileNameHarvester;
 
 public class LibDocConfiguration {
 
-    public String[] generateRunArguments() {
-        Arguments generatedArguments = new Arguments();
-        generatedArguments.add("libdoc");
-        generatedArguments.addNonEmptyStringToArguments(name, "--name");
-        generatedArguments.addNonEmptyStringToArguments(version, "--version");
-        generatedArguments.addFileListToArguments(getExtraPathDirectoriesWithDefault(), "--pythonpath");
-        generatedArguments.add(getLibraryOrResource());
-        generatedArguments.add(getOutputPath());
-        return generatedArguments.toArray();
-    }
-
-    private String getLibraryOrResource() {
+    public List<String[]> generateRunArguments() {
+    	ArrayList<String[]> result = new ArrayList<String[]>();
+    	
         File libOrResource = new File(libraryOrResourceFile);
-        if (libOrResource.exists()) {
-            return libOrResource.getAbsolutePath();
+        ArrayList<String> fileArguments = new ArrayList<String>();
+        if (libOrResource.isFile()) {
+            fileArguments.add(libOrResource.getAbsolutePath());
         } else {
-            return libraryOrResourceFile;
+        	//occurrence of '/' or '\' hints at a directory structure, hence files, so try that one.
+        	int indexOfSlash = libraryOrResourceFile.indexOf('/');
+        	int indexOfBackSlash = libraryOrResourceFile.indexOf('\\');
+        	if (indexOfSlash >=0 || indexOfBackSlash >= 0) {
+        		//Directory structure, no class resolution, harvest file names.
+        		SourceFileNameHarvester harv = new SourceFileNameHarvester();
+        		fileArguments.addAll(harv.harvest(libraryOrResourceFile));
+        	} else {
+        		//A) May have files, try for harvesting file names first.
+        		SourceFileNameHarvester harv = new SourceFileNameHarvester();
+        		List<String> harvested = harv.harvest(libraryOrResourceFile);
+        		if (harvested.size() > 0) {
+        			fileArguments.addAll(harvested);
+        		} else {
+        			//B) If no files found, try harvesting classes.
+        			ClassNameHarvester charv = new ClassNameHarvester();
+        			harvested = charv.harvest(libraryOrResourceFile); 
+	        		if (harvested.size() > 0) {
+	        			fileArguments.addAll(harvested);
+	        		} else {
+	        			//C) If no files found, try harvesting resources.
+	        			ResourceNameHarvester rharv = new ResourceNameHarvester();
+	        			fileArguments.addAll(rharv.harvest(libraryOrResourceFile));
+	        		}//resources
+        		}//classes
+        	}//files
+        }//single file or pattern
+
+        for (String fileArgument: fileArguments) {
+	        Arguments generatedArguments = new Arguments();
+	        generatedArguments.add("libdoc");
+	        generatedArguments.addNonEmptyStringToArguments(name, "--name");
+	        generatedArguments.addNonEmptyStringToArguments(version, "--version");
+	        generatedArguments.addFileListToArguments(getExtraPathDirectoriesWithDefault(), "--pythonpath");
+	        generatedArguments.add(fileArgument);
+	        generatedArguments.add(getOutputPath());
+	        
+	        result.add( generatedArguments.toArray());
         }
+        return result; 
     }
 
     private String getOutputPath() {
