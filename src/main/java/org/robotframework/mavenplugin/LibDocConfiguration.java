@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.codehaus.plexus.util.StringUtils;
 import org.robotframework.mavenplugin.harvesters.ClassNameHarvester;
+import org.robotframework.mavenplugin.harvesters.HarvestUtils;
 import org.robotframework.mavenplugin.harvesters.ResourceNameHarvester;
 import org.robotframework.mavenplugin.harvesters.SourceFileNameHarvester;
 
@@ -67,22 +68,33 @@ public class LibDocConfiguration {
         	}//files
         }//single file or pattern
 
+        boolean multipleOutputs = fileArguments.size() > 1;
         for (String fileArgument: fileArguments) {
 	        Arguments generatedArguments = new Arguments();
 	        generatedArguments.add("libdoc");
-	        generatedArguments.addNonEmptyStringToArguments(name, "--name");
+	        if (multipleOutputs) {
+	        	//Derive the name from the input. 
+	        	generatedArguments.addNonEmptyStringToArguments(HarvestUtils.extractName(fileArgument), "--name");
+	        } else {
+	        	//Preserve the original single-file behavior.
+	        	generatedArguments.addNonEmptyStringToArguments(name, "--name");
+	        }
 	        generatedArguments.addNonEmptyStringToArguments(version, "--version");
 	        generatedArguments.addFileListToArguments(getExtraPathDirectoriesWithDefault(), "--pythonpath");
 	        generatedArguments.add(fileArgument);
-	        generatedArguments.add(getOutputPath());
-	        
-	        result.add( generatedArguments.toArray());
+	        if (multipleOutputs) {
+	        	//Derive the output file name id from the source and from the output file given.
+	        	generatedArguments.add(outputDirectory 
+	        			+ File.separator 
+	        			+ HarvestUtils.generateIdName(fileArgument) 
+	        			+ HarvestUtils.extractExtension(outputFile.getName()));
+	        } else {
+	        	//Preserve original single-file behavior.
+	        	generatedArguments.add(outputDirectory + File.separator + outputFile.getName());
+	        }
+	        result.add(generatedArguments.toArray());
         }
         return result; 
-    }
-
-    private String getOutputPath() {
-        return outputDirectory + File.separator + outputFile.getName();
     }
 
     private List<File> getExtraPathDirectoriesWithDefault() {
