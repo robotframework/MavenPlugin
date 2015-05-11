@@ -1,5 +1,7 @@
 package org.robotframework.mavenplugin.harvesters;
 
+import java.io.File;
+
 import org.apache.maven.it.util.DirectoryScanner;
 
 import com.google.common.base.Predicate;
@@ -11,7 +13,7 @@ public class AntPatternClassPredicate implements Predicate<String> {
 	private final String pattern;
 	
 	public AntPatternClassPredicate(String aPattern) {
-		pattern = aPattern.replace('.', '/');
+		pattern = aPattern.replace('.', File.separatorChar);
 	}
 	
 	public boolean apply(String target) {
@@ -23,7 +25,8 @@ public class AntPatternClassPredicate implements Predicate<String> {
 			compatibleTarget = target;
 		}
 		
-		compatibleTarget = compatibleTarget.replace('.', '/');
+		compatibleTarget = compatibleTarget.replace('.', File.separatorChar);
 		return DirectoryScanner.match(pattern, compatibleTarget);
 	}
 }
+

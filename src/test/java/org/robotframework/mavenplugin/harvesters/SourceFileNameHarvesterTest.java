@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.maven.it.util.FileUtils;
@@ -49,7 +49,7 @@ public class SourceFileNameHarvesterTest {
 		String pattern = workingDirectory.getAbsolutePath() + File.separator + "*.java";
 		
 		//do the test
-		NameHarvester h = new SourceFileNameHarvester();
+		NameHarvester h = new SourceFileNameHarvester(workingDirectory);
 		List<String> result = h.harvest(pattern);
 		
 		//Checks
@@ -63,14 +63,14 @@ public class SourceFileNameHarvesterTest {
 		//create some files
 		File testFile1 = new File(workingDirectory, "bla.java");
 		assertTrue(testFile1.createNewFile());
-		File testFile2 = new File(workingDirectory, "deeper\\bla.java");
+		File testFile2 = new File(workingDirectory, "deeper" + File.separator + "bla.java");
 		assertTrue(testFile2.getParentFile().mkdirs());
 		assertTrue(testFile2.createNewFile());
 		
 		String pattern = workingDirectory.getAbsolutePath() + File.separator + "*.java";
 		
 		//do the test
-		NameHarvester h = new SourceFileNameHarvester();
+		NameHarvester h = new SourceFileNameHarvester(workingDirectory);
 		List<String> result = h.harvest(pattern);
 		
 		//Checks
@@ -78,28 +78,76 @@ public class SourceFileNameHarvesterTest {
 		String t = result.iterator().next();
 		assertEquals(testFile1.getAbsolutePath(), t);
 	}
+
 	@Test
-	public void testHarvestFilesSeveralRecursivePatter() throws Exception {
+	public void testHarvestFilesSeveralRecursivePattern() throws Exception {
 		//create some files
 		File testFile1 = new File(workingDirectory, "bla.java");
 		assertTrue(testFile1.createNewFile());
-		File testFile2 = new File(workingDirectory, "deeper\\bla.java");
+		File testFile2 = new File(workingDirectory, "deeper" + File.separator + "deeper_still" + File.separator + "bla.java");
 		assertTrue(testFile2.getParentFile().mkdirs());
 		assertTrue(testFile2.createNewFile());
 		
-		String pattern = workingDirectory.getAbsolutePath() + File.separator + "**\\*.java";
+		String pattern = workingDirectory.getAbsolutePath() + File.separator + "**" + File.separator + "*.java";
 		
 		//do the test
-		NameHarvester h = new SourceFileNameHarvester();
+		NameHarvester h = new SourceFileNameHarvester(workingDirectory);
 		List<String> result = h.harvest(pattern);
 		
 		//Checks
 		assertEquals(2, result.size());
-		Iterator<String> it = result.iterator(); 
-		String t = it.next();
-		assertEquals(testFile1.getAbsolutePath(), t);
-		t = it.next();
-		assertEquals(testFile2.getAbsolutePath(), t);
+		
+		HashSet<String> tr = new HashSet<String>(result);
+		assertTrue(tr.contains(testFile1.getAbsolutePath()));
+		assertTrue(tr.contains(testFile2.getAbsolutePath()));
 		
 	}
+
+	@Test
+	public void testHarvestFilesSeveralRecursivePatternSlash() throws Exception {
+		//create some files
+		File testFile1 = new File(workingDirectory, "bla.java");
+		assertTrue(testFile1.createNewFile());
+		File testFile2 = new File(workingDirectory, "deeper" + File.separator + "deeper_still" + File.separator + "bla.java");
+		assertTrue(testFile2.getParentFile().mkdirs());
+		assertTrue(testFile2.createNewFile());
+		
+		String pattern = workingDirectory.getAbsolutePath() + File.separator + "**" + File.separator + "*.java";
+		
+		//do the test
+		NameHarvester h = new SourceFileNameHarvester(workingDirectory);
+		List<String> result = h.harvest(pattern);
+		
+		//Checks
+		assertEquals(2, result.size());
+		
+		HashSet<String> tr = new HashSet<String>(result);
+		assertTrue(tr.contains(testFile1.getAbsolutePath()));
+		assertTrue(tr.contains(testFile2.getAbsolutePath()));
+		
+	}
+
+	@Test
+	public void testHarvestFilesSeveralRecursivePatternSlashRelativePattern() throws Exception {
+
+		//create some files
+		File testFile1 = new File(workingDirectory, "bla.java");
+		assertTrue(testFile1.createNewFile());
+		File testFile2 = new File(workingDirectory,  "deeper" + File.separator + "deeper_still" + File.separator + "bla.java");
+		assertTrue(testFile2.getParentFile().mkdirs());
+		assertTrue(testFile2.createNewFile());
+		
+		String pattern = "deeper" + File.separator + "**" + File.separator + "*.java";
+		
+		//do the test
+		NameHarvester h = new SourceFileNameHarvester(workingDirectory);
+		List<String> result = h.harvest(pattern);
+		
+		//Checks
+		assertEquals(1, result.size());
+		
+		HashSet<String> tr = new HashSet<String>(result);
+		assertTrue(tr.contains(testFile2.getAbsolutePath()));
+	}
 }
+

@@ -1,5 +1,7 @@
 package org.robotframework.mavenplugin.harvesters;
 
+import java.io.File;
+
 /**
  * Some utilities for processing harvested names. 
  */
@@ -60,6 +62,27 @@ public class HarvestUtils {
 	}
 	
 	/**
+	 * Checks whether the given parameter seems to start with an absolute path fragment according to the current file system.
+	 * 
+	 * @return
+	 */
+	public static boolean isAbsolutePathFragment(String fragment) {
+    	//Need to find out whether we have a pattern/path that starts as absolute path according to the current file system.
+    	return new File(fragment).isAbsolute();
+	}
+	
+	/**
+	 * Whether the fragment hints to a directory structure, supporting Windows or *nix file systems.
+	 * 
+	 * @param fragment
+	 * @return
+	 */
+	public static boolean hasDirectoryStructure(String fragment) {
+    	//occurrence of '/' or '\' hints at a directory structure, hence files, so try that one.
+    	return fragment.indexOf('/') >= 0 || fragment.indexOf('\\') >= 0;
+	}
+	
+	/**
 	 * Extracts from the filename what could serve as extension.
 	 * 
 	 * @param name
@@ -75,4 +98,18 @@ public class HarvestUtils {
 		}
 		return result;
 	}
+
+	public static String removePrefixDirectory(File projectBaseDir, String fileArgument) {
+		String result;
+		String prefix = projectBaseDir.getAbsolutePath() + File.separator;
+		if (fileArgument.startsWith(prefix)) {
+			result = fileArgument.substring(prefix.length());
+		} else {
+			result = fileArgument;
+		}
+		return result;
+	}
+	
+	
 }
+

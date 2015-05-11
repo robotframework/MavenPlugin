@@ -51,9 +51,21 @@ public class LibDocMojo
         libdoc.populateDefaults(this);
         libdoc.ensureOutputDirectoryExists();
         
-        List<String[]> runArgs = libdoc.generateRunArguments();
+        if (projectBaseDir == null) {
+        	projectBaseDir = new File("");
+        }
+        List<String[]> runArgs = libdoc.generateRunArguments(projectBaseDir);
         //Run all libdoc calls one after another
         for (String[] args: runArgs) {
+        	if (getLog().isInfoEnabled()) {
+        		for (String[] ra : runArgs) {
+        			String line = "";
+        			for (String a : ra) {
+        				line += " " + a;
+        			}
+        			getLog().info(line);
+        		}
+        	}
         	RobotFramework.run(args);
         }
     }
@@ -113,5 +125,13 @@ public class LibDocMojo
      * @readonly
      */
     File libdocDefaultExtraPath;
+    
+    /**
+     * The base dir of the project.
+     * @parameter default-value="${project.basedir}"
+     * @readonly 
+     */
+    File projectBaseDir;
 
 }
+

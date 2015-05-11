@@ -19,6 +19,7 @@ package org.robotframework.mavenplugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,7 +33,7 @@ import org.robotframework.mavenplugin.harvesters.SourceFileNameHarvester;
 
 public class LibDocConfiguration {
 
-    public List<String[]> generateRunArguments() {
+    public List<String[]> generateRunArguments(File projectBaseDir) {
     	ArrayList<String[]> result = new ArrayList<String[]>();
     	
         File libOrResource = new File(libraryOrResourceFile);
@@ -40,16 +41,13 @@ public class LibDocConfiguration {
         if (libOrResource.isFile()) {
             fileArguments.add(libOrResource.getAbsolutePath());
         } else {
-        	//occurrence of '/' or '\' hints at a directory structure, hence files, so try that one.
-        	int indexOfSlash = libraryOrResourceFile.indexOf('/');
-        	int indexOfBackSlash = libraryOrResourceFile.indexOf('\\');
-        	if (indexOfSlash >=0 || indexOfBackSlash >= 0) {
+        	if (HarvestUtils.hasDirectoryStructure(libraryOrResourceFile)) {
         		//Directory structure, no class resolution, harvest file names.
-        		SourceFileNameHarvester harv = new SourceFileNameHarvester();
+        		SourceFileNameHarvester harv = new SourceFileNameHarvester(projectBaseDir);
         		fileArguments.addAll(harv.harvest(libraryOrResourceFile));
         	} else {
         		//A) May have files, try for harvesting file names first.
-        		SourceFileNameHarvester harv = new SourceFileNameHarvester();
+        		SourceFileNameHarvester harv = new SourceFileNameHarvester(projectBaseDir);
         		List<String> harvested = harv.harvest(libraryOrResourceFile);
         		if (harvested.size() > 0) {
         			fileArguments.addAll(harvested);
@@ -84,9 +82,15 @@ public class LibDocConfiguration {
 	        generatedArguments.add(fileArgument);
 	        if (multipleOutputs) {
 	        	//Derive the output file name id from the source and from the output file given.
-	        	generatedArguments.add(outputDirectory 
+	        	String normalizedArgument;
+	        	if (HarvestUtils.isAbsolutePathFragment(fileArgument)) {
+	        		normalizedArgument = HarvestUtils.removePrefixDirectory(projectBaseDir, fileArgument);
+	        	} else {
+	        		normalizedArgument = fileArgument;
+	        	}
+	        	generatedArguments.add(outputDirectory
 	        			+ File.separator 
-	        			+ HarvestUtils.generateIdName(fileArgument) 
+	        			+ HarvestUtils.generateIdName(normalizedArgument) 
 	        			+ HarvestUtils.extractExtension(outputFile.getName()));
 	        } else {
 	        	//Preserve original single-file behavior.
@@ -172,3 +176,4 @@ public class LibDocConfiguration {
 
     private File defaultExtraPath;
 }
+

@@ -10,6 +10,13 @@ import org.apache.maven.it.util.DirectoryScanner;
  * Harvests file names, supports ant-like patterns, the same understood by Maven 'includes'. 
  */
 public class SourceFileNameHarvester implements NameHarvester {
+	
+	private final File baseDir;
+	
+	public SourceFileNameHarvester(File bDir) {
+		baseDir = bDir;
+	}
+	
 	public List<String> harvest(String antLikePattern) {
 		int indexOfStar = antLikePattern.indexOf('*');
 		int indexOfQuestionMark = antLikePattern.indexOf('?');
@@ -27,25 +34,30 @@ public class SourceFileNameHarvester implements NameHarvester {
     			minPatternIndex = -1;
     		}
     	}
-    		
     	
     	int lastSlashBeforePatternSymbol = antLikePattern.lastIndexOf('/', minPatternIndex);
     	int lastBackslashBeforePatternSymbol = antLikePattern.lastIndexOf('\\', minPatternIndex);
     	
     	int maxSlashIndex = Math.max(lastSlashBeforePatternSymbol, lastBackslashBeforePatternSymbol);
     	
-    	//Parse out the baseDirectory and pattern parts.
     	String baseDirectory;
+    	//Determine whether to provide the project base dir.
+    	if (HarvestUtils.isAbsolutePathFragment(antLikePattern)) {
+    		baseDirectory = "";
+    	} else {
+    		baseDirectory = baseDir.getAbsolutePath() + File.separator;
+    	}
+    	
+    	//Parse out the additional directory and pattern parts.
     	String patternString;
     	if (maxSlashIndex > 0) {
-    		baseDirectory = antLikePattern.substring(0, maxSlashIndex + 1);
+    		baseDirectory += antLikePattern.substring(0, maxSlashIndex + 1);
     		if (maxSlashIndex + 1 >= antLikePattern.length()) {
     			patternString = "";
     		} else {
     			patternString = antLikePattern.substring(maxSlashIndex + 1);
     		}
     	} else {
-    		baseDirectory = "";
     		patternString = antLikePattern;
     	}
     		
@@ -67,3 +79,4 @@ public class SourceFileNameHarvester implements NameHarvester {
 		return result;
 	}
 }
+

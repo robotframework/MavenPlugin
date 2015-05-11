@@ -1,11 +1,14 @@
 package org.robotframework.mavenplugin.harvesters;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
 
 /**
  * Harvests resource (not class) names from the class path given an ant-like pattern (considers '/' replaced with '.' though). 
@@ -32,11 +35,12 @@ public class ClassNameHarvester implements NameHarvester {
     	
     	ArrayList<String> result = new ArrayList<String>();
     	if (minPatternIndex >= 0) {
-			Reflections refs = new Reflections(
-					new SubTypesScanner(false /* do not exclude top level classes */), 
-					new AntPatternClassPredicate(antLikePattern),
-					Thread.currentThread().getContextClassLoader(),
-					Reflections.class.getClassLoader());
+    		Set<URL> classpathURLs = ClasspathHelper.forClassLoader();
+    		classpathURLs.addAll(ClasspathHelper.forJavaClassPath());
+			Reflections refs = new Reflections(new ConfigurationBuilder()
+					.setUrls(classpathURLs)
+					.setScanners(new SubTypesScanner(false /* do not exclude top level classes */))
+					.filterInputsBy(new AntPatternClassPredicate(antLikePattern)));
 			Set<Class<? extends Object>> r = refs.getSubTypesOf(Object.class);
 			for (Class<? extends Object> c : r) {
 				result.add(c.getCanonicalName());
@@ -48,3 +52,4 @@ public class ClassNameHarvester implements NameHarvester {
 		return result;
 	}
 }
+
