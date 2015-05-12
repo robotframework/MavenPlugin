@@ -1,8 +1,8 @@
 package org.robotframework.mavenplugin.harvesters;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.apache.maven.it.util.DirectoryScanner;
 
@@ -17,7 +17,7 @@ public class SourceFileNameHarvester implements NameHarvester {
 		baseDir = bDir;
 	}
 	
-	public List<String> harvest(String antLikePattern) {
+	public Set<String> harvest(String antLikePattern) {
 		int indexOfStar = antLikePattern.indexOf('*');
 		int indexOfQuestionMark = antLikePattern.indexOf('?');
 		int minPatternIndex;
@@ -70,7 +70,7 @@ public class SourceFileNameHarvester implements NameHarvester {
    		scanner.scan();
    		
    		String[] includedFiles = scanner.getIncludedFiles();
-   		ArrayList<String> result = new ArrayList<String>();
+   		LinkedHashSet<String> result = new LinkedHashSet<String>();
    		File bDir = scanner.getBasedir();
    		for (String iF : includedFiles) {
    			File tmp = new File(bDir, iF);

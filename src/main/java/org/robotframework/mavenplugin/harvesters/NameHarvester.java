@@ -1,7 +1,7 @@
 package org.robotframework.mavenplugin.harvesters;
 
-import java.util.List;
+import java.util.Set;
 
 public interface NameHarvester {
-	public List<String> harvest(String pattern);
+	public Set<String> harvest(String pattern);
 }

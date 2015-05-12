@@ -1,8 +1,7 @@
 package org.robotframework.mavenplugin.harvesters;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.reflections.Reflections;
@@ -15,7 +14,7 @@ import org.reflections.util.ConfigurationBuilder;
  */
 public class ClassNameHarvester implements NameHarvester {
 
-	public List<String> harvest(String antLikePattern) {
+	public Set<String> harvest(String antLikePattern) {
 		int indexOfStar = antLikePattern.indexOf('*');
 		int indexOfQuestionMark = antLikePattern.indexOf('?');
 		int minPatternIndex;
@@ -33,7 +32,7 @@ public class ClassNameHarvester implements NameHarvester {
     		}
     	}
     	
-    	ArrayList<String> result = new ArrayList<String>();
+    	LinkedHashSet<String> result = new LinkedHashSet<String>();
     	if (minPatternIndex >= 0) {
     		Set<URL> classpathURLs = ClasspathHelper.forClassLoader();
     		classpathURLs.addAll(ClasspathHelper.forJavaClassPath());

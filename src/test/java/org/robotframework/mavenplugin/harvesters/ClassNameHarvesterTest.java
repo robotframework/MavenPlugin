@@ -2,7 +2,7 @@ package org.robotframework.mavenplugin.harvesters;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class ClassNameHarvesterTest {
 		
 		//do the test
 		NameHarvester harv = new ClassNameHarvester();
-		List<String> result = harv.harvest(pattern);
+		Set<String> result = harv.harvest(pattern);
 		
 		//checks
 		assertEquals(1, result.size());
@@ -30,7 +30,7 @@ public class ClassNameHarvesterTest {
 		
 		//do the test
 		NameHarvester harv = new ClassNameHarvester();
-		List<String> result = harv.harvest(pattern);
+		Set<String> result = harv.harvest(pattern);
 		
 		//checks
 		assertEquals(1, result.size());

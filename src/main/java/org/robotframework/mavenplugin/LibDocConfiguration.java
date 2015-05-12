@@ -19,11 +19,11 @@ package org.robotframework.mavenplugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.codehaus.plexus.util.StringUtils;
 import org.robotframework.mavenplugin.harvesters.ClassNameHarvester;
@@ -48,7 +48,7 @@ public class LibDocConfiguration {
         	} else {
         		//A) May have files, try for harvesting file names first.
         		SourceFileNameHarvester harv = new SourceFileNameHarvester(projectBaseDir);
-        		List<String> harvested = harv.harvest(libraryOrResourceFile);
+        		Set<String> harvested = harv.harvest(libraryOrResourceFile);
         		if (harvested.size() > 0) {
         			fileArguments.addAll(harvested);
         		} else {
