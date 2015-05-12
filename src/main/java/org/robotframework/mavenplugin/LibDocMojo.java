@@ -57,15 +57,6 @@ public class LibDocMojo
         List<String[]> runArgs = libdoc.generateRunArguments(projectBaseDir);
         //Run all libdoc calls one after another
         for (String[] args: runArgs) {
-        	if (getLog().isInfoEnabled()) {
-        		for (String[] ra : runArgs) {
-        			String line = "";
-        			for (String a : ra) {
-        				line += " " + a;
-        			}
-        			getLog().info(line);
-        		}
-        	}
         	RobotFramework.run(args);
         }
     }
