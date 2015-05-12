@@ -66,8 +66,9 @@ public class LibDocMojo
      *
      * Required settings:
      * <ul>
-     * <li><code>outputFile</code>          The name for the output file. Documentation output format is deduced from the file extension.</li>
-     * <li><code>libraryOrResourceFile</code>     Name or path of the documented library or resource file.
+     * <li><code>outputFile</code>          The name for the output file. Documentation output format is deduced from the file extension. 
+     *                                      We also support patterns like {@code *.java}, which indicates to derive the output name from the original name.</li>
+     * <li><code>libraryOrResourceFile</code>     Name or path of the documented library or resource file. Supports ant-like pattern format to match multiple inputs, such as <code>src/java/**{@literal /}*.java</code>
      * <p/>
      * Name must be in the same format as when used in Robot Framework test data, for example <code>BuiltIn</code> or
      * <code>com.acme.FooLibrary</code>. When name is used, the library is imported the same as when running the tests.
@@ -81,20 +82,31 @@ public class LibDocMojo
      * Optional settings:
      * <ul>
      * <li><code>outputDirectory</code>     Specifies the directory where documentation files are written.
-     *                                      Considered to be relative to the ${basedir} of the project.
-     *                                      Default ${project.build.directory}/robotframework/libdoc</li>
+     *                                      Considered relative to the ${basedir} of the project, but also supports absolute paths.
+     *                                      Defaults to ${project.build.directory}/robotframework/libdoc</li>
      * <li><code>name</code>                Sets the name of the documented library or resource.</li>
      * <li><code>version</code>             Sets the version of the documented library or resource.</li>
      * <li><code>extraPathDirectories</code> A directory to be added to the PYTHONPATH/CLASSPATH when creating documentation.
      * e.g. src/main/java/com/test/</li>
      * </ul>
      *
-     * Example:
+     * Example 1:
      * <pre><![CDATA[<libdoc>
      *      <outputFile>MyLib.html</outputFile>
      *      <libraryOrResourceFile>com.mylib.MyLib</libraryOrResourceFile>
      * </libdoc>]]></pre>
      *
+     * Example 2:
+     * <pre><![CDATA[<libdoc>
+     *      <outputFile>*.html</outputFile>
+     *      <libraryOrResourceFile>src/java/**{@literal /}*Lib.java</libraryOrResourceFile>
+     * </libdoc>]]></pre>
+
+     * Example 3:
+     * <pre><![CDATA[<libdoc>
+     *      <outputFile>*.html</outputFile>
+     *      <libraryOrResourceFile>com.**.*Lib</libraryOrResourceFile>
+     * </libdoc>]]></pre>
      * @parameter
      * @required
      */

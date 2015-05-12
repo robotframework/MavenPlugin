@@ -36,11 +36,14 @@ public class LibDocConfiguration {
     public List<String[]> generateRunArguments(File projectBaseDir) {
     	ArrayList<String[]> result = new ArrayList<String[]>();
     	
+    	//Phase I - harvest the files/classes/resources, if any 
         File libOrResource = new File(libraryOrResourceFile);
         ArrayList<String> fileArguments = new ArrayList<String>();
         if (libOrResource.isFile()) {
+        	//Single file specification, no patterns.
             fileArguments.add(libOrResource.getAbsolutePath());
         } else {
+        	//Possible pattern, process further.
         	if (HarvestUtils.hasDirectoryStructure(libraryOrResourceFile)) {
         		//Directory structure, no class resolution, harvest file names.
         		SourceFileNameHarvester harv = new SourceFileNameHarvester(projectBaseDir);
@@ -66,7 +69,8 @@ public class LibDocConfiguration {
         	}//files
         }//single file or pattern
 
-        boolean multipleOutputs = fileArguments.size() > 1;
+        //Phase II - prepare the argument lines for the harvested files/classes/resources.
+        boolean multipleOutputs = fileArguments.size() > 1; //with single argument line, we can use the original single entity parameters, so use this flag to switch.
         for (String fileArgument: fileArguments) {
 	        Arguments generatedArguments = new Arguments();
 	        generatedArguments.add("libdoc");
@@ -83,7 +87,10 @@ public class LibDocConfiguration {
 	        if (multipleOutputs) {
 	        	//Derive the output file name id from the source and from the output file given.
 	        	String normalizedArgument;
+	        	//Generate a unique name.
 	        	if (HarvestUtils.isAbsolutePathFragment(fileArgument)) {
+	        		//Cut out the project directory, so that we have shorter id names.
+	        		//TODO - perhaps later, we can preserve the directory structure relative to the output directory.
 	        		normalizedArgument = HarvestUtils.removePrefixDirectory(projectBaseDir, fileArgument);
 	        	} else {
 	        		normalizedArgument = fileArgument;
@@ -94,7 +101,17 @@ public class LibDocConfiguration {
 	        			+ HarvestUtils.extractExtension(outputFile.getName()));
 	        } else {
 	        	//Preserve original single-file behavior.
-	        	generatedArguments.add(outputDirectory + File.separator + outputFile.getName());
+	        	if (outputFile.getName().contains("*")) {
+	        		//We deal with a pattern, so we need to get the name from the input file. 
+	        		File tf = new File(fileArgument);
+		        	generatedArguments.add(outputDirectory
+		        			+ File.separator 
+		        			+ tf.getName() 
+		        			+ HarvestUtils.extractExtension(outputFile.getName()));
+	        	} else {
+	        		//Use the output name directly.
+	        		generatedArguments.add(outputDirectory + File.separator + outputFile.getName());
+	        	}
 	        }
 	        result.add(generatedArguments.toArray());
         }
@@ -164,6 +181,9 @@ public class LibDocConfiguration {
      * <p/>
      * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid Python/Java
      * source file or a resource file. For example <code>src/main/java/com/test/ExampleLib.java</code>
+     * 
+     * One may also use ant-like patterns, for example <code>src/main/java/com/**{@literal /}*Lib.java</code>
+     * 
      */
     private String libraryOrResourceFile;
 
