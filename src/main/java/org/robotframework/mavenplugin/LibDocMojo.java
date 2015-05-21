@@ -67,7 +67,7 @@ public class LibDocMojo
      * Required settings:
      * <ul>
      * <li><code>outputFile</code>          The name for the output file. Documentation output format is deduced from the file extension. 
-     *                                      We also support patterns like {@code *.java}, which indicates to derive the output name from the original name.</li>
+     *                                      We also support patterns like {@code *.html}, which indicates to derive the output name from the original name.</li>
      * <li><code>libraryOrResourceFile</code>     Name or path of the documented library or resource file. Supports ant-like pattern format to match multiple inputs, such as <code>src/java/**{@literal /}*.java</code>
      * <p/>
      * Name must be in the same format as when used in Robot Framework test data, for example <code>BuiltIn</code> or
