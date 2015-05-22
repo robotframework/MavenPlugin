@@ -10,10 +10,7 @@ public class HarvestUtils {
     public static final String JAVA_FILE_EXT = ".java";
     
     /**
-     * Extracts the name component.
-     * 
-     * @param harvestedName
-     * @return
+     * Extracts the name component of a string representing a file name.
      */
     public static String extractName(String harvestedName) {
         String result;
@@ -53,9 +50,6 @@ public class HarvestUtils {
     
     /**
      * Prepares an id name from a full path or fully qualified file, by replacing various chars with '_'.
-     *  
-     * @param harvestedName
-     * @return
      */
     public static String generateIdName(String harvestedName) {
         return harvestedName.replaceAll("/|\\.|\\\\", "_");
@@ -63,8 +57,6 @@ public class HarvestUtils {
     
     /**
      * Checks whether the given parameter seems to start with an absolute path fragment according to the current file system.
-     * 
-     * @return
      */
     public static boolean isAbsolutePathFragment(String fragment) {
         //Need to find out whether we have a pattern/path that starts as absolute path according to the current file system.
