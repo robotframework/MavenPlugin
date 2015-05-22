@@ -52,12 +52,12 @@ public class LibDocMojo
         libdoc.ensureOutputDirectoryExists();
         
         if (projectBaseDir == null) {
-        	projectBaseDir = new File("");
+            projectBaseDir = new File("");
         }
         List<String[]> runArgs = libdoc.generateRunArguments(projectBaseDir);
         //Run all libdoc calls one after another
         for (String[] args: runArgs) {
-        	RobotFramework.run(args);
+            RobotFramework.run(args);
         }
     }
 

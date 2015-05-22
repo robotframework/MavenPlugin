@@ -34,101 +34,101 @@ import org.robotframework.mavenplugin.harvesters.SourceFileNameHarvester;
 public class LibDocConfiguration {
 
     public List<String[]> generateRunArguments(File projectBaseDir) {
-    	ArrayList<String[]> result = new ArrayList<String[]>();
-    	
-		//Phase I - harvest the files/classes/resources, if any 
-    	ArrayList<String> fileArguments = harvestResourceOrFileCandidates(projectBaseDir, libraryOrResourceFile);
+        ArrayList<String[]> result = new ArrayList<String[]>();
+        
+        //Phase I - harvest the files/classes/resources, if any 
+        ArrayList<String> fileArguments = harvestResourceOrFileCandidates(projectBaseDir, libraryOrResourceFile);
 
         //Phase II - prepare the argument lines for the harvested files/classes/resources.
         boolean multipleOutputs = fileArguments.size() > 1; //with single argument line, we can use the original single entity parameters, so use this flag to switch.
         for (String fileArgument: fileArguments) {
-	        Arguments generatedArguments = generateLibdocArgumentList(projectBaseDir, multipleOutputs, fileArgument);
-	        result.add(generatedArguments.toArray());
+            Arguments generatedArguments = generateLibdocArgumentList(projectBaseDir, multipleOutputs, fileArgument);
+            result.add(generatedArguments.toArray());
         }
         return result; 
     }
 
-	private Arguments generateLibdocArgumentList(File projectBaseDir, boolean multipleOutputs, String fileArgument) {
+    private Arguments generateLibdocArgumentList(File projectBaseDir, boolean multipleOutputs, String fileArgument) {
         Arguments result = new Arguments();
         result.add("libdoc");
-		if (multipleOutputs) {
-			//Derive the name from the input. 
-			result.addNonEmptyStringToArguments(HarvestUtils.extractName(fileArgument), "--name");
-		} else {
-			//Preserve the original single-file behavior.
-			result.addNonEmptyStringToArguments(name, "--name");
-		}
-		result.addNonEmptyStringToArguments(version, "--version");
-		result.addFileListToArguments(getExtraPathDirectoriesWithDefault(), "--pythonpath");
-		result.add(fileArgument);
-		if (multipleOutputs) {
-			//Derive the output file name id from the source and from the output file given.
-			String normalizedArgument;
-			//Generate a unique name.
-			if (HarvestUtils.isAbsolutePathFragment(fileArgument)) {
-				//Cut out the project directory, so that we have shorter id names.
-				//TODO - perhaps later, we can preserve the directory structure relative to the output directory.
-				normalizedArgument = HarvestUtils.removePrefixDirectory(projectBaseDir, fileArgument);
-			} else {
-				normalizedArgument = fileArgument;
-			}
-			result.add(outputDirectory
-					+ File.separator 
-					+ HarvestUtils.generateIdName(normalizedArgument) 
-					+ HarvestUtils.extractExtension(outputFile.getName()));
-		} else {
-			//Preserve original single-file behavior.
-			if (outputFile.getName().contains("*")) {
-				//We deal with a pattern, so we need to get the name from the input file. 
-				File tf = new File(fileArgument);
-				result.add(outputDirectory
-		    			+ File.separator 
-		    			+ tf.getName() 
-		    			+ HarvestUtils.extractExtension(outputFile.getName()));
-			} else {
-				//Use the output name directly.
-				result.add(outputDirectory + File.separator + outputFile.getName());
-			}
-		}
-		return result;
-	}
+        if (multipleOutputs) {
+            //Derive the name from the input. 
+            result.addNonEmptyStringToArguments(HarvestUtils.extractName(fileArgument), "--name");
+        } else {
+            //Preserve the original single-file behavior.
+            result.addNonEmptyStringToArguments(name, "--name");
+        }
+        result.addNonEmptyStringToArguments(version, "--version");
+        result.addFileListToArguments(getExtraPathDirectoriesWithDefault(), "--pythonpath");
+        result.add(fileArgument);
+        if (multipleOutputs) {
+            //Derive the output file name id from the source and from the output file given.
+            String normalizedArgument;
+            //Generate a unique name.
+            if (HarvestUtils.isAbsolutePathFragment(fileArgument)) {
+                //Cut out the project directory, so that we have shorter id names.
+                //TODO - perhaps later, we can preserve the directory structure relative to the output directory.
+                normalizedArgument = HarvestUtils.removePrefixDirectory(projectBaseDir, fileArgument);
+            } else {
+                normalizedArgument = fileArgument;
+            }
+            result.add(outputDirectory
+                    + File.separator 
+                    + HarvestUtils.generateIdName(normalizedArgument) 
+                    + HarvestUtils.extractExtension(outputFile.getName()));
+        } else {
+            //Preserve original single-file behavior.
+            if (outputFile.getName().contains("*")) {
+                //We deal with a pattern, so we need to get the name from the input file. 
+                File tf = new File(fileArgument);
+                result.add(outputDirectory
+                        + File.separator 
+                        + tf.getName() 
+                        + HarvestUtils.extractExtension(outputFile.getName()));
+            } else {
+                //Use the output name directly.
+                result.add(outputDirectory + File.separator + outputFile.getName());
+            }
+        }
+        return result;
+    }
 
-	private ArrayList<String> harvestResourceOrFileCandidates(
-			File projectBaseDir,
-			String pattern) {
+    private ArrayList<String> harvestResourceOrFileCandidates(
+            File projectBaseDir,
+            String pattern) {
         File libOrResource = new File(pattern);
         ArrayList<String> fileArguments = new ArrayList<String>();
         if (libOrResource.isFile()) {
-        	//Single file specification, no patterns.
+            //Single file specification, no patterns.
             fileArguments.add(libOrResource.getAbsolutePath());
         } else {
-        	//Possible pattern, process further.
-        	if (HarvestUtils.hasDirectoryStructure(pattern)) {
-        		//Directory structure, no class resolution, harvest file names.
-        		SourceFileNameHarvester harv = new SourceFileNameHarvester(projectBaseDir);
-        		fileArguments.addAll(harv.harvest(pattern));
-        	} else {
-        		//A) May have files, try for harvesting file names first.
-        		SourceFileNameHarvester harv = new SourceFileNameHarvester(projectBaseDir);
-        		Set<String> harvested = harv.harvest(pattern);
-        		if (harvested.size() > 0) {
-        			fileArguments.addAll(harvested);
-        		} else {
-        			//B) If no files found, try harvesting classes.
-        			ClassNameHarvester charv = new ClassNameHarvester();
-        			harvested = charv.harvest(pattern); 
-	        		if (harvested.size() > 0) {
-	        			fileArguments.addAll(harvested);
-	        		} else {
-	        			//C) If no files found, try harvesting resources.
-	        			ResourceNameHarvester rharv = new ResourceNameHarvester();
-	        			fileArguments.addAll(rharv.harvest(pattern));
-	        		}//resources
-        		}//classes
-        	}//files
+            //Possible pattern, process further.
+            if (HarvestUtils.hasDirectoryStructure(pattern)) {
+                //Directory structure, no class resolution, harvest file names.
+                SourceFileNameHarvester harv = new SourceFileNameHarvester(projectBaseDir);
+                fileArguments.addAll(harv.harvest(pattern));
+            } else {
+                //A) May have files, try for harvesting file names first.
+                SourceFileNameHarvester harv = new SourceFileNameHarvester(projectBaseDir);
+                Set<String> harvested = harv.harvest(pattern);
+                if (harvested.size() > 0) {
+                    fileArguments.addAll(harvested);
+                } else {
+                    //B) If no files found, try harvesting classes.
+                    ClassNameHarvester charv = new ClassNameHarvester();
+                    harvested = charv.harvest(pattern); 
+                    if (harvested.size() > 0) {
+                        fileArguments.addAll(harvested);
+                    } else {
+                        //C) If no files found, try harvesting resources.
+                        ResourceNameHarvester rharv = new ResourceNameHarvester();
+                        fileArguments.addAll(rharv.harvest(pattern));
+                    }//resources
+                }//classes
+            }//files
         }//single file or pattern
-		return fileArguments;
-	}
+        return fileArguments;
+    }
 
     private List<File> getExtraPathDirectoriesWithDefault() {
         if (extraPathDirectories == null) {

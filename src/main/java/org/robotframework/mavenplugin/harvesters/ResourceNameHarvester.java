@@ -14,41 +14,41 @@ import org.reflections.util.ConfigurationBuilder;
  */
 public class ResourceNameHarvester implements NameHarvester {
 
-	public Set<String> harvest(String antLikePattern) {
-		int indexOfStar = antLikePattern.indexOf('*');
-		int indexOfQuestionMark = antLikePattern.indexOf('?');
-		int minPatternIndex;
-    	if (indexOfStar >= 0) {
-    		if (indexOfQuestionMark >= 0) {
-    			minPatternIndex = Math.min(indexOfStar, indexOfQuestionMark);
-    		} else {
-    			minPatternIndex = indexOfStar;
-    		}
-    	} else {
-    		if (indexOfQuestionMark >= 0) {
-    			minPatternIndex = indexOfQuestionMark;
-    		} else {
-    			minPatternIndex = -1;
-    		}
-    	}
-    	
-    	LinkedHashSet<String> result = new LinkedHashSet<String>();
-    	if (minPatternIndex >= 0) {
-    		Set<URL> classpathURLs = ClasspathHelper.forClassLoader();
-    		classpathURLs.addAll(ClasspathHelper.forJavaClassPath());
-			Reflections refs = new Reflections(new ConfigurationBuilder()
-							.setUrls(classpathURLs)
-							.setScanners(new ResourcesScanner()));
-			Set<String> r = refs.getResources(new AntPatternClassPredicate(antLikePattern));
-			if (!r.isEmpty()) {
-				result.addAll(r);
-			} else {
-				//Do nothing, we have a pattern with '?' or '*' that did not yield results.
-			}
-    	} else {
-    		//No pattern, add as direct resource to deal with later.
-    		result.add(antLikePattern);
-    	}
-		return result;
-	}
+    public Set<String> harvest(String antLikePattern) {
+        int indexOfStar = antLikePattern.indexOf('*');
+        int indexOfQuestionMark = antLikePattern.indexOf('?');
+        int minPatternIndex;
+        if (indexOfStar >= 0) {
+            if (indexOfQuestionMark >= 0) {
+                minPatternIndex = Math.min(indexOfStar, indexOfQuestionMark);
+            } else {
+                minPatternIndex = indexOfStar;
+            }
+        } else {
+            if (indexOfQuestionMark >= 0) {
+                minPatternIndex = indexOfQuestionMark;
+            } else {
+                minPatternIndex = -1;
+            }
+        }
+        
+        LinkedHashSet<String> result = new LinkedHashSet<String>();
+        if (minPatternIndex >= 0) {
+            Set<URL> classpathURLs = ClasspathHelper.forClassLoader();
+            classpathURLs.addAll(ClasspathHelper.forJavaClassPath());
+            Reflections refs = new Reflections(new ConfigurationBuilder()
+                            .setUrls(classpathURLs)
+                            .setScanners(new ResourcesScanner()));
+            Set<String> r = refs.getResources(new AntPatternClassPredicate(antLikePattern));
+            if (!r.isEmpty()) {
+                result.addAll(r);
+            } else {
+                //Do nothing, we have a pattern with '?' or '*' that did not yield results.
+            }
+        } else {
+            //No pattern, add as direct resource to deal with later.
+            result.add(antLikePattern);
+        }
+        return result;
+    }
 }
