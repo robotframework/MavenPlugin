@@ -61,6 +61,7 @@ public class LibDocConfiguration {
         result.addNonEmptyStringToArguments(version, "--version");
         result.addFileListToArguments(getExtraPathDirectoriesWithDefault(), "--pythonpath");
         result.add(fileArgument);
+        
         if (multipleOutputs) {
             //Derive the output file name id from the source and from the output file given.
             String normalizedArgument;

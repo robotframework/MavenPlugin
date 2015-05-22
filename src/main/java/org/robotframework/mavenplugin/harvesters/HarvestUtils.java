@@ -48,6 +48,26 @@ public class HarvestUtils {
         return result;
     }
     
+    public static int calculateMinimumPatternIndex(String antLikePattern) {
+	int indexOfStar = antLikePattern.indexOf('*');
+        int indexOfQuestionMark = antLikePattern.indexOf('?');
+        int minPatternIndex;
+        if (indexOfStar >= 0) {
+            if (indexOfQuestionMark >= 0) {
+                minPatternIndex = Math.min(indexOfStar, indexOfQuestionMark);
+            } else {
+                minPatternIndex = indexOfStar;
+            }
+        } else {
+            if (indexOfQuestionMark >= 0) {
+                minPatternIndex = indexOfQuestionMark;
+            } else {
+                minPatternIndex = -1;
+            }
+        }
+	return minPatternIndex;
+    }
+
     /**
      * Prepares an id name from a full path or fully qualified file, by replacing various chars with '_'.
      */

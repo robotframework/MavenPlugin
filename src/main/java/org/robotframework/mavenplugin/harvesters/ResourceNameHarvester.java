@@ -15,22 +15,7 @@ import org.reflections.util.ConfigurationBuilder;
 public class ResourceNameHarvester implements NameHarvester {
 
     public Set<String> harvest(String antLikePattern) {
-        int indexOfStar = antLikePattern.indexOf('*');
-        int indexOfQuestionMark = antLikePattern.indexOf('?');
-        int minPatternIndex;
-        if (indexOfStar >= 0) {
-            if (indexOfQuestionMark >= 0) {
-                minPatternIndex = Math.min(indexOfStar, indexOfQuestionMark);
-            } else {
-                minPatternIndex = indexOfStar;
-            }
-        } else {
-            if (indexOfQuestionMark >= 0) {
-                minPatternIndex = indexOfQuestionMark;
-            } else {
-                minPatternIndex = -1;
-            }
-        }
+        int minPatternIndex = HarvestUtils.calculateMinimumPatternIndex(antLikePattern);
         
         LinkedHashSet<String> result = new LinkedHashSet<String>();
         if (minPatternIndex >= 0) {
