@@ -16,6 +16,16 @@ public class AntPatternClassPredicateTest {
         assertTrue(predicate.apply("java.util.List"));
         assertFalse(predicate.apply("java.awt.Window"));
     }
+
+    @Test
+    public void testApplySimple1() throws Exception {
+        //test data
+        AntPatternClassPredicate predicate = new AntPatternClassPredicate("java.**.A");
+        
+        //do the test
+        assertTrue(predicate.apply("java.util.butil.A"));
+        assertFalse(predicate.apply("java.awt.Window"));
+    }
     
     @Test
     public void testApplySimplePattern2() throws Exception {

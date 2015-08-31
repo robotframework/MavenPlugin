@@ -1,13 +1,10 @@
 package org.robotframework.mavenplugin.harvesters;
 
-import java.net.URL;
+import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.reflections.Reflections;
-import org.reflections.scanners.ResourcesScanner;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
+import com.google.common.reflect.ClassPath;
 
 /**
  * Harvests resource (not class) names from the class path given an ant-like pattern (considers '/' replaced with '.' though). 
@@ -19,17 +16,19 @@ public class ResourceNameHarvester implements NameHarvester {
         
         LinkedHashSet<String> result = new LinkedHashSet<String>();
         if (minPatternIndex >= 0) {
-            Set<URL> classpathURLs = ClasspathHelper.forClassLoader();
-            classpathURLs.addAll(ClasspathHelper.forJavaClassPath());
-            Reflections refs = new Reflections(new ConfigurationBuilder()
-                            .setUrls(classpathURLs)
-                            .setScanners(new ResourcesScanner()));
-            Set<String> r = refs.getResources(new AntPatternClassPredicate(antLikePattern));
-            if (!r.isEmpty()) {
-                result.addAll(r);
-            } else {
-                //Do nothing, we have a pattern with '?' or '*' that did not yield results.
-            }
+            
+            try {
+        	AntPatternClassPredicate ap = new AntPatternClassPredicate(antLikePattern);
+		ClassPath cp = ClassPath.from(this.getClass().getClassLoader());
+		for (ClassPath.ResourceInfo ri : cp.getResources()) {
+		    String t = ri.getResourceName();
+		    if (ap.apply(t)) {
+			result.add(t);
+		    }
+		}
+	    } catch (IOException e) {
+		//Could not find any!
+	    }
         } else {
             //No pattern, add as direct resource to deal with later.
             result.add(antLikePattern);
