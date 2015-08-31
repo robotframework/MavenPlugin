@@ -20,6 +20,7 @@ package org.robotframework.mavenplugin;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.python.util.PythonInterpreter;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -90,53 +91,18 @@ public abstract class AbstractMojoWithLoadedClasspath
 
     protected String getRobotJar() {
         File robots = new File(localRepository, ROBOT_ARTIFACT);
-        String latest = latestVersion(robots.list());
-        return join(File.separator, robots.toString(), latest, "robotframework-"+latest+".jar");
+        String configured = currentVersion();
+        return join(File.separator, robots.toString(), configured, "robotframework-"+configured+".jar");
     }
 
-    static String latestVersion(String[] strings) {
-        Version[] versions = new Version[strings.length];
-        for (int i=0; i<strings.length; i++)
-            versions[i] = new Version(strings[i]);
-        Arrays.sort(versions);
-        return versions[versions.length-1].string;
-    }
-
-    static class Version implements Comparable<Version>{
-
-        int[] version;
-        String string;
-
-        Version(String versionString) {
-            string = versionString;
-            String[] split = versionString.split("\\.");
-            version = new int[split.length];
-            for (int i = 0; i<version.length; i++) {
-                try {
-                    version[i] = Integer.parseInt(split[i]);
-                } catch (NumberFormatException nfe) {
-                    version = new int[0];
-                }
-            }
-        }
-
-        public boolean equals(Object other) {
-            if (!(other instanceof Version))
-                return false;
-            return compareTo((Version)other) == 0;
-        }
-
-        public int compareTo(Version other) {
-            for (int i=0; i < Math.max(version.length, other.version.length); i++) {
-                int difference = numberAt(i) - other.numberAt(i);
-                if (difference != 0)
-                    return difference;
-            }
-            return 0;
-        }
-
-        private int numberAt(int index) {
-            return index < version.length ? version[index] : 0;
+    static String currentVersion() {
+        PythonInterpreter interp = new PythonInterpreter();
+        try {
+            interp.exec("from robot import version");
+            interp.exec("rf_version = version.VERSION");
+            return interp.get("rf_version").toString();
+        } finally {
+            interp.cleanup();
         }
     }
 
