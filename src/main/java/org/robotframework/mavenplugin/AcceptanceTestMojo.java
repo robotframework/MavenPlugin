@@ -756,8 +756,8 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
 
     /**
      * <p>Test are executed in a new process if this configuration is used.</p>
-     * <p>The tests will be run using the latest robot jar version from local repository. The classpath for the new process
-     * will include by default all the test scope dependencies from the pom.</p>
+     * <p>The classpath for the new process will include by default all the test
+     * scope dependencies from the pom.</p>
      *
      * <ul>
      *     <li>Environment variables can be added with <strong>environmentVariables</strong> map. CLASSPATH environment
