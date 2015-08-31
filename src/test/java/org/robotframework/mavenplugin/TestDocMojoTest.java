@@ -2,7 +2,7 @@ package org.robotframework.mavenplugin;
 
 import java.io.File;
 
-import org.apache.maven.it.util.FileUtils;
+import org.apache.commons.io.FileUtils;
 
 import static org.mockito.Mockito.*;
 
@@ -31,7 +31,7 @@ public class TestDocMojoTest
         executeLibdocWithPom("testdoc", "src/test/resources/pom-testdoc-txtfile-title.xml");
         String txtResourceWithTitleTestDoc = outputDirectory + "invalid_login_title.html";
         assertTrue(txtResourceWithTitleTestDoc + " not found", new File(txtResourceWithTitleTestDoc).exists());
-        String contents =  FileUtils.fileRead(txtResourceWithTitleTestDoc);
+        String contents =  FileUtils.readFileToString(new File(txtResourceWithTitleTestDoc));
         assertTrue(contents.contains("\"title\":\"Custom Title\""));
     }
 
@@ -40,7 +40,7 @@ public class TestDocMojoTest
         executeLibdocWithPom("testdoc", "src/test/resources/pom-testdoc-txtfile-name.xml");
         String txtResourceWithNameTestDoc = outputDirectory + "invalid_login_name.html";
         assertTrue(txtResourceWithNameTestDoc + " not found", new File(txtResourceWithNameTestDoc).exists());
-        String contents =  FileUtils.fileRead(txtResourceWithNameTestDoc);
+        String contents =  FileUtils.readFileToString(new File(txtResourceWithNameTestDoc));
         assertTrue(contents.contains("\"fullName\":\"Custom name\""));
     }
 
@@ -49,7 +49,7 @@ public class TestDocMojoTest
         executeLibdocWithPom("testdoc", "src/test/resources/pom-testdoc-txtfile-doc.xml");
         String txtResourceWithDocTestDoc = outputDirectory + "invalid_login_doc.html";
         assertTrue(txtResourceWithDocTestDoc + " not found", new File(txtResourceWithDocTestDoc).exists());
-        String contents =  FileUtils.fileRead(txtResourceWithDocTestDoc);
+        String contents =  FileUtils.readFileToString(new File(txtResourceWithDocTestDoc));
         assertTrue(contents.contains("\"doc\":\"<p>Custom documentation"));
     }
 }
