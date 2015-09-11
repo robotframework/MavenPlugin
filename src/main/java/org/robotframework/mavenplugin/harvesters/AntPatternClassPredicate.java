@@ -11,11 +11,11 @@ import com.google.common.base.Predicate;
  */
 public class AntPatternClassPredicate implements Predicate<String> {
     private final String pattern;
-    
+
     public AntPatternClassPredicate(String aPattern) {
         pattern = aPattern.replace('.', File.separatorChar);
     }
-    
+
     public boolean apply(String target) {
         String compatibleTarget;
         if (target.endsWith(".class")) {
@@ -24,9 +24,8 @@ public class AntPatternClassPredicate implements Predicate<String> {
         } else {
             compatibleTarget = target;
         }
-        
+
         compatibleTarget = compatibleTarget.replace('.', File.separatorChar);
         return DirectoryScanner.match(pattern, compatibleTarget);
     }
 }
-

@@ -34,11 +34,9 @@ import org.robotframework.RobotFramework;
  * @goal libdoc
  * @requiresDependencyResolution test
  */
-public class LibDocMojo
-        extends AbstractMojoWithLoadedClasspath {
+public class LibDocMojo extends AbstractMojoWithLoadedClasspath {
 
-    protected void subclassExecute()
-            throws MojoExecutionException, MojoFailureException {
+    protected void subclassExecute() throws MojoExecutionException, MojoFailureException {
         try {
             runLibDoc();
         } catch (IOException e) {
@@ -46,17 +44,16 @@ public class LibDocMojo
         }
     }
 
-    public void runLibDoc()
-            throws IOException {
+    public void runLibDoc() throws IOException {
         libdoc.populateDefaults(this);
         libdoc.ensureOutputDirectoryExists();
-        
+
         if (projectBaseDir == null) {
             projectBaseDir = new File("");
         }
         List<String[]> runArgs = libdoc.generateRunArguments(projectBaseDir);
-        //Run all libdoc calls one after another
-        for (String[] args: runArgs) {
+        // Run all libdoc calls one after another
+        for (String[] args : runArgs) {
             RobotFramework.run(args);
         }
     }
@@ -137,4 +134,3 @@ public class LibDocMojo
     File projectBaseDir;
 
 }
-

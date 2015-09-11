@@ -11,7 +11,7 @@ public class HarvestUtilsTest {
 
     @Test
     public void testExtractName() throws Exception {
-        
+
         assertEquals("Blabla", HarvestUtils.extractName("com.xxx.Blabla"));
         assertEquals("Blabla", HarvestUtils.extractName("Blabla.java"));
         assertEquals("Blabla", HarvestUtils.extractName("c:\\xxx\\Blabla.java"));
@@ -32,13 +32,14 @@ public class HarvestUtilsTest {
 
         assertEquals(".java", HarvestUtils.extractExtension(new File(".java").getName()));
         assertEquals(".java", HarvestUtils.extractExtension(new File("*.java").getName()));
-    
+
     }
 
     @Test
     public void testIsAbsolutePathFragment() throws Exception {
-        //Supports Linux and Windows only, on local file systems, so no UNC, etc.
-        
+        // Supports Linux and Windows only, on local file systems, so no UNC,
+        // etc.
+
         if (File.separatorChar == '\\') {
             assertTrue(HarvestUtils.isAbsolutePathFragment("c:\\bla\\*.java"));
         } else {
@@ -57,4 +58,3 @@ public class HarvestUtilsTest {
         }
     }
 }
-
