@@ -21,9 +21,8 @@ public class AntPatternClassPredicate implements Predicate<String> {
         if (target.endsWith(".class")) {
             int classSuffixIndex = target.lastIndexOf(".class");
             compatibleTarget = target.substring(0, classSuffixIndex);
-        } else {
+        } else
             compatibleTarget = target;
-        }
 
         compatibleTarget = compatibleTarget.replace('.', File.separatorChar);
         return DirectoryScanner.match(pattern, compatibleTarget);

@@ -20,14 +20,13 @@ public class SourceFileNameHarvesterTest {
 
     @Before
     public void setup() throws IOException {
-        if (workingDirectory.isDirectory()) {
+        if (workingDirectory.isDirectory()) { 
             FileUtils.deleteDirectory(workingDirectory);
         } else {
-            if (workingDirectory.isFile()) {
+            if (workingDirectory.isFile()) 
                 assertTrue(workingDirectory.delete());
-            } else {
+             else 
                 assertTrue(workingDirectory.mkdir());
-            }
         }
     }
 
@@ -36,9 +35,8 @@ public class SourceFileNameHarvesterTest {
         if (workingDirectory.isDirectory()) {
             FileUtils.deleteDirectory(workingDirectory);
         } else {
-            if (workingDirectory.isFile()) {
+            if (workingDirectory.isFile()) 
                 workingDirectory.delete();
-            }
         }
     }
 

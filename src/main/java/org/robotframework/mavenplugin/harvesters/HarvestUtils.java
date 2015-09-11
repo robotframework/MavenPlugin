@@ -13,36 +13,27 @@ public class HarvestUtils {
      * Extracts the name component of a string representing a file name.
      */
     public static String extractName(String harvestedName) {
-        String result;
+        String result = "";
 
         int indexOfSlash = harvestedName.lastIndexOf('/');
         int indexOfBackSlash = harvestedName.lastIndexOf('\\');
         if (indexOfSlash >= 0 || indexOfBackSlash >= 0) {
             // we deal with a file path
             int index = Math.max(indexOfSlash, indexOfBackSlash);
-            if (index + 1 == harvestedName.length()) {
-                result = "";
-            } else {
-                if (harvestedName.endsWith(JAVA_FILE_EXT)) {
-                    // Get name minus path and extension.
+            if (index + 1 != harvestedName.length()) {
+                if (harvestedName.endsWith(JAVA_FILE_EXT))
                     result = harvestedName.substring(index + 1, harvestedName.length() - JAVA_FILE_EXT.length());
-                } else {
-                    // Get name minus path.
+                else
                     result = harvestedName.substring(index + 1);
-                }
             }
         } else {
-            if (harvestedName.endsWith(JAVA_FILE_EXT)) {
-                // The name of the file minus the extension.
+            if (harvestedName.endsWith(JAVA_FILE_EXT))
                 result = harvestedName.substring(0, harvestedName.length() - JAVA_FILE_EXT.length());
-            } else {
+            else {
                 // Dealing with a class, so use the name.
                 int indexOfDot = harvestedName.lastIndexOf('.');
-                if (indexOfDot + 1 == harvestedName.length()) {
-                    result = "";
-                } else {
+                if (indexOfDot + 1 != harvestedName.length())
                     result = harvestedName.substring(indexOfDot + 1);
-                }
             }
         }
         return result;
@@ -53,17 +44,15 @@ public class HarvestUtils {
         int indexOfQuestionMark = antLikePattern.indexOf('?');
         int minPatternIndex;
         if (indexOfStar >= 0) {
-            if (indexOfQuestionMark >= 0) {
+            if (indexOfQuestionMark >= 0) 
                 minPatternIndex = Math.min(indexOfStar, indexOfQuestionMark);
-            } else {
+            else 
                 minPatternIndex = indexOfStar;
-            }
         } else {
-            if (indexOfQuestionMark >= 0) {
+            if (indexOfQuestionMark >= 0) 
                 minPatternIndex = indexOfQuestionMark;
-            } else {
+            else 
                 minPatternIndex = -1;
-            }
         }
         return minPatternIndex;
     }
@@ -106,23 +95,19 @@ public class HarvestUtils {
      * @return
      */
     public static String extractExtension(String filename) {
-        String result;
+        String result = "";
         int indexOfDot = filename.lastIndexOf('.');
         if (indexOfDot >= 0) {
             result = filename.substring(indexOfDot);
-        } else {
-            result = "";
         }
         return result;
     }
 
     public static String removePrefixDirectory(File projectBaseDir, String fileArgument) {
-        String result;
+        String result = fileArgument;
         String prefix = projectBaseDir.getAbsolutePath() + File.separator;
         if (fileArgument.startsWith(prefix)) {
             result = fileArgument.substring(prefix.length());
-        } else {
-            result = fileArgument;
         }
         return result;
     }

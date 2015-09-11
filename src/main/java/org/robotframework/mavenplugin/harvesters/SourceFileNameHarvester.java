@@ -26,26 +26,19 @@ public class SourceFileNameHarvester implements NameHarvester {
 
         int maxSlashIndex = Math.max(lastSlashBeforePatternSymbol, lastBackslashBeforePatternSymbol);
 
-        String baseDirectory;
+        String baseDirectory = "";
         // Determine whether to provide the project base dir.
-        if (HarvestUtils.isAbsolutePathFragment(antLikePattern)) {
-            baseDirectory = "";
-        } else {
+        if (!HarvestUtils.isAbsolutePathFragment(antLikePattern))
             baseDirectory = baseDir.getAbsolutePath() + File.separator;
-        }
 
         // Parse out the additional directory and pattern parts.
-        String patternString;
+        String patternString = "";
         if (maxSlashIndex > 0) {
             baseDirectory += antLikePattern.substring(0, maxSlashIndex + 1);
-            if (maxSlashIndex + 1 >= antLikePattern.length()) {
-                patternString = "";
-            } else {
+            if (maxSlashIndex + 1 < antLikePattern.length())
                 patternString = antLikePattern.substring(maxSlashIndex + 1);
-            }
-        } else {
+        } else 
             patternString = antLikePattern;
-        }
 
         // pattern that we need to expand.
         DirectoryScanner scanner = new DirectoryScanner();

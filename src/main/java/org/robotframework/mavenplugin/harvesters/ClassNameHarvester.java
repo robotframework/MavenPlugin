@@ -22,9 +22,8 @@ public class ClassNameHarvester implements NameHarvester {
                 ClassPath cp = ClassPath.from(this.getClass().getClassLoader());
                 for (ClassPath.ClassInfo ci : cp.getAllClasses()) {
                     String t = ci.getName();
-                    if (ap.apply(t)) {
+                    if (ap.apply(t)) 
                         result.add(t);
-                    }
                 }
             } catch (IOException e) {
                 // Could not find any!

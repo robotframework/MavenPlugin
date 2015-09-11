@@ -48,14 +48,11 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath {
         libdoc.populateDefaults(this);
         libdoc.ensureOutputDirectoryExists();
 
-        if (projectBaseDir == null) {
+        if (projectBaseDir == null)
             projectBaseDir = new File("");
-        }
         List<String[]> runArgs = libdoc.generateRunArguments(projectBaseDir);
-        // Run all libdoc calls one after another
-        for (String[] args : runArgs) {
+        for (String[] args : runArgs)
             RobotFramework.run(args);
-        }
     }
 
     /**

@@ -17,23 +17,20 @@ public class ResourceNameHarvester implements NameHarvester {
 
         LinkedHashSet<String> result = new LinkedHashSet<String>();
         if (minPatternIndex >= 0) {
-
             try {
                 AntPatternClassPredicate ap = new AntPatternClassPredicate(antLikePattern);
                 ClassPath cp = ClassPath.from(this.getClass().getClassLoader());
                 for (ClassPath.ResourceInfo ri : cp.getResources()) {
                     String t = ri.getResourceName();
-                    if (ap.apply(t)) {
+                    if (ap.apply(t)) 
                         result.add(t);
-                    }
                 }
             } catch (IOException e) {
-                // Could not find any!
+                // Could not find any, so silence the exception!
             }
-        } else {
+        } else 
             // No pattern, add as direct resource to deal with later.
             result.add(antLikePattern);
-        }
         return result;
     }
 }
