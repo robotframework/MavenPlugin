@@ -21,6 +21,7 @@ package org.robotframework.mavenplugin;
 import java.io.File;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -28,7 +29,7 @@ import org.robotframework.RobotFramework;
 
 /**
  * Create documentation of test suites using the Robot Framework <code>testdoc</code> tool.
- * 
+ * <p/>
  * Uses the <code>testdoc</code> bundled in Robot Framework jar distribution. For more help see
  * <a href="http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-data-documentation-tool-testdoc">testdoc documentation</a>.
  *
@@ -51,9 +52,14 @@ public class TestDocMojo
             throws IOException {
         testdoc.populateDefaults(this);
         testdoc.ensureOutputDirectoryExists();
-        String[] args = testdoc.generateRunArguments();
-        getLog().debug("Run arguments -> " + args);
-        RobotFramework.run(args);
+
+        if (projectBaseDir == null)
+            projectBaseDir = new File("");
+        List<String[]> runArgs = testdoc.generateRunArguments(projectBaseDir);
+        for (String[] args : runArgs) {
+            getLog().debug("Run arguments -> " + args);
+            RobotFramework.run(args);
+        }
     }
 
     /**
@@ -61,28 +67,35 @@ public class TestDocMojo
      *
      * Required settings:
      * <ul>
-     * <li><code>outputFile</code>          The name for the output file.</li>
-     * <li><code>dataSourceFile</code>     Name or path of the documented test case(s).</li>
+     * <li><code>outputFile</code>          The name for the output file.
+     *                                      We also support patterns like {@code *.html}, which indicates to derive the output name from the original name.</li>
+     * <li><code>dataSourceFile</code>     Name or path of the documented test case(s). Supports ant-like pattern format to match multiple inputs, such as <code>src/robot/**{@literal /}*.robot</code></li>
      * </ul>
-     * 
-     * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid test case file. 
+     * <p/>
+     * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid test case file.
      * For example <code>src/main/test/ExampleTest.txt</code>
      * Optional settings:
      * <ul>
      * <li><code>outputDirectory</code>     Specifies the directory where documentation files are written.
      *                                      Considered to be relative to the ${basedir} of the project.
      *                                      Default ${project.build.directory}/robotframework/testdoc</li>
-     * <li><code>title</code>               Set the title of the generated documentation. Underscores in 
-     *                                      the title are converted to spaces. The default title is the 
+     * <li><code>title</code>               Set the title of the generated documentation. Underscores in
+     *                                      the title are converted to spaces. The default title is the
      *                                      name of the top level suite.</li>
      * <li><code>name</code>                Override the name of the top level test suite.</li>
      * <li><code>doc</code>                 Override the documentation of the top level test suite.</li>
      * </ul>
      *
-     * Example:
+     * Example 1:
      * <pre><![CDATA[<testdoc>
      *      <outputFile>MyTests.html</outputFile>
      *      <dataSourceFile>src/test/resources/MyTests.txt</dataSourceFile>
+     * </testdoc>]]></pre>
+     *
+     * Example 2:
+     * <pre><![CDATA[<testdoc>
+     *      <outputFile>*.html</outputFile>
+     *      <dataSourceFile>src/robot/**{@literal /}*.robot</dataSourceFile>
      * </testdoc>]]></pre>
      *
      * @parameter
@@ -97,4 +110,11 @@ public class TestDocMojo
      * @readonly
      */
     File defaultTestdocOutputDirectory;
+
+    /**
+     * The base dir of the project.
+     * @parameter default-value="${project.basedir}"
+     * @readonly
+     */
+    File projectBaseDir;
 }
