@@ -11,7 +11,7 @@
     <groupId>org.robotframework</groupId>
     <artifactId>robotframework-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>1.4.7</version>
+    <version>1.4.8-SNAPSHOT</version>
     <name>Robot Framework Maven Plugin</name>
     <description>
         Maven plugin for the Robot Framework.
@@ -108,7 +108,7 @@
         <dependency>
             <groupId>org.robotframework</groupId>
             <artifactId>robotframework</artifactId>
-            <version>3.0.2</version>
+            <version>3.0.4</version>
         </dependency>
 
         <dependency>
