@@ -20,6 +20,7 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.junit.BeforeClass;
 import org.robotframework.mavenplugin.VerifyMojo;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -35,7 +36,7 @@ public class RebotMojoTest extends AbstractMojoTestCase {
 	public void testReportSuccess() throws Exception {
 		File pom = getTestFile("src/test/resources/pom-rebot.xml");
 		this.executeRebotMojo(pom);
-		File xunitFile = getTestFile("target/robotframework-reports/TEST-robot-success.xml");
+		File xunitFile = getTestFile("target/robotframework-reports/rebot/TEST-robot-success.xml");
 		assertTrue("missing xunit test report " + xunitFile, xunitFile.exists());
 
 		Document xunit = parseDocument(xunitFile);
@@ -47,7 +48,7 @@ public class RebotMojoTest extends AbstractMojoTestCase {
 	public void testReportSuccessMerged() throws Exception {
 		File pom = getTestFile("src/test/resources/pom-rebot-merged.xml");
 		this.executeRebotMojo(pom);
-		File xunitFile = getTestFile("target/robotframework-reports/TEST-robot-success.xml");
+		File xunitFile = getTestFile("target/robotframework-reports/rebot/TEST-robot-success-merged.xml");
 		assertTrue("missing xunit test report " + xunitFile, xunitFile.exists());
 
 		Document xunit = parseDocument(xunitFile);

@@ -15,7 +15,7 @@
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
-          <outputDirectory>target/robotframework-reports</outputDirectory>
+          <outputDirectory>target/robotframework-reports/rebot</outputDirectory>
           <xunitFile>TEST-robot-success.xml</xunitFile>
         </configuration>
       </plugin>

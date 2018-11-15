@@ -61,7 +61,6 @@ public class RebotMojo
         generatedArguments.addFileToArguments(log, "-l");
         generatedArguments.addFileToArguments(report, "-r");
         generatedArguments.addNonEmptyStringToArguments(splitOutputs, "--splitoutputs");
-        System.out.println("merge: "+merge);
         generatedArguments.addFlagToArguments(merge, "--merge");
         generatedArguments.addFileToArguments(xunitFile, "-x");
         generatedArguments.addFlagToArguments(true, "--xunitskipnoncritical");
