@@ -61,6 +61,7 @@ public class RebotMojo
         generatedArguments.addFileToArguments(log, "-l");
         generatedArguments.addFileToArguments(report, "-r");
         generatedArguments.addNonEmptyStringToArguments(splitOutputs, "--splitoutputs");
+        System.out.println("merge: "+merge);
         generatedArguments.addFlagToArguments(merge, "--merge");
         generatedArguments.addFileToArguments(xunitFile, "-x");
         generatedArguments.addFlagToArguments(true, "--xunitskipnoncritical");
@@ -102,9 +103,9 @@ public class RebotMojo
      * When combining results, merge outputs together
      * instead of putting them under a new top level suite.
      * 
-     * @parameter default-value="true"
+     * @parameter default-value="false"
      */
-    private Boolean merge;
+    private boolean merge;
     
     /**
      * Sets the path to the generated output file.

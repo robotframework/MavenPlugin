@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Jython 2.7.0 on java1.8.0_131)" generated="20181115 08:14:28.322">
+<suite source="/Users/juhosaarinen/git/MavenPlugin/src/test/resources/robot-success" name="Robot-Success" id="s1">
+<suite source="/Users/juhosaarinen/git/MavenPlugin/src/test/resources/robot-success/anotherSuccessfulTest.txt" name="anotherSuccessfulTest" id="s1-s1">
+<test name="Successful Test Negatives" id="s1-s1-t1">
+<kw library="BuiltIn" name="Should Be Equal As Numbers">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>-1</arg>
+<arg>-1</arg>
+</arguments>
+<status endtime="20181115 08:14:28.519" starttime="20181115 08:14:28.516" status="PASS"></status>
+</kw>
+<kw library="BuiltIn" name="Should Be Equal As Numbers">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>-4</arg>
+<arg>-4</arg>
+</arguments>
+<status endtime="20181115 08:14:28.521" starttime="20181115 08:14:28.519" status="PASS"></status>
+</kw>
+<tags>
+<tag>success</tag>
+</tags>
+<status critical="yes" endtime="20181115 08:14:28.522" starttime="20181115 08:14:28.514" status="PASS"></status>
+</test>
+<status endtime="20181115 08:14:28.523" starttime="20181115 08:14:28.502" status="PASS"></status>
+</suite>
+<suite source="/Users/juhosaarinen/git/MavenPlugin/src/test/resources/robot-success/successfulTest.txt" name="successfulTest" id="s1-s2">
+<test name="Successful Test" id="s1-s2-t1">
+<kw library="BuiltIn" name="Should Be Equal As Numbers">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>1</arg>
+<arg>1</arg>
+</arguments>
+<status endtime="20181115 08:14:28.544" starttime="20181115 08:14:28.543" status="PASS"></status>
+</kw>
+<kw library="BuiltIn" name="Should Be Equal As Numbers">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>4</arg>
+<arg>4</arg>
+</arguments>
+<status endtime="20181115 08:14:28.548" starttime="20181115 08:14:28.545" status="PASS"></status>
+</kw>
+<tags>
+<tag>success</tag>
+</tags>
+<status critical="yes" endtime="20181115 08:14:28.549" starttime="20181115 08:14:28.541" status="PASS"></status>
+</test>
+<status endtime="20181115 08:14:28.550" starttime="20181115 08:14:28.526" status="PASS"></status>
+</suite>
+<status endtime="20181115 08:14:28.555" starttime="20181115 08:14:28.326" status="PASS"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0">Critical Tests</stat>
+<stat pass="2" fail="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="2" fail="0">success</stat>
+</tag>
+<suite>
+<stat pass="2" fail="0" name="Robot-Success" id="s1">Robot-Success</stat>
+<stat pass="1" fail="0" name="anotherSuccessfulTest" id="s1-s1">Robot-Success.anotherSuccessfulTest</stat>
+<stat pass="1" fail="0" name="successfulTest" id="s1-s2">Robot-Success.successfulTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
