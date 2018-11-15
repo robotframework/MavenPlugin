@@ -39,6 +39,14 @@ Robot Framework Maven Plugin
     {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#test-data-documentation-tool-testdoc}testdoc}}
     Robot Framework command for generating high level overview of test suites
 
+  * {{{./rebot-mojo.html}robotframework:libdoc}} invokes the
+  {{{http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#using-rebot}rebot}}
+  Robot Framework command that separately allows creating custom reports and logs as well as combining and merging results. It can also be used
+  to separate test execution and report generation to different maven profiles.
+
+    
+
+
 
 * Getting started
 
