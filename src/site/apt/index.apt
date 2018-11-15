@@ -39,6 +39,14 @@ Robot Framework Maven Plugin
     {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#test-data-documentation-tool-testdoc}testdoc}}
     Robot Framework command for generating high level overview of test suites
 
+  * {{{./rebot-mojo.html}robotframework:rebot}} invokes the
+  {{{http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#using-rebot}rebot}}
+  Robot Framework command that separately allows creating custom reports and logs as well as combining and merging results. It can also be used
+  to separate test execution and report generation to different maven profiles.
+
+    
+
+
 
 * Getting started
 
@@ -57,7 +65,7 @@ Robot Framework Maven Plugin
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.4.7</version>
+        <version>1.4.8</version>
         <executions>
           <execution>
             <goals>
@@ -106,8 +114,7 @@ Robot Framework Maven Plugin
   logFile config to value NONE. This still allows Robot to generate the html
   report, and the xunit output-file, which the plugin uses to verify the results
   of the test run. The log-file can be generated later from the output.xml using
-  {{{http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#post-processing-outputs}rebot}}
-  tool if needed.
+  {{{./rebot-mojo.html}robotframework:rebot}}-goal if needed.
 
 * Updating Robot Framework dependency
 
@@ -119,7 +126,7 @@ Robot Framework Maven Plugin
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.4.7</version>
+        <version>1.4.8</version>
         <executions>
           <execution>
             <goals>
