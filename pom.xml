@@ -59,8 +59,8 @@
 		<url>http://robotframework.org</url>
 	</organization>
 	<ciManagement>
-		<system>Jenkins</system>
-		<url>http://robot.radiaatto.ri.fi/job/MavenPlugin/</url>
+		<system>Travis</system>
+		<url>https://travis-ci.org/robotframework/MavenPlugin</url>
 	</ciManagement>
 	<profiles>
 		<profile>
@@ -238,6 +238,8 @@
     </dependencies>
     <properties>
         <github.global.server>github</github.global.server>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
     <build>
         <plugins>
