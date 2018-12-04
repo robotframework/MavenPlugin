@@ -8,33 +8,16 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Test Mojo</name>
-    <dependencies>
-        <dependency>
-            <groupId>org.robotframework</groupId>
-            <artifactId>swinglibrary</artifactId>
-            <version>1.9.2</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
   <build>
     <plugins>
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.4.8</version>
-        <executions>
-            <execution>
-                <goals>
-                    <goal>acceptance-test</goal>
-                    <goal>verify</goal>
-                </goals>
-            </execution>
-        </executions>
         <configuration>
-          <criticalTags>
-              <criticalTag>success</criticalTag>
-          </criticalTags>
+          <outputDirectory>target/robotframework-reports/rebot</outputDirectory>
+          <xunitFile>TEST-robot-success-merged.xml</xunitFile>
+          <merge>true</merge>
         </configuration>
       </plugin>
     </plugins>
