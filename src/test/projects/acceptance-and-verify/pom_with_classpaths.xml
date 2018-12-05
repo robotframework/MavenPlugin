@@ -23,7 +23,7 @@
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.4.8</version>
+        <version>${MavenLibrary.version}</version>
         <executions>
           <execution>
             <goals>
