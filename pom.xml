@@ -7,7 +7,7 @@
     <groupId>org.robotframework</groupId>
     <artifactId>robotframework-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>1.4.8-SNAPSHOT</version>
+    <version>1.4.9-SNAPSHOT</version>
     <name>Robot Framework Maven Plugin</name>
     <description>
         Maven plugin for the Robot Framework.
@@ -63,6 +63,7 @@
 		<url>https://travis-ci.org/robotframework/MavenPlugin</url>
 	</ciManagement>
 	<profiles>
+		<!-- 2 first profiles needed for tests to have tools.jar in classpath -->
 		<profile>
 			<id>default</id>
 			<activation>
@@ -166,7 +167,7 @@
 		<dependency>
 			<groupId>org.codehaus.plexus</groupId>
 			<artifactId>plexus-io</artifactId>
-			<version>2.7</version>
+			<version>3.0.1</version>
 		</dependency>
 
 		<dependency>
