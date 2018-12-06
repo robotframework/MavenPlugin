@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
  * build, rather the results are evaluated by the verify goal. For details see the <a
  * href="http://maven.apache.org/plugins/maven-failsafe-plugin/">maven-failsafe-plugin</a>, which
  * uses the same strategy for integration testing.
- * <p/>
+ * 
  * Robot Framework tests cases are created in files and directories, and they are executed by
  * configuring the path to the file or directory in question to the testCasesDirectory
  * configuration. The given file or directory creates the top-level tests suites, which gets its
