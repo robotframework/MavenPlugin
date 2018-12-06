@@ -63,6 +63,7 @@ public class RebotMojo
         generatedArguments.addNonEmptyStringToArguments(splitOutputs, "--splitoutputs");
         generatedArguments.addFlagToArguments(merge, "--merge");
         generatedArguments.addFileToArguments(xunitFile, "-x");
+        generatedArguments.addNonEmptyStringToArguments(logLevel, "-L");
         generatedArguments.addFlagToArguments(true, "--xunitskipnoncritical");
         generatedArguments.add(getOutputPath());
         return generatedArguments.toArray();
@@ -105,6 +106,13 @@ public class RebotMojo
      * @parameter default-value="false"
      */
     private boolean merge;
+    
+    /**
+     * Sets the threshold level for logging.
+     *
+     * @parameter
+     */
+    private String logLevel;
     
     /**
      * Sets the path to the generated output file.
