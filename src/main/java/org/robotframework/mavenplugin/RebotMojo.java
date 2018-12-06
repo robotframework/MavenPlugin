@@ -27,7 +27,7 @@ import org.robotframework.RobotFramework;
 
 /**
  * Creates report files from output.xml using the Robot Framework <code>rebot</code> tool.
- * <p/>
+ * 
  * Uses the <code>rebot</code> bundled in Robot Framework jar distribution. For more help see
  * <a href="http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#using-robot-and-rebot-scripts">rebot documentation</a>.
  *

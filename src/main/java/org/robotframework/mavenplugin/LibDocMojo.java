@@ -26,7 +26,7 @@ import org.robotframework.RobotFramework;
 
 /**
  * Create documentation of test libraries or resource files using the Robot Framework <code>libdoc</code> tool.
- * <p/>
+ * 
  * Uses the <code>libdoc</code> bundled in Robot Framework jar distribution. For more help see
  * <a href="http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#library-documentation-tool-libdoc">libdoc documentation</a>.
  *
@@ -59,14 +59,14 @@ public class LibDocMojo
      * <ul>
      * <li><code>outputFile</code>          The name for the output file. Documentation output format is deduced from the file extension.</li>
      * <li><code>libraryOrResourceFile</code>     Name or path of the documented library or resource file.
-     * <p/>
+     * 
      * Name must be in the same format as when used in Robot Framework test data, for example <code>BuiltIn</code> or
      * <code>com.acme.FooLibrary</code>. When name is used, the library is imported the same as when running the tests.
      * Use extraPathDirectories to set PYTHONPATH/CLASSPATH accordingly.
-     * <p/>
+     * 
      * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid Python/Java
      * source file or a resource file. For example <code>src/main/python/test/ExampleLib.py</code>
-     * <p/>
+     * 
      * Note that you should preferably import java classes by classname, not path. Dynamic libraries will not be compiled correctly with path.</li>
      * </ul>
      * Optional settings:
