@@ -27,7 +27,7 @@ import org.robotframework.RobotFramework;
 
 /**
  * Creates report files from output.xml using the Robot Framework <code>rebot</code> tool.
- * <p/>
+ * 
  * Uses the <code>rebot</code> bundled in Robot Framework jar distribution. For more help see
  * <a href="http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#using-robot-and-rebot-scripts">rebot documentation</a>.
  *
@@ -63,6 +63,7 @@ public class RebotMojo
         generatedArguments.addNonEmptyStringToArguments(splitOutputs, "--splitoutputs");
         generatedArguments.addFlagToArguments(merge, "--merge");
         generatedArguments.addFileToArguments(xunitFile, "-x");
+        generatedArguments.addNonEmptyStringToArguments(logLevel, "-L");
         generatedArguments.addFlagToArguments(true, "--xunitskipnoncritical");
         generatedArguments.add(getOutputPath());
         return generatedArguments.toArray();
@@ -105,6 +106,13 @@ public class RebotMojo
      * @parameter default-value="false"
      */
     private boolean merge;
+    
+    /**
+     * Sets the threshold level for logging.
+     *
+     * @parameter
+     */
+    private String logLevel;
     
     /**
      * Sets the path to the generated output file.

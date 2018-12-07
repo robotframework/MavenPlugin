@@ -1,51 +1,52 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.robotframework</groupId>
-  <artifactId>robotframework-maven-plugin-test</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  <name>Test Mojo</name>
+	<groupId>org.robotframework</groupId>
+	<artifactId>robotframework-maven-plugin-test</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Test Mojo</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.maven.plugin-testing</groupId>
-      <artifactId>maven-plugin-testing-harness</artifactId>
-      <version>3.3.0</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>com.github.hi-fi</groupId>
+			<artifactId>robotframework-httprequestlibrary</artifactId>
+			<version>0.0.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.robotframework</groupId>
-        <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.4.8</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>acceptance-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <tests>
-            <test>Dependencies should be in classpath</test>
-          </tests>
-          <testCasesDirectory>
-            ${project.basedir}/src/test/robotframework/classpath-acceptance
-          </testCasesDirectory>
-          <externalRunner>
-              <excludeDependencies>false</excludeDependencies>
-          </externalRunner>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.robotframework</groupId>
+				<artifactId>robotframework-maven-plugin</artifactId>
+				<version>${MavenLibrary.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>acceptance-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<tests>
+						<test>Dependencies should be in classpath</test>
+					</tests>
+					<testCasesDirectory>
+						${project.basedir}/src/test/robotframework/classpath-acceptance
+					</testCasesDirectory>
+					<externalRunner>
+						<excludeDependencies>false</excludeDependencies>
+					</externalRunner>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
 
 

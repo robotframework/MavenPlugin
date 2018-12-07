@@ -4,21 +4,23 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
-
 	<groupId>org.robotframework</groupId>
 	<artifactId>robotframework-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
-	<version>1.4.8</version>
+	<version>1.4.9-SNAPSHOT</version>
 	<name>Robot Framework Maven Plugin</name>
 	<description>
         Maven plugin for the Robot Framework.
     </description>
 	<url>https://github.com/robotframework/MavenPlugin/</url>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<developers>
 		<developer>
 			<name>Robot Framework Developers</name>
@@ -57,8 +59,8 @@
 		<url>http://robotframework.org</url>
 	</organization>
 	<ciManagement>
-		<system>Jenkins</system>
-		<url>http://robot.radiaatto.ri.fi/job/MavenPlugin/</url>
+		<system>Travis</system>
+		<url>https://travis-ci.org/robotframework/MavenPlugin</url>
 	</ciManagement>
 	<profiles>
 		<profile>
@@ -99,6 +101,83 @@
 					<systemPath>${java.home}/../Classes/classes.jar</systemPath>
 				</dependency>
 			</dependencies>
+		</profile>
+
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>3.0.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>3.0.1</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<tags>
+								<tag>
+									<name>goal</name>
+									<placement>a</placement>
+									<head>Goal:</head>
+								</tag>
+								<tag>
+									<name>phase</name>
+									<placement>a</placement>
+									<head>Phase:</head>
+								</tag>
+								<tag>
+									<name>threadSafe</name>
+									<placement>a</placement>
+									<head>Thread Safe:</head>
+								</tag>
+								<tag>
+									<name>requiresDependencyResolution</name>
+									<placement>a</placement>
+									<head>Requires Dependency Resolution:</head>
+								</tag>
+								<tag>
+									<name>requiresProject</name>
+									<placement>a</placement>
+									<head>Requires Project:</head>
+								</tag>
+							</tags>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 
@@ -221,9 +300,12 @@
 			<version>1.6</version>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 	<properties>
 		<github.global.server>github</github.global.server>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	<build>
 		<plugins>
@@ -243,6 +325,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>2.21.0</version>
+				<configuration>
+					<environmentVariables>
+						<MavenLibrary.version>${project.version}</MavenLibrary.version>
+					</environmentVariables>
+				</configuration>
 				<executions>
 					<execution>
 						<id>integration-test</id>
@@ -277,20 +364,6 @@
 							<packaging>maven-plugin</packaging>
 							<pomFile>${basedir}/pom.xml</pomFile>
 						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.6</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>install</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
 					</execution>
 				</executions>
 			</plugin>

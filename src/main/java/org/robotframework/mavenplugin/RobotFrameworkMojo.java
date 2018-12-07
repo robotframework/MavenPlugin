@@ -22,7 +22,7 @@ import org.apache.maven.plugin.MojoFailureException;
 
 /**
  * Runs the Robot tests. Behaves like invoking the "jybot" command.
- * <p/>
+ * 
  * Robot Framework tests cases are created in files and directories, and they are executed by configuring the path to
  * the file or directory in question to the testCasesDirectory configuration. The given file or directory creates the
  * top-level tests suites, which gets its name, unless overridden with the "name" option, from the file or directory
