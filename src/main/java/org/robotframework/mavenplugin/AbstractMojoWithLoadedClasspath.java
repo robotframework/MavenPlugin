@@ -34,14 +34,14 @@ public abstract class AbstractMojoWithLoadedClasspath
     private static String ROBOT_ARTIFACT = join(File.separator, "org", "robotframework", "robotframework");
 
     /**
-     * @parameter expression="${project.testClasspathElements}"
+     * @parameter property="project.testClasspathElements"
      * @required
      * @readonly
      */
     private List<String> classpathElements;
 
     /**
-     * @parameter expression="${settings.localRepository}"
+     * @parameter property="settings.localRepository"
      * @required
      * @readonly
      */
