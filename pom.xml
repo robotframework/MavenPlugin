@@ -327,7 +327,7 @@
 				<version>2.21.0</version>
 				<configuration>
 					<environmentVariables>
-						<MavenLibrary.version>${project.version}</MavenLibrary.version>
+						<MAVEN_LIBRARY_VERSION>${project.version}</MAVEN_LIBRARY_VERSION>
 					</environmentVariables>
 				</configuration>
 				<executions>

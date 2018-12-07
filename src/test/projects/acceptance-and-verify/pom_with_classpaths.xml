@@ -24,7 +24,7 @@
 			<plugin>
 				<groupId>org.robotframework</groupId>
 				<artifactId>robotframework-maven-plugin</artifactId>
-				<version>${MavenLibrary.version}</version>
+				<version>${env.MAVEN_LIBRARY_VERSION}</version>
 				<executions>
 					<execution>
 						<goals>
