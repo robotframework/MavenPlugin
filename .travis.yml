@@ -15,6 +15,10 @@ stages:
 before_install:
   - if [ ! -z "$GPG_SECRET_KEYS" ]; then echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import; fi
   - if [ ! -z "$GPG_OWNERTRUST" ]; then echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust; fi
+  - wget https://www-eu.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.zip
+  - unzip -qq apache-maven-3.6.0-bin.zip
+  - export M2_HOME=$PWD/apache-maven-3.6.0
+  - export PATH=$M2_HOME/bin:$PATH
 
 install:
   - mvn --settings .travis/settings.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
