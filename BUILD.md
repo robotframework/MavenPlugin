@@ -1,3 +1,10 @@
+Branches
+========
+
+`master` = "Release" branch, contains always version that's release to Maven Central
+`develop` = Developent time branch. All PRs should be targetted (and usually also started) from here. 
+`gh-pages` = Github internal branch containing
+
 Building
 ========
 
