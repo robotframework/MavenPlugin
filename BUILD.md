@@ -2,7 +2,9 @@ Branches
 ========
 
 `master` = "Release" branch, contains always version that's release to Maven Central
+
 `develop` = Developent time branch. All PRs should be targetted (and usually also started) from here. 
+
 `gh-pages` = Github internal branch containing
 
 Building
@@ -32,11 +34,11 @@ Releasing
 
 osx:
 ```bash
-grep -rl 'sion>1.4.9</ver' ./ | xargs sed -i '' 's|sion>1.4.9</ver|sion>1.5</ver|g'
+grep -rl 'sion>1.5.0</ver' ./ | xargs sed -i '' 's|sion>1.5.0</ver|sion>1.6</ver|g'
 ```
 linux:
 ```bash
-grep -rl 'sion>1.4.9</ver' ./ | xargs sed -i 's|sion>1.4.9</ver|sion>1.5</ver|g'
+grep -rl 'sion>1.5.0</ver' ./ | xargs sed -i 's|sion>1.5.0</ver|sion>1.6</ver|g'
 ```
 Last you should update those rows above.
 
@@ -58,8 +60,8 @@ mvn site:site
 * Commit to git
 
 ```bash
-git commit -am "version 1.5"
-git tag 1.5
+git commit -am "version 1.6"
+git tag -a 1.6 
 git push
 git push --tags
 ```

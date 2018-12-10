@@ -37,7 +37,7 @@ Add the plugin to your build:
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.4.9</version>
+        <version>1.5.0</version>
         <executions>
           <execution>
             <goals>
@@ -62,3 +62,5 @@ Third party libraries (e.g. Selenium Library) can be added to ${project.basedir}
 During mvn install invocation, run command will be invoked during the integration-test phase.
 
 For more detailed documentation please see http://robotframework.github.com/MavenPlugin/
+
+*NOTE*: If needing plugin with Java 1.7, latest version supporting that is 1.4.9
