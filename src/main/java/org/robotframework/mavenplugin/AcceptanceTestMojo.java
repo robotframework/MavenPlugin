@@ -178,8 +178,8 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
             Transformer transformer = TransformerFactory.newInstance()
                     .newTransformer();
             Source xmlSource = new DOMSource(document);
-            final File output;
-            output = makeAbsolute(outputDirectory, xunitFile);
+            final File output = makeAbsolute(outputDirectory, xunitFile);
+            outputDirectory.mkdirs();
             Result outputTarget = new StreamResult(output);
             transformer.transform(xmlSource, outputTarget);
 
