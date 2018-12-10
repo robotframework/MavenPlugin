@@ -62,7 +62,7 @@ public class RobotFrameworkSkipTest {
         Whitebox.setInternalState(robotFrameworkMojo, "testCasesDirectory", new File(testsFolder));
         robotFrameworkMojo.execute();
 
-        PowerMockito.verifyStatic();
+        PowerMockito.verifyStatic(RobotFramework.class);
         RobotFramework.run(new String[]{"-x", "TEST-tests.xml", "--xunitskipnoncritical", testsFolder});
     }
 }

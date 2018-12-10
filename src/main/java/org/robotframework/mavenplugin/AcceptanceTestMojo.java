@@ -178,8 +178,8 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
             Transformer transformer = TransformerFactory.newInstance()
                     .newTransformer();
             Source xmlSource = new DOMSource(document);
-            final File output;
-            output = makeAbsolute(outputDirectory, xunitFile);
+            final File output = makeAbsolute(outputDirectory, xunitFile);
+            outputDirectory.mkdirs();
             Result outputTarget = new StreamResult(output);
             transformer.transform(xmlSource, outputTarget);
 
@@ -302,7 +302,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     /**
      * The directory where the test cases are located.
      *
-     * @parameter default-value="${project.basedir}/src/test/robotframework/acceptance" expression="${testCasesDirectory}"
+     * @parameter default-value="${project.basedir}/src/test/robotframework/acceptance" property="testCasesDirectory"
      */
     private File testCasesDirectory;
 
@@ -371,7 +371,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * </pre>
      * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
      * </p>
-     * @parameter expression="${tests}"
+     * @parameter property="tests"
      */
     private String tests_cli;
 
@@ -384,7 +384,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * </pre>
      * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
      * </p>
-     * @parameter expression="${suites}"
+     * @parameter property="suites"
      */
     private String suites_cli;
 
@@ -397,7 +397,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * </pre>
      * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
      * </p>
-     * @parameter expression="${includes}"
+     * @parameter property="includes"
      */
     private String includes_cli;
 
@@ -410,7 +410,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * </pre>
      * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
      * </p>
-     * @parameter expression="${excludes}"
+     * @parameter property="excludes"
      */
     private String excludes_cli;
 
@@ -482,7 +482,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      *
      * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
      *
-     * @parameter expression="${variables}"
+     * @parameter property="variables"
      */
     private String variables_cli;
 
@@ -641,7 +641,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * Sets a single listener for monitoring tests execution, can also be set via commandline using
      * -Dlistener=MyListener.
      *
-     * @parameter expression="${listener}"
+     * @parameter property="listener"
      */
     private String listener;
 
@@ -694,7 +694,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     /**
      * A text file to read more arguments from.
      *
-     * @parameter expression="${argumentFile}"
+     * @parameter property="argumentFile"
      */
     private File argumentFile;
 
@@ -702,7 +702,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * Skip tests. Bound to -DskipTests. This allows to skip acceptance tests together with all
      * other tests.
      *
-     * @parameter expression="${skipTests}"
+     * @parameter property="skipTests"
      */
     private boolean skipTests;
 
@@ -710,7 +710,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * Skip acceptance tests executed by this plugin. Bound to -DskipATs. This allows to run tests
      * and integration tests, but no acceptance tests.
      *
-     * @parameter expression="${skipATs}"
+     * @parameter property="skipATs"
      */
     private boolean skipATs;
 
@@ -718,14 +718,14 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * Skip acceptance tests executed by this plugin together with other integration tests, e.g.
      * tests run by the maven-failsafe-plugin. Bound to -DskipITs
      *
-     * @parameter expression="${skipITs}"
+     * @parameter property="skipITs"
      */
     private boolean skipITs;
 
     /**
      * Skip tests, bound to -Dmaven.test.skip, which suppresses test compilation as well.
      *
-     * @parameter default-value="false" expression="${maven.test.skip}"
+     * @parameter default-value="false" property="maven.test.skip"
      */
     private boolean skip;
 
@@ -741,7 +741,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * Re-run failed tests, based on output.xml file. This can also be set via
 	 * commandline using -DrunFailed=path/to/output.xml.
      *
-     * @parameter expression="${runFailed}"
+     * @parameter property="runFailed"
      */
     private File runFailed;
 
