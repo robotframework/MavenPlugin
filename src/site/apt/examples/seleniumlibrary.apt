@@ -1,13 +1,4 @@
-	------
-	Selenium Library
-	------
-	Dietrich Schulten
-	------
-	2012-01-20
-	------
-
-
-Using SeleniumLibrary with the Robotframework Plugin
+Using Python-based SeleniumLibrary with the Robotframework Plugin
 
   ExtraPathDirectories parameter can be used to add extra test libraries to your build.
 
@@ -15,15 +6,20 @@ Using SeleniumLibrary with the Robotframework Plugin
 
 * Configuration and Installation
 
-  Download the tarball from the Selenium Library download page,
-  e.g. robotframework-seleniumlibrary-2.6.tar.gz
+  This is just and example how importing can be done, as there's also {{{https://github.com/Hi-Fi/robotframework-seleniumlibrary-java/}Java-based Selenium-library}} available that
+  can be included just as Maven depednency
+
+  Download the tarball from the Selenium Library releases page,
+  e.g. {{{https://github.com/robotframework/SeleniumLibrary/archive/v3.3.1.tar.gz}robotframework-seleniumlibrary-3.3.1.tar.gz}}
 
   Extract the file and move the SeleniumLibrary directory from
   robotframework-seleniumLibrary/src to ${project.basedir}/src/test/resources/robotframework/libraries.
 
   So your project will have a folder
   $\{project.basedir}/src/test/resources/robotframework/libraries/SeleniumLibrary
-
+  
+  Make same thing for {{{https://github.com/robotframework/SeleniumLibrary/blob/master/requirements.txt}external dependencies of the library}}. 
+  Robot Framework doesn't need to be imported, as it comes from dependencies.
 
 * Example
 
@@ -40,5 +36,5 @@ Suite Tear Down  Stop Selenium Server
 
 *** Test Cases ***
 My Test
-   Open Browser  http://robotframework.googlecode.com
+   Open Browser  http://robotframework.org
 +---
