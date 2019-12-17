@@ -1,16 +1,9 @@
-	------
-	Java Libraries
-	------
-	Dietrich Schulten
-	------
-	2012-01-20
-	------
-
 Using Java Libraries with the Robotframework Plugin
 
     * Java test libraries
 
-    You can access Java test libraries by adding the jars to the extraPathDirectories parameter.
+    You can access Java test libraries by adding the jars to the extraPathDirectories parameter or importing those
+    as Maven dependencies.
     Note that such tests will run with Jython only.
 
 +---
@@ -43,7 +36,7 @@ Using Java Libraries with the Robotframework Plugin
   <plugin>
     <groupId>org.robotframework</groupId>
     <artifactId>robotframework-maven-plugin</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <configuration>
       <extraPathDirectories>
         <extraPathDirectory>src/test/resources/python</extraPathDirectory>
