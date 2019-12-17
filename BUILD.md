@@ -75,7 +75,7 @@ mvn site
 * Send the material to Sonatype (see Deploy project to Sonatype below)
 
 ```bash
-mvn deploy
+mvn deploy -Pdeploy
 ```
 * do close and release from Staging Repository at https://oss.sonatype.org/index.html#welcome
 
@@ -106,6 +106,6 @@ As a prerequisite, you need account at Sonatype Jira, gpg keys, and Sonatype ser
 See https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide
 
 ```bash
-mvn deploy
+mvn deploy -Pdeploy
 ```
 Then do close and release from Staging Repository at https://oss.sonatype.org/index.html#welcome
