@@ -254,6 +254,8 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
 
         generatedArguments.addListToArguments(metadata, "-M");
         generatedArguments.addListToArguments(tags, "-G");
+        generatedArguments.addListToArguments(removeKeywords, "--removekeywords");
+        generatedArguments.addListToArguments(flattenKeywords, "--flattenkeywords");
         if (tests_cli!=null)
             generatedArguments.addListToArguments(tests_cli, "-t");
         else
@@ -455,6 +457,45 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter
      */
     private List<String> nonCriticalTags;
+
+    /**
+     * Remove keywords and their messages altogether.
+     * Instructions at http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#removing-keywords.
+     *
+     * <ul>
+     * <li>'ALL' - Remove data from all keywords unconditionally.</li>
+     * <li>'PASSED' -Remove keyword data from passed test cases. In most
+     * cases, log files created using this option contain enough information
+     * to investigate possible failures.</li>
+     * <li>'FOR' - Remove all passed iterations from for loops except the last one.</li>
+     * <li>'WUKS' - Remove all failing keywords inside BuiltIn keyword
+     * 'Wait Until Keyword Succeeds' except the last one.</li>
+     * <li>'NAME:\<pattern\>' - Remove data from all keywords matching the given pattern regardless the keyword status.</li>
+     * <li>'TAG:\<pattern\>' - Remove data from keywords with tags that match the given pattern.</li>
+     * </ul>
+     *
+     * The \<pattern\> is case, space, and underscore insensitive, and it supports simple patterns with * and ? as wildcards.
+     *
+     * @parameter
+     */
+    private List<String> removeKeywords;
+
+    /**
+     * Flatten keywords and their messages altogether.
+     * Instructions at http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#flattening-keywords.
+     *
+     * <ul>
+     * <li>'FOR' - Flatten for loops fully.</li>
+     * <li>'FORITEM' - Flatten individual for loop iterations.</li>
+     * <li>'NAME:\<pattern\>' - Flatten keywords matching the given pattern.</li>
+     * <li>'TAG:\<pattern\>' - Flatten keywords with tags matching the given pattern.</li>
+     * </ul>
+     *
+     * The \<pattern\> is case, space, and underscore insensitive, and it supports simple patterns with * and ? as wildcards.
+     *
+     * @parameter
+     */
+    private List<String> flattenKeywords;
 
     /**
      * Sets the execution mode for this tests run. Note that this setting has
