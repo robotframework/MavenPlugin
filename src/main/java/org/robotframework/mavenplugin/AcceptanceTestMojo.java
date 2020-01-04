@@ -231,6 +231,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         generatedArguments.addNonEmptyStringToArguments(name, "-N");
         generatedArguments.addNonEmptyStringToArguments(document, "-D");
         generatedArguments.addNonEmptyStringToArguments(runMode, "--runmode");
+        generatedArguments.addFlagToArguments(rpa, "--rpa");
         generatedArguments.addFlagToArguments(dryrun, "--dryrun");
         generatedArguments.addFlagToArguments(exitOnFailure, "--exitonfailure");
         generatedArguments.addFlagToArguments(skipTeardownOnExit, "--skipteardownonexit");
@@ -257,6 +258,10 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
             generatedArguments.addListToArguments(tests_cli, "-t");
         else
             generatedArguments.addListToArguments(tests, "-t");
+        if (tasks_cli != null)
+            generatedArguments.addListToArguments(tasks_cli, "--task");
+        else
+            generatedArguments.addListToArguments(tasks, "--task");
         if (suites_cli!=null)
             generatedArguments.addListToArguments(suites_cli, "-s");
         else
@@ -336,6 +341,13 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private List<String> tags;
 
     /**
+     * Selects the tasks cases by name.
+     *
+     * @parameter
+     */
+    private List<String> tasks;
+
+    /**
      * Selects the tests cases by name.
      *
      * @parameter
@@ -375,6 +387,19 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter property="tests"
      */
     private String tests_cli;
+
+    /**
+     * Selects the tasks by name. Given as a comma separated list.
+     * This setting overrides the value for tasks configuration in pom.xml.
+     *
+     * <p>Example:<pre>
+     * mvn -Dtasks=foo,bar verify
+     * </pre>
+     * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
+     * </p>
+     * @parameter property="tasks"
+     */
+    private String tasks_cli;
 
     /**
      * Selects the tests suites by name. Given as a comma separated list.
@@ -669,7 +694,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * <li>'force' - always use colors (also in Windows)</li>
      * </ul>
      *
-     * @parameter
+     * @parameter default-value="on"
      */
     private String monitorColors;
 
@@ -688,6 +713,8 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * </ul>
      *
      * Note that CLI shortcuts --dotted and --quiet are not supported.
+     *
+     * @parameter default-value="verbose"
      */
     private String console;
 
@@ -802,6 +829,13 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter
      */
     private ExternalRunnerConfiguration externalRunner;
+
+    /**
+     * Turn on generic automation mode.
+     *
+     * @parameter default-value="false"
+     */
+    private boolean rpa;
 
 }
 

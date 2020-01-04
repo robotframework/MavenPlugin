@@ -67,6 +67,7 @@ public class RebotMojo
         generatedArguments.addFileToArguments(xunitFile, "-x");
         generatedArguments.addNonEmptyStringToArguments(logLevel, "-L");
         generatedArguments.addFlagToArguments(true, "--xunitskipnoncritical");
+        generatedArguments.addFlagToArguments(rpa, "--rpa");
         generatedArguments.add(getOutputPath());
         return generatedArguments.toArray();
     }
@@ -166,5 +167,12 @@ public class RebotMojo
      * @parameter default-value="${project.build.directory}/robotframework-reports/rebot-xunit-results.xml"
      */
     private File xunitFile;
+
+    /**
+     * Turn on generic automation mode.
+     *
+     * @parameter default-value="false"
+     */
+    private boolean rpa;
 
 }
