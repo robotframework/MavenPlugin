@@ -41,6 +41,7 @@
 						<variable>VariableThatShouldNotBeOverridden:permanent</variable>
 						<variable>VariableThatShouldBeOverridden:temp</variable>
 					</variables>
+					<console>dotted</console>
 				</configuration>
 			</plugin>
 		</plugins>

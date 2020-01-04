@@ -227,6 +227,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         generatedArguments.addFileToArguments(argumentFile, "-A");
         generatedArguments.addFileToArguments(runFailed, "-R");
 
+        generatedArguments.addNonEmptyStringToArguments(console, "--console");
         generatedArguments.addNonEmptyStringToArguments(name, "-N");
         generatedArguments.addNonEmptyStringToArguments(document, "-D");
         generatedArguments.addNonEmptyStringToArguments(runMode, "--runmode");
@@ -671,6 +672,24 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter
      */
     private String monitorColors;
+
+    /**
+     * The overall console output type. It supports the following case-insensitive values.
+     * Default is 'verbose'.
+     * <ul>
+     * <li>'verbose' - Every test suite and test case is reported individually</li>
+     * <li>'dotted' - Only show . for passed test, f for failed non-critical tests, F for
+     * failed critical tests, and x for tests which are skipped because test execution exit.
+     * Failed critical tests are listed separately after execution. This output type makes
+     * it easy to see are there any failures during execution even if there would be a lot
+     * of tests.</li>
+     * <li>'quiet' - No output except for errors and warnings.</li>
+     * <li>'none' - No output whatsoever.</li>
+     * </ul>
+     *
+     * Note that CLI shortcuts --dotted and --quiet are not supported.
+     */
+    private String console;
 
     /**
      * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they

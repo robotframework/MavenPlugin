@@ -31,7 +31,7 @@ public class LibDocMojoTest
 
     public void testLibDocForTxtResource()
             throws Exception {
-        executeLibdocWithPom("libdoc", "src/test/resources/pom-libdoc-txtfile.xml");
+        executeLibdocWithPom("libdoc", "src/test/resources/pom-libdoc-robotfile.xml");
         assertTrue(htmlResourceLibDoc + " not found", new File(htmlResourceLibDoc).exists());
 
     }

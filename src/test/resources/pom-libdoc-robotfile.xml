@@ -15,10 +15,11 @@
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
-          <testdoc>
-            <dataSourceFile>src/test/resources/robot-testdoc/invalid_login.txt</dataSourceFile>
-            <outputFile>invalid.html</outputFile>
-          </testdoc>
+          <libdoc>
+            <libraryOrResourceFile>src/test/resources/robot-libdoc/html_resource.robot</libraryOrResourceFile>
+            <outputFile>html_resource.html</outputFile>
+            <defaultExtraPath>src/test/resources/robotframework/libraries</defaultExtraPath>
+          </libdoc>
         </configuration>
       </plugin>
     </plugins>

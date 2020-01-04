@@ -24,6 +24,7 @@
                   <FAA>Something else</FAA>
               </environmentVariables>
           </externalRunner>
+          <console>dotted</console>
         </configuration>
       </plugin>
     </plugins>

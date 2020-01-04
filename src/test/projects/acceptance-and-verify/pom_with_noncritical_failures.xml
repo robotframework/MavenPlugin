@@ -36,6 +36,7 @@
 					<criticalTags>
 						<criticalTag>success</criticalTag>
 					</criticalTags>
+					<console>dotted</console>
 				</configuration>
 			</plugin>
 		</plugins>

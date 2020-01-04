@@ -41,6 +41,7 @@
 					<tests>
 						<test>Successful_Test</test>
 					</tests>
+					<console>dotted</console>
 				</configuration>
 			</plugin>
 		</plugins>
