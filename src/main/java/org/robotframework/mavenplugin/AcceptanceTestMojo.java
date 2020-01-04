@@ -243,8 +243,8 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         generatedArguments.addNonEmptyStringToArguments(summaryTitle, "--summarytitle");
         generatedArguments.addNonEmptyStringToArguments(logLevel, "-L");
         generatedArguments.addNonEmptyStringToArguments(suiteStatLevel, "--suitestatlevel");
-        generatedArguments.addNonEmptyStringToArguments(monitorWidth, "--monitorwidth");
-        generatedArguments.addNonEmptyStringToArguments(monitorColors, "--monitorcolors");
+        generatedArguments.addNonEmptyStringToArguments(consoleWidth, "--consolewidth");
+        generatedArguments.addNonEmptyStringToArguments(consoleColors, "--consolecolors");
         generatedArguments.addNonEmptyStringToArguments(listener, "--listener");
 
         generatedArguments.addFlagToArguments(runEmptySuite, "--runemptysuite");
@@ -299,7 +299,9 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         }
         generatedArguments.addFileToArguments(xunitFile, "-x");
         generatedArguments.addFlagToArguments(true, "--xunitskipnoncritical");
-
+        if (rerunFailed)
+            generatedArguments.addFileToArguments(output, "--rerunfailed");
+        generatedArguments.addFileToArguments(output, "-o");
         generatedArguments.add(testCasesDirectory.getPath());
 
         return generatedArguments.toArray();
@@ -679,24 +681,26 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private boolean warnOnSkippedFiles;
 
     /**
-     * Width of the monitor output. Default is 78.
+     * Width of the console output. Default is 78.
      *
      * @parameter
      */
-    private String monitorWidth;
+    private String consoleWidth;
 
     /**
      * Using ANSI colors in console. Normally colors work in unixes but not in Windows. Default is
      * 'on'.
      * <ul>
-     * <li>'on' - use colors in unixes but not in Windows</li>
-     * <li>'off' - never use colors</li>
-     * <li>'force' - always use colors (also in Windows)</li>
+     * <li>'auto' - Colors are enabled when outputs are written into the console, but not when they
+     * are redirected into a file or elsewhere. This is the default.</li>
+     * <li>'on' - Colors are used also when outputs are redirected. Does not work on Windows.</li>
+     * <li>'ansi' - Same as on but uses ANSI colors also on Windows. Useful, for example, when
+     * redirecting output to a program that understands ANSI colors.</li>
+     * <li>'off' - Colors are disabled</li>
      * </ul>
      *
-     * @parameter default-value="on"
      */
-    private String monitorColors;
+    private String consoleColors;
 
     /**
      * The overall console output type. It supports the following case-insensitive values.
@@ -836,6 +840,15 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter default-value="false"
      */
     private boolean rpa;
+
+    /**
+     * Run only failed test cases. Note that output.xml has to be available.
+     * By default clean goal would remove output.xml making it impossible to
+     * run failed cases.
+     *
+     * @parameter property="rerunfailed"
+     */
+    private boolean rerunFailed;
 
 }
 
