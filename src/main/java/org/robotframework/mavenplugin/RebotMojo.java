@@ -59,7 +59,9 @@ public class RebotMojo
         generatedArguments.addFileToArguments(outputDirectory, "-d");
         generatedArguments.addFileToArguments(output, "-o");
         generatedArguments.addFileToArguments(log, "-l");
+        generatedArguments.addNonEmptyStringToArguments(logTitle, "--logtitle");
         generatedArguments.addFileToArguments(report, "-r");
+        generatedArguments.addNonEmptyStringToArguments(reportTitle, "--reporttitle");
         generatedArguments.addNonEmptyStringToArguments(splitOutputs, "--splitoutputs");
         generatedArguments.addFlagToArguments(merge, "--merge");
         generatedArguments.addFileToArguments(xunitFile, "-x");
@@ -129,12 +131,26 @@ public class RebotMojo
     private File log;
 
     /**
+     * Sets a title for the generated tests log.
+     *
+     * @parameter
+     */
+    private String logTitle;
+
+    /**
      * Sets the path to the generated report file.
      *
      * @parameter
      */
     private File report;
-    
+
+    /**
+     * Sets a title for the generated tests report.
+     *
+     * @parameter
+     */
+    private String reportTitle;
+
     /**
      * Splits output and log files.
      *
