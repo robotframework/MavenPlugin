@@ -190,11 +190,11 @@ public class RebotMojo
      * <li>'FOR' - Remove all passed iterations from for loops except the last one.</li>
      * <li>'WUKS' - Remove all failing keywords inside BuiltIn keyword
      * 'Wait Until Keyword Succeeds' except the last one.</li>
-     * <li>'NAME:\<pattern\>' - Remove data from all keywords matching the given pattern regardless the keyword status.</li>
-     * <li>'TAG:\<pattern\>' - Remove data from keywords with tags that match the given pattern.</li>
+     * <li>'NAME:{@literal <}pattern{@literal >}' - Remove data from all keywords matching the given pattern regardless the keyword status.</li>
+     * <li>'TAG:{@literal <}pattern{@literal >}' - Remove data from keywords with tags that match the given pattern.</li>
      * </ul>
      *
-     * The \<pattern\> is case, space, and underscore insensitive, and it supports simple patterns with * and ? as wildcards.
+     * The {@literal <}pattern{@literal >} is case, space, and underscore insensitive, and it supports simple patterns with * and ? as wildcards.
      *
      * @parameter
      */
@@ -207,11 +207,11 @@ public class RebotMojo
      * <ul>
      * <li>'FOR' - Flatten for loops fully.</li>
      * <li>'FORITEM' - Flatten individual for loop iterations.</li>
-     * <li>'NAME:\<pattern\>' - Flatten keywords matching the given pattern.</li>
-     * <li>'TAG:\<pattern\>' - Flatten keywords with tags matching the given pattern.</li>
+     * <li>'NAME:{@literal <}pattern{@literal >}' - Flatten keywords matching the given pattern.</li>
+     * <li>'TAG:{@literal <}pattern{@literal >}' - Flatten keywords with tags matching the given pattern.</li>
      * </ul>
      *
-     * The \<pattern\> is case, space, and underscore insensitive, and it supports simple patterns with * and ? as wildcards.
+     * The {@literal <}pattern{@literal >} is case, space, and underscore insensitive, and it supports simple patterns with * and ? as wildcards.
      *
      * @parameter
      */

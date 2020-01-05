@@ -2,9 +2,8 @@ package org.robotframework.mavenplugin.harvesters;
 
 import java.io.File;
 
-import org.apache.maven.it.util.DirectoryScanner;
-
 import com.google.common.base.Predicate;
+import org.codehaus.plexus.util.DirectoryScanner;
 
 /**
  * Checks matching in an ant-like pattern.

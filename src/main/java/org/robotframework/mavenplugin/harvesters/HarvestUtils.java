@@ -11,6 +11,9 @@ public class HarvestUtils {
 
     /**
      * Extracts the name component of a string representing a file name.
+     *
+     * @param harvestedName to get just name from
+     * @return name part (without extension)
      */
     public static String extractName(String harvestedName) {
         String result = "";
@@ -60,6 +63,9 @@ public class HarvestUtils {
     /**
      * Prepares an id name from a full path or fully qualified file, by
      * replacing various chars with '_'.
+     *
+     * @param harvestedName string to get ID from
+     * @return id name for given harvestedName
      */
     public static String generateIdName(String harvestedName) {
         return harvestedName.replaceAll("/|\\.|\\\\", "_");
@@ -68,6 +74,9 @@ public class HarvestUtils {
     /**
      * Checks whether the given parameter seems to start with an absolute path
      * fragment according to the current file system.
+     *
+     * @param fragment fragment to check for absolute path
+     * @return true is fragment is absolute path
      */
     public static boolean isAbsolutePathFragment(String fragment) {
         // Need to find out whether we have a pattern/path that starts as
@@ -79,8 +88,8 @@ public class HarvestUtils {
      * Whether the fragment hints to a directory structure, supporting Windows
      * or *nix file systems.
      * 
-     * @param fragment
-     * @return
+     * @param fragment to check
+     * @return true if given fragment describes directory structure
      */
     public static boolean hasDirectoryStructure(String fragment) {
         // occurrence of '/' or '\' hints at a directory structure, hence files,
@@ -91,8 +100,8 @@ public class HarvestUtils {
     /**
      * Extracts from the filename what could serve as extension.
      * 
-     * @param name
-     * @return
+     * @param filename filename to get extension from
+     * @return extension from file, or empty if there's no extension.
      */
     public static String extractExtension(String filename) {
         String result = "";

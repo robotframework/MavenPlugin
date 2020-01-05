@@ -1,10 +1,10 @@
 package org.robotframework.mavenplugin.harvesters;
 
+import com.google.common.reflect.ClassPath;
+
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import com.google.common.reflect.ClassPath;
 
 /**
  * Harvests resource (not class) names from the class path given an ant-like

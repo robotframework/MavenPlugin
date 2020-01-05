@@ -1,10 +1,10 @@
 package org.robotframework.mavenplugin.harvesters;
 
+import org.codehaus.plexus.util.DirectoryScanner;
+
 import java.io.File;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import org.apache.maven.it.util.DirectoryScanner;
 
 /**
  * Harvests file names, supports ant-like patterns, the same understood by Maven

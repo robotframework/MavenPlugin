@@ -63,8 +63,9 @@ public class ClassNameHarvesterTest {
 
     @Test
     public void testHarvestSimplePattern2() throws Exception {
-        // prepare data
-        String pattern = "org.**.A";
+        // prepare data.
+        // There's Class A from other package, too, so has to be more specific
+        String pattern = "org.robotframework.**.A";
 
         // do the test
         NameHarvester harv = new ClassNameHarvester();
