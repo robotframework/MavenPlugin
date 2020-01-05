@@ -29,7 +29,7 @@ import org.robotframework.RobotFramework;
 
 /**
  * Create documentation of test suites using the Robot Framework <code>testdoc</code> tool.
- * <p/>
+ * <p></p>
  * Uses the <code>testdoc</code> bundled in Robot Framework jar distribution. For more help see
  * <a href="http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-data-documentation-tool-testdoc">testdoc documentation</a>.
  *
@@ -71,7 +71,7 @@ public class TestDocMojo
      *                                      We also support patterns like {@code *.html}, which indicates to derive the output name from the original name.</li>
      * <li><code>dataSourceFile</code>     Name or path of the documented test case(s). Supports ant-like pattern format to match multiple inputs, such as <code>src/robot/**{@literal /}*.robot</code></li>
      * </ul>
-     * <p/>
+     * <p></p>
      * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid test case file.
      * For example <code>src/main/test/ExampleTest.txt</code>
      * Optional settings:

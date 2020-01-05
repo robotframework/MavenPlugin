@@ -160,11 +160,11 @@ public class TestDocConfiguration {
 
     /**
      * Name or path of the documented library or resource file.
-     * <p/>
+     * <p></p>
      * Name must be in the same format as when used in Robot Framework test data, for example <code>BuiltIn</code> or
      * <code>com.acme.FooLibrary</code>. When name is used, the library is imported the same as when running the tests.
      * Use {@link #extraPathDirectories} to set PYTHONPATH/CLASSPATH accordingly.
-     * <p/>
+     * <p></p>
      * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid Python/Java
      * source file or a resource file. For example <code>src/main/java/com/test/ExampleLib.java</code>
      * 

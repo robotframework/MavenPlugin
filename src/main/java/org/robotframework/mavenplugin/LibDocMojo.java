@@ -63,14 +63,14 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath {
      * <li><code>outputFile</code>          The name for the output file. Documentation output format is deduced from the file extension. 
      *                                      We also support patterns like {@code *.html}, which indicates to derive the output name from the original name.</li>
      * <li><code>libraryOrResourceFile</code>     Name or path of the documented library or resource file. Supports ant-like pattern format to match multiple inputs, such as <code>src/java/**{@literal /}*.java</code>
-     * <p/>
+     * <p></p>
      * Name must be in the same format as when used in Robot Framework test data, for example <code>BuiltIn</code> or
      * <code>com.acme.FooLibrary</code>. When name is used, the library is imported the same as when running the tests.
      * Use extraPathDirectories to set PYTHONPATH/CLASSPATH accordingly.
-     * 
+     *
      * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid Python/Java
      * source file or a resource file. For example <code>src/main/python/test/ExampleLib.py</code>
-     * 
+     *
      * Note that you should preferably import java classes by classname, not path. Dynamic libraries will not be compiled correctly with path.</li>
      * </ul>
      * Optional settings:
