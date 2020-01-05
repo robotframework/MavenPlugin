@@ -20,33 +20,107 @@ package org.robotframework.mavenplugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.codehaus.plexus.util.StringUtils;
+import org.robotframework.mavenplugin.harvesters.HarvestUtils;
+import org.robotframework.mavenplugin.harvesters.ResourceNameHarvester;
+import org.robotframework.mavenplugin.harvesters.SourceFileNameHarvester;
 
 
 public class TestDocConfiguration {
 
-    public String[] generateRunArguments() throws IOException {
-        Arguments generatedArguments = new Arguments();
-        generatedArguments.add("testdoc");
-        generatedArguments.addNonEmptyStringToArguments(title, "--title");
-        generatedArguments.addNonEmptyStringToArguments(name, "--name");
-        generatedArguments.addNonEmptyStringToArguments(doc, "--doc");
-        generatedArguments.add(getDatasourceFile());
-        generatedArguments.add(getOutputPath());
-        return generatedArguments.toArray();
-    }
+    public List<String[]> generateRunArguments(File projectBaseDir) {
+        ArrayList<String[]> result = new ArrayList<String[]>();
 
-    private String getDatasourceFile() throws IOException {
-        File libOrResource = new File(dataSourceFile);
-        if (!libOrResource.exists()) {
-            throw new IOException("Data source file " + dataSourceFile + " does not exist");
+        // Phase I - harvest the files/resources, if any
+        ArrayList<String> fileArguments = harvestResourceOrFileCandidates(projectBaseDir, dataSourceFile);
+
+        // Phase II - prepare the argument lines for the harvested
+        // files/resources.
+        boolean multipleOutputs = fileArguments.size() > 1; // with single
+                                                            // argument line, we
+                                                            // can use the
+                                                            // original single
+                                                            // entity
+                                                            // parameters, so
+                                                            // use this flag to
+                                                            // switch.
+        for (String fileArgument : fileArguments) {
+            Arguments generatedArguments = generateTestdocArgumentList(projectBaseDir, multipleOutputs, fileArgument);
+            result.add(generatedArguments.toArray());
         }
-        return libOrResource.getAbsolutePath();
+        return result;
+    }
+    
+    private Arguments generateTestdocArgumentList(File projectBaseDir, boolean multipleOutputs, String fileArgument) {
+        Arguments result = new Arguments();
+        result.add("testdoc");
+        result.addNonEmptyStringToArguments(title, "--title");
+        result.addNonEmptyStringToArguments(name, "--name");
+        result.addNonEmptyStringToArguments(doc, "--doc");
+        result.add(fileArgument);
+
+        if (multipleOutputs) {
+            // Derive the output file name id from the source and from the
+            // output file given.
+            String normalizedArgument;
+            // Generate a unique name.
+            if (HarvestUtils.isAbsolutePathFragment(fileArgument)) {
+                // Cut out the project directory, so that we have shorter id
+                // names.
+                // TODO - perhaps later, we can preserve the directory structure
+                // relative to the output directory.
+                normalizedArgument = HarvestUtils.removePrefixDirectory(projectBaseDir, fileArgument);
+            } else {
+                normalizedArgument = fileArgument;
+            }
+            result.add(outputDirectory + File.separator + HarvestUtils.generateIdName(normalizedArgument)
+                    + HarvestUtils.extractExtension(outputFile.getName()));
+        } else {
+            // Preserve original single-file behavior.
+            if (outputFile.getName().contains("*")) {
+                // We deal with a pattern, so we need to get the name from the
+                // input file.
+                File tf = new File(fileArgument);
+                result.add(outputDirectory + File.separator + tf.getName()
+                        + HarvestUtils.extractExtension(outputFile.getName()));
+            } else {
+                // Use the output name directly.
+                result.add(outputDirectory + File.separator + outputFile.getName());
+            }
+        }
+        return result;
     }
 
-    private String getOutputPath() {
-        return outputDirectory + File.separator + outputFile.getName();
+    private ArrayList<String> harvestResourceOrFileCandidates(File projectBaseDir, String pattern) {
+        File entity = new File(pattern);
+        ArrayList<String> fileArguments = new ArrayList<String>();
+        if (entity.isFile()) {
+            // Single file specification, no patterns.
+            fileArguments.add(entity.getAbsolutePath());
+        } else {
+            // Possible pattern, process further.
+            if (HarvestUtils.hasDirectoryStructure(pattern)) {
+                // Directory structure, no class resolution, harvest file names.
+                SourceFileNameHarvester harv = new SourceFileNameHarvester(projectBaseDir);
+                fileArguments.addAll(harv.harvest(pattern));
+            } else {
+                // A) May have files, try for harvesting file names first.
+                SourceFileNameHarvester harv = new SourceFileNameHarvester(projectBaseDir);
+                Set<String> harvested = harv.harvest(pattern);
+                if (harvested.size() > 0) {
+                    fileArguments.addAll(harvested);
+                } else {
+                    // B) If no files found, try harvesting resources.
+                    ResourceNameHarvester rharv = new ResourceNameHarvester();
+                    fileArguments.addAll(rharv.harvest(pattern));
+                } // resources
+            } // files
+        } // single file or pattern
+        return fileArguments;
     }
 
     public void ensureOutputDirectoryExists()
@@ -93,6 +167,9 @@ public class TestDocConfiguration {
      * <p/>
      * Paths are considered relative to the location of <code>pom.xml</code> and must point to a valid Python/Java
      * source file or a resource file. For example <code>src/main/java/com/test/ExampleLib.java</code>
+     * 
+     * One may also use ant-like patterns, for example
+     * <code>src/main/robot/**{@literal /}*.robot</code>
      */
     private String dataSourceFile;
 

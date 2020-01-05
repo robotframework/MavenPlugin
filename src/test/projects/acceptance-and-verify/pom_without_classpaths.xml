@@ -46,6 +46,7 @@
 							<CLASSPATH>this-should-be-seen-by-external-process.jar</CLASSPATH>
 						</environmentVariables>
 					</externalRunner>
+					<console>dotted</console>
 				</configuration>
 			</plugin>
 		</plugins>

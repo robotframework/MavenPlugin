@@ -37,6 +37,7 @@
 						<libraryOrResourceFile>src/test/robotframework/acceptance/lib.py</libraryOrResourceFile>
 						<outputFile>JustForIT.html</outputFile>
 					</libdoc>
+					<console>dotted</console>
 				</configuration>
 			</plugin>
 		</plugins>

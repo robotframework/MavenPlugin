@@ -43,6 +43,7 @@
 					<externalRunner>
 						<excludeDependencies>false</excludeDependencies>
 					</externalRunner>
+					<console>dotted</console>
 				</configuration>
 			</plugin>
 		</plugins>

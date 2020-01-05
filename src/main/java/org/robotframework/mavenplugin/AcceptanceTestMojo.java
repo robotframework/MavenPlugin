@@ -227,9 +227,11 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         generatedArguments.addFileToArguments(argumentFile, "-A");
         generatedArguments.addFileToArguments(runFailed, "-R");
 
+        generatedArguments.addNonEmptyStringToArguments(console, "--console");
         generatedArguments.addNonEmptyStringToArguments(name, "-N");
         generatedArguments.addNonEmptyStringToArguments(document, "-D");
         generatedArguments.addNonEmptyStringToArguments(runMode, "--runmode");
+        generatedArguments.addFlagToArguments(rpa, "--rpa");
         generatedArguments.addFlagToArguments(dryrun, "--dryrun");
         generatedArguments.addFlagToArguments(exitOnFailure, "--exitonfailure");
         generatedArguments.addFlagToArguments(skipTeardownOnExit, "--skipteardownonexit");
@@ -241,8 +243,8 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         generatedArguments.addNonEmptyStringToArguments(summaryTitle, "--summarytitle");
         generatedArguments.addNonEmptyStringToArguments(logLevel, "-L");
         generatedArguments.addNonEmptyStringToArguments(suiteStatLevel, "--suitestatlevel");
-        generatedArguments.addNonEmptyStringToArguments(monitorWidth, "--monitorwidth");
-        generatedArguments.addNonEmptyStringToArguments(monitorColors, "--monitorcolors");
+        generatedArguments.addNonEmptyStringToArguments(consoleWidth, "--consolewidth");
+        generatedArguments.addNonEmptyStringToArguments(consoleColors, "--consolecolors");
         generatedArguments.addNonEmptyStringToArguments(listener, "--listener");
 
         generatedArguments.addFlagToArguments(runEmptySuite, "--runemptysuite");
@@ -252,10 +254,16 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
 
         generatedArguments.addListToArguments(metadata, "-M");
         generatedArguments.addListToArguments(tags, "-G");
+        generatedArguments.addListToArguments(removeKeywords, "--removekeywords");
+        generatedArguments.addListToArguments(flattenKeywords, "--flattenkeywords");
         if (tests_cli!=null)
             generatedArguments.addListToArguments(tests_cli, "-t");
         else
             generatedArguments.addListToArguments(tests, "-t");
+        if (tasks_cli != null)
+            generatedArguments.addListToArguments(tasks_cli, "--task");
+        else
+            generatedArguments.addListToArguments(tasks, "--task");
         if (suites_cli!=null)
             generatedArguments.addListToArguments(suites_cli, "-s");
         else
@@ -293,7 +301,9 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         }
         generatedArguments.addFileToArguments(xunitFile, "-x");
         generatedArguments.addFlagToArguments(true, "--xunitskipnoncritical");
-
+        if (rerunFailed)
+            generatedArguments.addFileToArguments(output, "--rerunfailed");
+        generatedArguments.addFileToArguments(output, "-o");
         generatedArguments.add(testCasesDirectory.getPath());
 
         return generatedArguments.toArray();
@@ -335,6 +345,13 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private List<String> tags;
 
     /**
+     * Selects the tasks cases by name.
+     *
+     * @parameter
+     */
+    private List<String> tasks;
+
+    /**
      * Selects the tests cases by name.
      *
      * @parameter
@@ -374,6 +391,19 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter property="tests"
      */
     private String tests_cli;
+
+    /**
+     * Selects the tasks by name. Given as a comma separated list.
+     * This setting overrides the value for tasks configuration in pom.xml.
+     *
+     * <p>Example:<pre>
+     * mvn -Dtasks=foo,bar verify
+     * </pre>
+     * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
+     * </p>
+     * @parameter property="tasks"
+     */
+    private String tasks_cli;
 
     /**
      * Selects the tests suites by name. Given as a comma separated list.
@@ -427,6 +457,45 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter
      */
     private List<String> nonCriticalTags;
+
+    /**
+     * Remove keywords and their messages altogether.
+     * Instructions at http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#removing-keywords.
+     *
+     * <ul>
+     * <li>'ALL' - Remove data from all keywords unconditionally.</li>
+     * <li>'PASSED' -Remove keyword data from passed test cases. In most
+     * cases, log files created using this option contain enough information
+     * to investigate possible failures.</li>
+     * <li>'FOR' - Remove all passed iterations from for loops except the last one.</li>
+     * <li>'WUKS' - Remove all failing keywords inside BuiltIn keyword
+     * 'Wait Until Keyword Succeeds' except the last one.</li>
+     * <li>'NAME:{@literal <}pattern{@literal >}' - Remove data from all keywords matching the given pattern regardless the keyword status.</li>
+     * <li>'TAG:{@literal <}pattern{@literal >}' - Remove data from keywords with tags that match the given pattern.</li>
+     * </ul>
+     *
+     * The {@literal <}pattern{@literal >} is case, space, and underscore insensitive, and it supports simple patterns with * and ? as wildcards.
+     *
+     * @parameter
+     */
+    private List<String> removeKeywords;
+
+    /**
+     * Flatten keywords and their messages altogether.
+     * Instructions at http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#flattening-keywords.
+     *
+     * <ul>
+     * <li>'FOR' - Flatten for loops fully.</li>
+     * <li>'FORITEM' - Flatten individual for loop iterations.</li>
+     * <li>'NAME:{@literal <}pattern{@literal >}' - Flatten keywords matching the given pattern.</li>
+     * <li>'TAG:{@literal <}pattern{@literal >}' - Flatten keywords with tags matching the given pattern.</li>
+     * </ul>
+     *
+     * The {@literal <}pattern{@literal >} is case, space, and underscore insensitive, and it supports simple patterns with * and ? as wildcards.
+     *
+     * @parameter
+     */
+    private List<String> flattenKeywords;
 
     /**
      * Sets the execution mode for this tests run. Note that this setting has
@@ -653,24 +722,46 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private boolean warnOnSkippedFiles;
 
     /**
-     * Width of the monitor output. Default is 78.
+     * Width of the console output. Default is 78.
      *
      * @parameter
      */
-    private String monitorWidth;
+    private String consoleWidth;
 
     /**
      * Using ANSI colors in console. Normally colors work in unixes but not in Windows. Default is
      * 'on'.
      * <ul>
-     * <li>'on' - use colors in unixes but not in Windows</li>
-     * <li>'off' - never use colors</li>
-     * <li>'force' - always use colors (also in Windows)</li>
+     * <li>'auto' - Colors are enabled when outputs are written into the console, but not when they
+     * are redirected into a file or elsewhere. This is the default.</li>
+     * <li>'on' - Colors are used also when outputs are redirected. Does not work on Windows.</li>
+     * <li>'ansi' - Same as on but uses ANSI colors also on Windows. Useful, for example, when
+     * redirecting output to a program that understands ANSI colors.</li>
+     * <li>'off' - Colors are disabled</li>
      * </ul>
      *
-     * @parameter
      */
-    private String monitorColors;
+    private String consoleColors;
+
+    /**
+     * The overall console output type. It supports the following case-insensitive values.
+     * Default is 'verbose'.
+     * <ul>
+     * <li>'verbose' - Every test suite and test case is reported individually</li>
+     * <li>'dotted' - Only show . for passed test, f for failed non-critical tests, F for
+     * failed critical tests, and x for tests which are skipped because test execution exit.
+     * Failed critical tests are listed separately after execution. This output type makes
+     * it easy to see are there any failures during execution even if there would be a lot
+     * of tests.</li>
+     * <li>'quiet' - No output except for errors and warnings.</li>
+     * <li>'none' - No output whatsoever.</li>
+     * </ul>
+     *
+     * Note that CLI shortcuts --dotted and --quiet are not supported.
+     *
+     * @parameter default-value="verbose"
+     */
+    private String console;
 
     /**
      * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they
@@ -783,6 +874,22 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter
      */
     private ExternalRunnerConfiguration externalRunner;
+
+    /**
+     * Turn on generic automation mode.
+     *
+     * @parameter default-value="false"
+     */
+    private boolean rpa;
+
+    /**
+     * Run only failed test cases. Note that output.xml has to be available.
+     * By default clean goal would remove output.xml making it impossible to
+     * run failed cases.
+     *
+     * @parameter property="rerunfailed"
+     */
+    private boolean rerunFailed;
 
 }
 

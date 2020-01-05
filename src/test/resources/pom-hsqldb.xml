@@ -29,6 +29,7 @@
           <extraPathDirectories>
             <extraPathDirectory>src/test/resources/python</extraPathDirectory>
           </extraPathDirectories>
+          <console>dotted</console>
         </configuration>
         <dependencies>
           <dependency>

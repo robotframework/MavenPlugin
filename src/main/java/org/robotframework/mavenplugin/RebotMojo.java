@@ -19,6 +19,7 @@ package org.robotframework.mavenplugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -59,12 +60,17 @@ public class RebotMojo
         generatedArguments.addFileToArguments(outputDirectory, "-d");
         generatedArguments.addFileToArguments(output, "-o");
         generatedArguments.addFileToArguments(log, "-l");
+        generatedArguments.addNonEmptyStringToArguments(logTitle, "--logtitle");
         generatedArguments.addFileToArguments(report, "-r");
+        generatedArguments.addNonEmptyStringToArguments(reportTitle, "--reporttitle");
         generatedArguments.addNonEmptyStringToArguments(splitOutputs, "--splitoutputs");
         generatedArguments.addFlagToArguments(merge, "--merge");
         generatedArguments.addFileToArguments(xunitFile, "-x");
         generatedArguments.addNonEmptyStringToArguments(logLevel, "-L");
         generatedArguments.addFlagToArguments(true, "--xunitskipnoncritical");
+        generatedArguments.addFlagToArguments(rpa, "--rpa");
+        generatedArguments.addListToArguments(removeKeywords, "--removekeywords");
+        generatedArguments.addListToArguments(flattenKeywords, "--flattenkeywords");
         generatedArguments.add(getOutputPath());
         return generatedArguments.toArray();
     }
@@ -129,12 +135,26 @@ public class RebotMojo
     private File log;
 
     /**
+     * Sets a title for the generated tests log.
+     *
+     * @parameter
+     */
+    private String logTitle;
+
+    /**
      * Sets the path to the generated report file.
      *
      * @parameter
      */
     private File report;
-    
+
+    /**
+     * Sets a title for the generated tests report.
+     *
+     * @parameter
+     */
+    private String reportTitle;
+
     /**
      * Splits output and log files.
      *
@@ -150,5 +170,51 @@ public class RebotMojo
      * @parameter default-value="${project.build.directory}/robotframework-reports/rebot-xunit-results.xml"
      */
     private File xunitFile;
+
+    /**
+     * Turn on generic automation mode.
+     *
+     * @parameter default-value="false"
+     */
+    private boolean rpa;
+
+    /**
+     * Remove keywords and their messages altogether.
+     * Instructions at http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#removing-keywords.
+     *
+     * <ul>
+     * <li>'ALL' - Remove data from all keywords unconditionally.</li>
+     * <li>'PASSED' -Remove keyword data from passed test cases. In most
+     * cases, log files created using this option contain enough information
+     * to investigate possible failures.</li>
+     * <li>'FOR' - Remove all passed iterations from for loops except the last one.</li>
+     * <li>'WUKS' - Remove all failing keywords inside BuiltIn keyword
+     * 'Wait Until Keyword Succeeds' except the last one.</li>
+     * <li>'NAME:{@literal <}pattern{@literal >}' - Remove data from all keywords matching the given pattern regardless the keyword status.</li>
+     * <li>'TAG:{@literal <}pattern{@literal >}' - Remove data from keywords with tags that match the given pattern.</li>
+     * </ul>
+     *
+     * The {@literal <}pattern{@literal >} is case, space, and underscore insensitive, and it supports simple patterns with * and ? as wildcards.
+     *
+     * @parameter
+     */
+    private List<String> removeKeywords;
+
+    /**
+     * Flatten keywords and their messages altogether.
+     * Instructions at http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#flattening-keywords.
+     *
+     * <ul>
+     * <li>'FOR' - Flatten for loops fully.</li>
+     * <li>'FORITEM' - Flatten individual for loop iterations.</li>
+     * <li>'NAME:{@literal <}pattern{@literal >}' - Flatten keywords matching the given pattern.</li>
+     * <li>'TAG:{@literal <}pattern{@literal >}' - Flatten keywords with tags matching the given pattern.</li>
+     * </ul>
+     *
+     * The {@literal <}pattern{@literal >} is case, space, and underscore insensitive, and it supports simple patterns with * and ? as wildcards.
+     *
+     * @parameter
+     */
+    private List<String> flattenKeywords;
 
 }
