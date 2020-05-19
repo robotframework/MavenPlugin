@@ -38,4 +38,5 @@ jobs:
         nexus_password: ${{ secrets.nexus_password }}
         maven_args: -DskipTests
     - name: Publish site
+      if: startsWith(github.ref, 'refs/tags/')
       run: mvn clean site -Dgithub.site.password=${{ secrets.github_site_password }} -Dgithub.site.userName=${{ secrets.github_site_username }}
