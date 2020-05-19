@@ -2,7 +2,7 @@ MavenPlugin
 ===========
 
 Maven plugin for using the Robot Framework. Goal of this plugin is to be able to use Robot Framework in a Maven project
-without the need to install anything extra (e.g. Robot Framework, Jython, etc). In short, it's a non-invasive way of 
+without the need to install anything extra (e.g. Robot Framework, Jython, etc). In short, it's a non-invasive way of
 introducing acceptance test driven development to your existing projects quickly.
 
 Plugin documentation is available at http://robotframework.github.com/MavenPlugin/
@@ -37,14 +37,14 @@ Add the plugin to your build:
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.7.0</version>
+        <version>1.7.1</version>
         <executions>
           <execution>
             <goals>
               <goal>run</goal>
             </goals>
           </execution>
-        </executions>        
+        </executions>
       </plugin>
 
       ..

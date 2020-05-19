@@ -44,7 +44,7 @@ Robot Framework Maven Plugin
   Robot Framework command that separately allows creating custom reports and logs as well as combining and merging results. It can also be used
   to separate test execution and report generation to different maven profiles.
 
-    
+
 
 
 
@@ -65,7 +65,7 @@ Robot Framework Maven Plugin
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.7.0</version>
+        <version>1.7.1</version>
         <executions>
           <execution>
             <goals>
@@ -126,7 +126,7 @@ Robot Framework Maven Plugin
       <plugin>
         <groupId>org.robotframework</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.7.0</version>
+        <version>1.7.1</version>
         <executions>
           <execution>
             <goals>

@@ -3,7 +3,7 @@ Branches
 
 `master` = "Release" branch, contains always version that's release to Maven Central
 
-`develop` = Developent time branch. All PRs should be targetted (and usually also started) from here. 
+`develop` = Developent time branch. All PRs should be targetted (and usually also started) from here.
 
 `gh-pages` = Github internal branch containing
 
@@ -34,11 +34,11 @@ Releasing
 
 osx:
 ```bash
-grep -rl 'sion>1.7.0</ver' ./ | xargs sed -i '' 's|sion>1.7.0</ver|sion>1.8.0</ver|g'
+grep -rl 'sion>1.7.1</ver' ./ | xargs sed -i '' 's|sion>1.7.1</ver|sion>1.8.0</ver|g'
 ```
 linux:
 ```bash
-grep -rl 'sion>1.7.0</ver' ./ | xargs sed -i 's|sion>1.7.0</ver|sion>1.8.0</ver|g'
+grep -rl 'sion>1.7.1</ver' ./ | xargs sed -i 's|sion>1.7.1</ver|sion>1.8.0</ver|g'
 ```
 Last you should update those rows above.
 
@@ -61,7 +61,7 @@ mvn site:site
 
 ```bash
 git commit -am "version 1.6"
-git tag -a 1.6 
+git tag -a 1.6
 git push
 git push --tags
 ```

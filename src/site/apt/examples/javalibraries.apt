@@ -36,7 +36,7 @@ Using Java Libraries with the Robotframework Plugin
   <plugin>
     <groupId>org.robotframework</groupId>
     <artifactId>robotframework-maven-plugin</artifactId>
-    <version>1.7.0</version>
+    <version>1.7.1</version>
     <configuration>
       <extraPathDirectories>
         <extraPathDirectory>src/test/resources/python</extraPathDirectory>
