@@ -37,11 +37,33 @@ public class ExternalRunnerConfiguration {
      */
     private boolean excludeDependencies;
 
+    /**
+     * Execute with pure Python (needs to be available when running).
+     *
+     * @parameter default-value="false"
+     */
+    private boolean runWithPython;
+
+    /**
+     * Runner class to start test run.
+     *
+     * @parameter default-value="org.robotframework.RobotFramework"
+     */
+    private String runnerClass;
+
     public Map<String, String> getEnvironmentVariables() {
         return environmentVariables != null ? environmentVariables : Collections.EMPTY_MAP;
     }
     public boolean getExcludeDependencies() {
         return excludeDependencies;
+    }
+
+    public boolean getRunWithPython() {
+        return runWithPython;
+    }
+
+    public String getRunnerClass() {
+        return runnerClass;
     }
 
     /**

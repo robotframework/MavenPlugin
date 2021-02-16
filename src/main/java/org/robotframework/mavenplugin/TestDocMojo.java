@@ -58,7 +58,11 @@ public class TestDocMojo
         List<String[]> runArgs = testdoc.generateRunArguments(projectBaseDir);
         for (String[] args : runArgs) {
             getLog().debug("Run arguments -> " + args);
-            RobotFramework.run(args);
+            if (externalRunner != null && externalRunner.getRunWithPython()) {
+                PythonRunner.run(args);
+            } else {
+                RobotFramework.run(args);
+            }
         }
     }
 

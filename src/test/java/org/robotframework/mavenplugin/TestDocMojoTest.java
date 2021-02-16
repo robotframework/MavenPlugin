@@ -5,8 +5,6 @@ import java.nio.charset.Charset;
 
 import org.apache.commons.io.FileUtils;
 
-import static org.mockito.Mockito.*;
-
 
 public class TestDocMojoTest
         extends AbstractRFMojoTestCase {

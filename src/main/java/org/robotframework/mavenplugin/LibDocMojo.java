@@ -51,8 +51,13 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath {
         if (projectBaseDir == null)
             projectBaseDir = new File("");
         List<String[]> runArgs = libdoc.generateRunArguments(projectBaseDir);
-        for (String[] args : runArgs)
-            RobotFramework.run(args);
+        for (String[] args : runArgs) {
+            if (externalRunner != null && externalRunner.getRunWithPython()) {
+                PythonRunner.run(args);
+            } else {
+                RobotFramework.run(args);
+            }
+        }
     }
 
     /**
