@@ -229,7 +229,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         generatedArguments.addFileToArguments(report, "-r");
         generatedArguments.addFileToArguments(debugFile, "-b");
         generatedArguments.addFileToArguments(argumentFile, "-A");
-        generatedArguments.addFileToArguments(runFailed, "-R");
 
         generatedArguments.addNonEmptyStringToArguments(console, "--console");
         generatedArguments.addNonEmptyStringToArguments(name, "-N");
@@ -831,15 +830,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter default-value="false"
      */
     private boolean runEmptySuite;
-
-    /**
-     * Re-run failed tests, based on output.xml file. This can also be set via
-	 * commandline using -DrunFailed=path/to/output.xml.
-     *
-     * @parameter property="runFailed"
-     */
-    private File runFailed;
-
 
     /**
      * If true, sets the return code to zero regardless of failures in test cases. Error codes are
