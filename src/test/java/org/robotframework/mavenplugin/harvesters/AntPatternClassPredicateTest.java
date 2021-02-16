@@ -1,9 +1,9 @@
 package org.robotframework.mavenplugin.harvesters;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.robotframework.mavenplugin.harvesters.AntPatternClassPredicate;
 
 public class AntPatternClassPredicateTest {
 

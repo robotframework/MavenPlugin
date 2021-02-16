@@ -47,6 +47,40 @@ public abstract class AbstractMojoWithLoadedClasspath
      */
     private String localRepository;
 
+    /**
+     * <p>Test are executed in a new process if this configuration is used.</p>
+     * <p>The classpath for the new process will include by default all the test
+     * scope dependencies from the pom.</p>
+     *
+     * <ul>
+     *     <li>Environment variables can be added with <strong>environmentVariables</strong> map. CLASSPATH environment
+     *     variable is added (prepended) to the default dependencies.</li>
+     *     <li><strong>excludeDependencies</strong> can be used to exclude the test scope dependencies from the classpath of the new process.</li>
+     *     <li><strong>jvmArgs</strong> can be used to specify JVM options</li>
+     *     <li><strong>runnerClass</strong> can be used to specify runner class</li>
+     *     <li><strong>runWithPython</strong> can be used to specify running with Python Robot Framework</li>
+     * </ul>
+     *
+     * Example:
+     * <pre><![CDATA[<externalRunner>
+     *      <environmentVariables>
+     *          <foo>bar</foo>
+     *          <CLASSPATH>this-should-be-seen-by-external-process.jar</CLASSPATH>
+     *      </environmentVariables>
+     *      <jvmArgs>
+     *          <jvmArg>-XX:PermSize=128m</jvmArg>
+     *          <jvmArg>-XX:MaxPermSize=256m</jvmArg>
+     *          <jvmArg>-Xmx512m</jvmArg>
+     *      </jvmArgs>
+     *      <excludeDependencies>true</excludeDependencies>
+     *      <runnerClass>org.robotframework.RobotFramework</runnerClass>
+     *      <runWithPython>false</runWithPython>
+     * </externalRunner>]]></pre>
+     *
+     * @parameter
+     */
+    protected ExternalRunnerConfiguration externalRunner;
+
     public void execute()
             throws MojoExecutionException, MojoFailureException {
         loadClassPath();

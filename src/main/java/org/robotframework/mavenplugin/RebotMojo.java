@@ -50,7 +50,11 @@ public class RebotMojo
     public void runRebot()
             throws IOException {
         this.ensureOutputDirectoryExists();
-        RobotFramework.run(this.generateRunArguments());
+        if (externalRunner != null && externalRunner.getRunWithPython()) {
+            PythonRunner.run(this.generateRunArguments());
+        } else {
+            RobotFramework.run(this.generateRunArguments());
+        }
     }
     
     

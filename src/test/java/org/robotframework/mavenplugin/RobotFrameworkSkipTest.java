@@ -1,5 +1,7 @@
 package org.robotframework.mavenplugin;
 
+import java.io.File;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Before;
@@ -10,10 +12,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.robotframework.RobotFramework;
-import org.robotframework.mavenplugin.RobotFrameworkMojo;
-
-
-import java.io.File;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(RobotFramework.class)

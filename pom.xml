@@ -123,7 +123,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>3.1.1</version>
+						<version>3.2.0</version>
 						<executions>
 							<execution>
 								<id>attach-javadocs</id>
@@ -203,7 +203,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>29.0-jre</version>
+			<version>30.1-jre</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -226,7 +226,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.13.1</version>
+			<version>4.13.2</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -252,7 +252,7 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>2.28.2</version>
+			<version>3.7.7</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -264,13 +264,13 @@
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
-			<version>2.0.7</version>
+			<version>2.0.9</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito2</artifactId>
-			<version>2.0.7</version>
+			<version>2.0.9</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -333,7 +333,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
+				<version>3.2.0</version>
 			</plugin>
 			<plugin>
 				<inherited>true</inherited>
@@ -348,14 +348,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M4</version>
+				<version>3.0.0-M5</version>
 			</plugin>
 			<plugin>
 				<!-- integration tests can be skipped using -DskipITs, or -Darguments="-DskipITs"
 					in a release build, note that you need -D twice in the latter case -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>3.0.0-M4</version>
+				<version>3.0.0-M5</version>
 				<configuration>
 					<environmentVariables>
 						<MAVEN_LIBRARY_VERSION>${project.version}</MAVEN_LIBRARY_VERSION>
@@ -401,7 +401,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.8.2</version>
+				<version>3.9.1</version>
 			</plugin>
 			<plugin>
 				<groupId>com.github.github</groupId>

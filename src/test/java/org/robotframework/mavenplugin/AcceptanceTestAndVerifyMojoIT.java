@@ -5,12 +5,13 @@ import static org.hamcrest.Matchers.containsString;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.maven.it.VerificationException;
 import org.apache.maven.it.Verifier;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
-import org.codehaus.plexus.component.MapOrientedComponent;
 
 public class AcceptanceTestAndVerifyMojoIT
         extends AbstractMojoTestCase {

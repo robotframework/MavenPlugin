@@ -75,10 +75,14 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
             return externalExecute(runArguments);
         }
     }
-
+    
     private int externalExecute(String[] runArguments) throws MojoExecutionException {
         try {
-            return exec(RobotFramework.class, runArguments, externalRunner.getEnvironmentVariables());
+            if (externalRunner.getRunWithPython()) {
+                return PythonRunner.exec("robot", runArguments);
+            } else {
+                return exec(externalRunner.getRunnerClass(), runArguments, externalRunner.getEnvironmentVariables());
+            }
         } catch (IOException e) {
             throw new MojoExecutionException("Executing external robot failed.", e);
         } catch (InterruptedException e) {
@@ -86,9 +90,10 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         }
     }
 
-    public int exec(Class klass, String[] arguments, Map<String, String> environment) throws IOException,
+    public int exec(String runnerClass, String[] arguments, Map<String, String> environment) throws IOException,
             InterruptedException {
-        ProcessBuilder builder = new ProcessBuilder(createExternalCommand(klass, arguments, externalRunner.getJvmArgs()));
+        runnerClass = runnerClass == null ? RobotFramework.class.getCanonicalName() : runnerClass;
+        ProcessBuilder builder = new ProcessBuilder(createExternalCommand(runnerClass, arguments, externalRunner.getJvmArgs()));
         Map<String, String> env =  builder.environment();
         String classpath = externalRunner.getExcludeDependencies() ? getRobotJar() : getClassPathString();
         if (environment.containsKey("CLASSPATH")) {
@@ -104,14 +109,13 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
         return process.waitFor();
     }
 
-    private List<String> createExternalCommand(Class klass, String[] arguments, List<String> jvmArgs) {
+    private List<String> createExternalCommand(String runnerClass, String[] arguments, List<String> jvmArgs) {
         String javaHome = System.getProperty("java.home");
         String javaBin = join(File.separator, javaHome, "bin", "java");
-        String className = klass.getCanonicalName();
         List<String> cmd = new ArrayList<String>();
         cmd.add(javaBin);
         cmd.addAll(jvmArgs);
-        cmd.add(className);
+        cmd.add(runnerClass);
         cmd.addAll(Arrays.asList(arguments));
         System.out.println("Executing Robot with command:");
         System.out.println(cmd);
@@ -844,36 +848,6 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter default-value="false"
      */
     private boolean noStatusReturnCode;
-
-    /**
-     * <p>Test are executed in a new process if this configuration is used.</p>
-     * <p>The classpath for the new process will include by default all the test
-     * scope dependencies from the pom.</p>
-     *
-     * <ul>
-     *     <li>Environment variables can be added with <strong>environmentVariables</strong> map. CLASSPATH environment
-     *     variable is added (prepended) to the default dependencies.</li>
-     *     <li><strong>excludeDependencies</strong> can be used to exclude the test scope dependencies from the classpath of the new process.</li>
-     *     <li><strong>jvmArgs</strong> can be used to specify JVM options</li>
-     * </ul>
-     *
-     * Example:
-     * <pre><![CDATA[<externalRunner>
-     *      <environmentVariables>
-     *          <foo>bar</foo>
-     *          <CLASSPATH>this-should-be-seen-by-external-process.jar</CLASSPATH>
-     *      </environmentVariables>
-     *      <jvmArgs>
-     *          <jvmArg>-XX:PermSize=128m</jvmArg>
-     *          <jvmArg>-XX:MaxPermSize=256m</jvmArg>
-     *          <jvmArg>-Xmx512m</jvmArg>
-     *      </jvmArgs>
-     *      <excludeDependencies>true</excludeDependencies>
-     * </externalRunner>]]></pre>
-     *
-     * @parameter
-     */
-    private ExternalRunnerConfiguration externalRunner;
 
     /**
      * Turn on generic automation mode.
