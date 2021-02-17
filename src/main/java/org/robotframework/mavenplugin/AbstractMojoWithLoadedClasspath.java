@@ -62,7 +62,7 @@ public abstract class AbstractMojoWithLoadedClasspath
      * </ul>
      *
      * Example:
-     * <pre><![CDATA[<externalRunner>
+     * <pre>{@code <externalRunner>
      *      <environmentVariables>
      *          <foo>bar</foo>
      *          <CLASSPATH>this-should-be-seen-by-external-process.jar</CLASSPATH>
@@ -75,8 +75,7 @@ public abstract class AbstractMojoWithLoadedClasspath
      *      <excludeDependencies>true</excludeDependencies>
      *      <runnerClass>org.robotframework.RobotFramework</runnerClass>
      *      <runWithPython>false</runWithPython>
-     * </externalRunner>]]></pre>
-     *
+     * </externalRunner>}</pre>
      * @parameter
      */
     protected ExternalRunnerConfiguration externalRunner;

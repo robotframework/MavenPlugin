@@ -29,7 +29,7 @@ import org.robotframework.RobotFramework;
 
 /**
  * Create documentation of test suites using the Robot Framework <code>testdoc</code> tool.
- * <p></p>
+ * <br>
  * Uses the <code>testdoc</code> bundled in Robot Framework jar distribution. For more help see
  * <a href="http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-data-documentation-tool-testdoc">testdoc documentation</a>.
  *
