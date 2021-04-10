@@ -279,6 +279,14 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
             generatedArguments.addListToArguments(excludes_cli, "-e");
         else
             generatedArguments.addListToArguments(excludes, "-e");
+        if (skips_cli!=null)
+            generatedArguments.addListToArguments(skips_cli, "--skip");
+        else
+            generatedArguments.addListToArguments(skips, "--skip");
+        if (skiponfailures_cli!=null)
+            generatedArguments.addListToArguments(skiponfailures_cli, "--skiponfailure");
+        else
+            generatedArguments.addListToArguments(skiponfailures, "--skiponfailure");
         generatedArguments.addListToArguments(criticalTags, "-c");
         generatedArguments.addListToArguments(nonCriticalTags, "-n");
         generatedArguments.addListToArguments(variables, "-v");
@@ -383,6 +391,20 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
     private List<String> excludes;
 
     /**
+     * Tests having given tag will be skipped. Tag can be a pattern. New in RF 4.0.
+     *
+     * @parameter
+     */
+    private List<String> skips;
+
+    /**
+     * Tests having given tag will be skipped if they fail. Tag can be a pattern. New in RF 4.0.
+     *
+     * @parameter
+     */
+    private List<String> skiponfailures;
+
+    /**
      * Selects the tests cases by name. Given as a comma separated list.
      * This setting overrides the value for tests configuration in pom.xml.
      *
@@ -446,6 +468,32 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * @parameter property="excludes"
      */
     private String excludes_cli;
+
+    /**
+     * Skip the tests cases by tags. Given as a comma separated list.
+     * This setting overrides the value for skips configuration in pom.xml.
+     *
+     * <p>Example:<pre>
+     * mvn -Dskips=foo,bar verify
+     * </pre>
+     * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
+     * </p>
+     * @parameter property="skips"
+     */
+    private String skips_cli;
+
+    /**
+     * Report test cases as skipped instead of failed by tags. Given as a comma separated list.
+     * This setting overrides the value for skiponfailures configuration in pom.xml.
+     *
+     * <p>Example:<pre>
+     * mvn -Dskiponfailure=foo,bar verify
+     * </pre>
+     * (This setting is needed to support overriding the configuration value from command prompt on maven 2.)
+     * </p>
+     * @parameter property="skiponfailures"
+     */
+    private String skiponfailures_cli;
 
     /**
      * Tests that have the given tags are considered critical.
