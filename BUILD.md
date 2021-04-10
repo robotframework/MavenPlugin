@@ -61,7 +61,7 @@ mvn site:site
 
 ```bash
 git commit -am "version 2.0.0"
-git tag -a 2.0.0
+git tag -a 2.0.0 -m "version 2.0.0"
 git push
 git push --tags
 ```
