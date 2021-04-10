@@ -26,7 +26,7 @@
     <div id="breadcrumbs">
       <div class="xleft">
         <span id="publishDate">Last Published: 2021-04-10</span>
-          &#xA0;| <span id="projectVersion">Version: 1.8.1</span>
+          &#xA0;| <span id="projectVersion">Version: 2.0.0</span>
       </div>
       <div class="xright">      </div>
       <div class="clear">
@@ -64,7 +64,7 @@
       
 <p><b>Full name</b>:</p>
       
-<p>org.robotframework:robotframework-maven-plugin:1.8.1:acceptance-test</p>
+<p>org.robotframework:robotframework-maven-plugin:2.0.0:acceptance-test</p>
       
 <p><b>Description</b>:</p>
       
@@ -737,6 +737,77 @@ prematurely stopped.<br /><b>Default value is</b>: <code>false</code>.<br /></td
             
 <td>Skip tests. Bound to -DskipTests. This allows to skip acceptance
 tests together with all other tests.<br /><b>User property is</b>: <code>skipTests</code>.<br /></td>
+          </tr>
+          
+<tr class="b">
+            
+<td><code><a href="#skiponfailures">&lt;skiponfailures&gt;</a></code></td>
+            
+<td><code>List</code></td>
+            
+<td><code>-</code></td>
+            
+<td>Tests having given tag will be skipped if they fail. Tag can be a
+pattern. New in RF 4.0.<br /></td>
+          </tr>
+          
+<tr class="a">
+            
+<td><code><a href="#skiponfailures_cli">&lt;skiponfailures_cli&gt;</a></code></td>
+            
+<td><code>String</code></td>
+            
+<td><code>-</code></td>
+            
+<td>Report test cases as skipped instead of failed by tags. Given as a
+comma separated list. This setting overrides the value for
+skiponfailures configuration in pom.xml. 
+
+<p>Example:</p>
+
+<div>
+<pre>
+mvn -Dskiponfailure=foo,bar verify
+</pre></div>
+
+(This setting is needed to support overriding the configuration
+value from command prompt on maven 2.) <br />
+<br /><br /><b>User property is</b>: <code>skiponfailures</code>.<br /></td>
+          </tr>
+          
+<tr class="b">
+            
+<td><code><a href="#skips">&lt;skips&gt;</a></code></td>
+            
+<td><code>List</code></td>
+            
+<td><code>-</code></td>
+            
+<td>Tests having given tag will be skipped. Tag can be a pattern. New
+in RF 4.0.<br /></td>
+          </tr>
+          
+<tr class="a">
+            
+<td><code><a href="#skips_cli">&lt;skips_cli&gt;</a></code></td>
+            
+<td><code>String</code></td>
+            
+<td><code>-</code></td>
+            
+<td>Skip the tests cases by tags. Given as a comma separated list. This
+setting overrides the value for skips configuration in pom.xml. 
+
+<p>Example:</p>
+
+<div>
+<pre>
+mvn -Dskips=foo,bar verify
+</pre></div>
+
+(This setting is needed to support overriding the configuration
+value from command prompt on maven 2.) <br />
+<br /><br /><b>User property is</b>: <code>skips</code>.<br /></td>
           </tr>
           
 <tr class="b">
@@ -1650,6 +1721,77 @@ tests together with all other tests.</div>
 <li><b>Required</b>: <code>No</code></li>
           
 <li><b>User Property</b>: <code>skipTests</code></li>
+        </ul><hr /></section><section>
+<h4><a name="a.3Cskiponfailures.3E"></a><b><a name="skiponfailures">&lt;skiponfailures&gt;</a></b></h4>
+        
+<div>Tests having given tag will be skipped if they fail. Tag can be a
+pattern. New in RF 4.0.</div>
+        
+<ul>
+          
+<li><b>Type</b>: <code>java.util.List</code></li>
+          
+<li><b>Required</b>: <code>No</code></li>
+        </ul><hr /></section><section>
+<h4><a name="a.3Cskiponfailures_cli.3E"></a><b><a name="skiponfailures_cli">&lt;skiponfailures_cli&gt;</a></b></h4>
+        
+<div>Report test cases as skipped instead of failed by tags. Given as a
+comma separated list. This setting overrides the value for
+skiponfailures configuration in pom.xml. 
+
+<p>Example:</p>
+
+<div>
+<pre>
+mvn -Dskiponfailure=foo,bar verify
+</pre></div>
+
+(This setting is needed to support overriding the configuration
+value from command prompt on maven 2.) <br />
+<br /></div>
+        
+<ul>
+          
+<li><b>Type</b>: <code>java.lang.String</code></li>
+          
+<li><b>Required</b>: <code>No</code></li>
+          
+<li><b>User Property</b>: <code>skiponfailures</code></li>
+        </ul><hr /></section><section>
+<h4><a name="a.3Cskips.3E"></a><b><a name="skips">&lt;skips&gt;</a></b></h4>
+        
+<div>Tests having given tag will be skipped. Tag can be a pattern. New
+in RF 4.0.</div>
+        
+<ul>
+          
+<li><b>Type</b>: <code>java.util.List</code></li>
+          
+<li><b>Required</b>: <code>No</code></li>
+        </ul><hr /></section><section>
+<h4><a name="a.3Cskips_cli.3E"></a><b><a name="skips_cli">&lt;skips_cli&gt;</a></b></h4>
+        
+<div>Skip the tests cases by tags. Given as a comma separated list. This
+setting overrides the value for skips configuration in pom.xml. 
+
+<p>Example:</p>
+
+<div>
+<pre>
+mvn -Dskips=foo,bar verify
+</pre></div>
+
+(This setting is needed to support overriding the configuration
+value from command prompt on maven 2.) <br />
+<br /></div>
+        
+<ul>
+          
+<li><b>Type</b>: <code>java.lang.String</code></li>
+          
+<li><b>Required</b>: <code>No</code></li>
+          
+<li><b>User Property</b>: <code>skips</code></li>
         </ul><hr /></section><section>
 <h4><a name="a.3CsplitOutputs.3E"></a><b><a name="splitOutputs">&lt;splitOutputs&gt;</a></b></h4>
         
