@@ -743,6 +743,7 @@ public class AcceptanceTestMojo extends AbstractMojoWithLoadedClasspath {
      * <li>'off' - Colors are disabled</li>
      * </ul>
      *
+     * @parameter
      */
     private String consoleColors;
 
