@@ -24,7 +24,7 @@ Trasitioning from old version of Robot Framework Maven Plugin
   <plugin>
     <groupId>org.robotframework</groupId>
     <artifactId>robotframework-maven-plugin</artifactId>
-    <version>2.0.1</version>
+    <version>2.1.0</version>
   </plugin>
 +---
 
@@ -46,7 +46,7 @@ Trasitioning from old version of Robot Framework Maven Plugin
   <plugin>
     <groupId>org.robotframework</groupId>
     <artifactId>robotframework-maven-plugin</artifactId>
-    <version>2.0.1</version>
+    <version>2.1.0</version>
     <configuration>
       <libdoc>
         <libraryOrResourceFile>MyLib</libraryOrResourceFile>
